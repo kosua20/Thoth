@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5869B86F-7DBB-4772-977C-B24CE39D3672</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Siblog</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>88EA64390B4EC98721C285D18A506C335DFEAEDB</key>
+		<string>github.com:kosua20/THOTH.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Siblog.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>88EA64390B4EC98721C285D18A506C335DFEAEDB</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:kosua20/THOTH.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>88EA64390B4EC98721C285D18A506C335DFEAEDB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>88EA64390B4EC98721C285D18A506C335DFEAEDB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Siblog</string>
+		</dict>
+	</array>
+</dict>
+</plist>

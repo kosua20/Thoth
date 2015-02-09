@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F44B72671A7584A900C92E3E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B72661A7584A900C92E3E /* main.swift */; };
-		F44B726E1A75863900C92E3E /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B726D1A75863900C92E3E /* Loader.swift */; };
-		F467E59A1A86CA5A00D8034E /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F467E5991A86CA5A00D8034E /* Manager.swift */; };
-		F47E0C231A781A260082D8BB /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47E0C221A781A260082D8BB /* Renderer.swift */; };
-		F47E0C251A784DCC0082D8BB /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47E0C241A784DCC0082D8BB /* Markdown.swift */; };
-		F4CF95681A8834140094C38C /* Prompt.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CF95651A8834140094C38C /* Prompt.m */; };
-		F4F7E6B71A87B5F30078D7A7 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F7E6B61A87B5F30078D7A7 /* Configuration.swift */; };
+		F4FBC9FE1A89163C00E1B6A0 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */; };
+		F4FBC9FF1A89163C00E1B6A0 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F51A89163C00E1B6A0 /* Loader.swift */; };
+		F4FBCA001A89163C00E1B6A0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F61A89163C00E1B6A0 /* main.swift */; };
+		F4FBCA011A89163C00E1B6A0 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F71A89163C00E1B6A0 /* Manager.swift */; };
+		F4FBCA021A89163C00E1B6A0 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F81A89163C00E1B6A0 /* Markdown.swift */; };
+		F4FBCA031A89163C00E1B6A0 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F91A89163C00E1B6A0 /* Renderer.swift */; };
+		F4FBCA041A89163C00E1B6A0 /* Prompt.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9FC1A89163C00E1B6A0 /* Prompt.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,17 +29,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F44B72631A7584A900C92E3E /* Siblog */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Siblog; sourceTree = BUILT_PRODUCTS_DIR; };
-		F44B72661A7584A900C92E3E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		F44B726D1A75863900C92E3E /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
-		F467E5991A86CA5A00D8034E /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
-		F47E0C221A781A260082D8BB /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
-		F47E0C241A784DCC0082D8BB /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
-		F4CF95641A8834140094C38C /* Prompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prompt.h; path = "swift-libedit/Prompt.h"; sourceTree = "<group>"; };
-		F4CF95651A8834140094C38C /* Prompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Prompt.m; path = "swift-libedit/Prompt.m"; sourceTree = "<group>"; };
-		F4CF95661A8834140094C38C /* swift-libedit-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "swift-libedit-Bridging-Header.h"; path = "swift-libedit/swift-libedit-Bridging-Header.h"; sourceTree = "<group>"; };
-		F4F7E6B51A87AF900078D7A7 /* config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = config; path = ../../Test/config; sourceTree = "<group>"; };
-		F4F7E6B61A87B5F30078D7A7 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		F44B72631A7584A900C92E3E /* Thoth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Thoth; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		F4FBC9F51A89163C00E1B6A0 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		F4FBC9F61A89163C00E1B6A0 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		F4FBC9F71A89163C00E1B6A0 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		F4FBC9F81A89163C00E1B6A0 /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
+		F4FBC9F91A89163C00E1B6A0 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		F4FBC9FB1A89163C00E1B6A0 /* Prompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prompt.h; sourceTree = "<group>"; };
+		F4FBC9FC1A89163C00E1B6A0 /* Prompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Prompt.m; sourceTree = "<group>"; };
+		F4FBC9FD1A89163C00E1B6A0 /* swift-libedit-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "swift-libedit-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +55,7 @@
 		F44B725A1A7584A900C92E3E = {
 			isa = PBXGroup;
 			children = (
-				F44B72651A7584A900C92E3E /* Siblog */,
+				F4FBC9F31A89163C00E1B6A0 /* Thoth */,
 				F44B72641A7584A900C92E3E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,42 +63,41 @@
 		F44B72641A7584A900C92E3E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F44B72631A7584A900C92E3E /* Siblog */,
+				F44B72631A7584A900C92E3E /* Thoth */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F44B72651A7584A900C92E3E /* Siblog */ = {
+		F4FBC9F31A89163C00E1B6A0 /* Thoth */ = {
 			isa = PBXGroup;
 			children = (
-				F44B72661A7584A900C92E3E /* main.swift */,
-				F4CF95691A8836200094C38C /* swift-libedit */,
-				F4F7E6B61A87B5F30078D7A7 /* Configuration.swift */,
-				F47E0C221A781A260082D8BB /* Renderer.swift */,
-				F44B726D1A75863900C92E3E /* Loader.swift */,
-				F467E5991A86CA5A00D8034E /* Manager.swift */,
-				F4F7E6B51A87AF900078D7A7 /* config */,
-				F47E0C241A784DCC0082D8BB /* Markdown.swift */,
+				F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */,
+				F4FBC9F51A89163C00E1B6A0 /* Loader.swift */,
+				F4FBC9F61A89163C00E1B6A0 /* main.swift */,
+				F4FBC9F71A89163C00E1B6A0 /* Manager.swift */,
+				F4FBC9F81A89163C00E1B6A0 /* Markdown.swift */,
+				F4FBC9F91A89163C00E1B6A0 /* Renderer.swift */,
+				F4FBC9FA1A89163C00E1B6A0 /* swift-libedit */,
 			);
-			path = Siblog;
+			path = Thoth;
 			sourceTree = "<group>";
 		};
-		F4CF95691A8836200094C38C /* swift-libedit */ = {
+		F4FBC9FA1A89163C00E1B6A0 /* swift-libedit */ = {
 			isa = PBXGroup;
 			children = (
-				F4CF95641A8834140094C38C /* Prompt.h */,
-				F4CF95651A8834140094C38C /* Prompt.m */,
-				F4CF95661A8834140094C38C /* swift-libedit-Bridging-Header.h */,
+				F4FBC9FB1A89163C00E1B6A0 /* Prompt.h */,
+				F4FBC9FC1A89163C00E1B6A0 /* Prompt.m */,
+				F4FBC9FD1A89163C00E1B6A0 /* swift-libedit-Bridging-Header.h */,
 			);
-			name = "swift-libedit";
+			path = "swift-libedit";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F44B72621A7584A900C92E3E /* Siblog */ = {
+		F44B72621A7584A900C92E3E /* Thoth */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F44B726A1A7584A900C92E3E /* Build configuration list for PBXNativeTarget "Siblog" */;
+			buildConfigurationList = F44B726A1A7584A900C92E3E /* Build configuration list for PBXNativeTarget "Thoth" */;
 			buildPhases = (
 				F44B725F1A7584A900C92E3E /* Sources */,
 				F44B72601A7584A900C92E3E /* Frameworks */,
@@ -109,9 +107,9 @@
 			);
 			dependencies = (
 			);
-			name = Siblog;
+			name = Thoth;
 			productName = Siblog;
-			productReference = F44B72631A7584A900C92E3E /* Siblog */;
+			productReference = F44B72631A7584A900C92E3E /* Thoth */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -128,7 +126,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F44B725E1A7584A900C92E3E /* Build configuration list for PBXProject "Siblog" */;
+			buildConfigurationList = F44B725E1A7584A900C92E3E /* Build configuration list for PBXProject "Thoth" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -140,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F44B72621A7584A900C92E3E /* Siblog */,
+				F44B72621A7584A900C92E3E /* Thoth */,
 			);
 		};
 /* End PBXProject section */
@@ -150,13 +148,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F47E0C251A784DCC0082D8BB /* Markdown.swift in Sources */,
-				F44B726E1A75863900C92E3E /* Loader.swift in Sources */,
-				F47E0C231A781A260082D8BB /* Renderer.swift in Sources */,
-				F44B72671A7584A900C92E3E /* main.swift in Sources */,
-				F4CF95681A8834140094C38C /* Prompt.m in Sources */,
-				F4F7E6B71A87B5F30078D7A7 /* Configuration.swift in Sources */,
-				F467E59A1A86CA5A00D8034E /* Manager.swift in Sources */,
+				F4FBCA041A89163C00E1B6A0 /* Prompt.m in Sources */,
+				F4FBCA021A89163C00E1B6A0 /* Markdown.swift in Sources */,
+				F4FBCA031A89163C00E1B6A0 /* Renderer.swift in Sources */,
+				F4FBCA001A89163C00E1B6A0 /* main.swift in Sources */,
+				F4FBC9FE1A89163C00E1B6A0 /* Configuration.swift in Sources */,
+				F4FBCA011A89163C00E1B6A0 /* Manager.swift in Sources */,
+				F4FBC9FF1A89163C00E1B6A0 /* Loader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +249,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Thoth;
 				SWIFT_OBJC_BRIDGING_HEADER = "Siblog/swift-libedit/swift-libedit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -262,7 +260,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Thoth;
 				SWIFT_OBJC_BRIDGING_HEADER = "Siblog/swift-libedit/swift-libedit-Bridging-Header.h";
 			};
 			name = Release;
@@ -270,7 +268,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F44B725E1A7584A900C92E3E /* Build configuration list for PBXProject "Siblog" */ = {
+		F44B725E1A7584A900C92E3E /* Build configuration list for PBXProject "Thoth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F44B72681A7584A900C92E3E /* Debug */,
@@ -279,7 +277,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F44B726A1A7584A900C92E3E /* Build configuration list for PBXNativeTarget "Siblog" */ = {
+		F44B726A1A7584A900C92E3E /* Build configuration list for PBXNativeTarget "Thoth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F44B726B1A7584A900C92E3E /* Debug */,

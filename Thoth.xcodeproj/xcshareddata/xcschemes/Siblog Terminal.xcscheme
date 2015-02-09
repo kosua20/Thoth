@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F44B72621A7584A900C92E3E"
-               BuildableName = "Siblog"
-               BlueprintName = "Siblog"
-               ReferencedContainer = "container:Siblog.xcodeproj">
+               BuildableName = "Thoth"
+               BlueprintName = "Thoth"
+               ReferencedContainer = "container:Thoth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F44B72621A7584A900C92E3E"
-            BuildableName = "Siblog"
-            BlueprintName = "Siblog"
-            ReferencedContainer = "container:Siblog.xcodeproj">
+            BuildableName = "Thoth"
+            BlueprintName = "Thoth"
+            ReferencedContainer = "container:Thoth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F44B72621A7584A900C92E3E"
-            BuildableName = "Siblog"
-            BlueprintName = "Siblog"
-            ReferencedContainer = "container:Siblog.xcodeproj">
+            BuildableName = "Thoth"
+            BlueprintName = "Thoth"
+            ReferencedContainer = "container:Thoth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
@@ -79,9 +79,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F44B72621A7584A900C92E3E"
-            BuildableName = "Siblog"
-            BlueprintName = "Siblog"
-            ReferencedContainer = "container:Siblog.xcodeproj">
+            BuildableName = "Thoth"
+            BlueprintName = "Thoth"
+            ReferencedContainer = "container:Thoth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
