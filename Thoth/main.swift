@@ -16,7 +16,7 @@ func main(args : [String] = []){
         exit(0)
     }
     
-    println("Welcome in {#THOTH}, a static blog generator.")
+    println("Welcome in {#Thoth}, a static blog generator.")
     let prompt: Prompt = Prompt(argv0: C_ARGV[0])
     
     while true {
