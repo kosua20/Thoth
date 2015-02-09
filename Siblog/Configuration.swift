@@ -9,6 +9,7 @@
 import Foundation
 
 struct Config {
+    let selfPath = ""
     let templatePath = ""
     let articlesPath = ""
     let outputPath = ""
@@ -64,10 +65,10 @@ class ConfigLoader {
                 }
             }
         }
-        return Config(templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth)
+        return Config(selfPath:path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth)
     }
     
-    class func saveConfigFile(configuration : Config, atPath path : String){
+    class func saveConfigFile(configuration : Config){
         
     }
 

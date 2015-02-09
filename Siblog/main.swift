@@ -56,6 +56,7 @@ func generateWithRootPath(rootPath : String) {
          println("The folder at path \(rootPath) doesn't exist.")
     }
 }
+
 main()
 
 
