@@ -10,10 +10,21 @@ import Foundation
 
 class Manager {
     let rootPath : String
+    let config : Config
     
-    init(rootPath : String){
+    init(rootPath : String, configuration : Config){
         self.rootPath = rootPath
+        self.config = configuration
     }
     
+    
+    
+    func generate() {
+                let loader = Loader(folderPath: config.articlesPath, defaultAuthor: config.defaultAuthor, dateStyle:config.dateStyle)
+                loader.sortArticles()
+                let renderer = Renderer(articles: loader.articles, articlesPath: config.articlesPath, exportPath: config.outputPath, rootPath: rootPath, defaultWidth:config.imageWidth, blogTitle: config.blogTitle)
+                renderer.fullExport()
+                println("Export done !")
+    }
     
 }

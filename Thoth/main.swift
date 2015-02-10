@@ -12,7 +12,11 @@ import Foundation
 func main(args : [String] = []){
     
     if Process.arguments.count > 1 {
-        generateWithRootPath(Process.arguments[1])
+        let rootPath = Process.arguments[1]
+        if let config = loadConfigurationFromPath(rootPath) {
+            let man = Manager(rootPath: rootPath, configuration: config)
+            man.generate()
+        }
         exit(0)
     }
     
@@ -31,15 +35,19 @@ func mainloop() {
     let prompt: Prompt = Prompt(argv0: C_ARGV[0])
     
     while true {
-        if let input = prompt.gets() {
-            var input2 = input.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            if input2 == "help" {
+        if let input1 = prompt.gets() {
+            var input = input1.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            if input == "help" {
                 println("Here's your help")
-            } else if input2.hasPrefix("generate ") {
-                //For now, no options so no need to split
-                let rootPath = input2.substringFromIndex(advance(input.startIndex,9))
-                generateWithRootPath(rootPath)
-            } else if input2 == "exit" {
+            } else if input.hasPrefix("generate ") {
+                input = input.substringFromIndex(advance(input.startIndex,9))
+                input.componentsSeparatedByString(" ")
+                let rootPath = input.substringFromIndex(advance(input.startIndex,9))
+                if let config = loadConfigurationFromPath(rootPath) {
+                    let man = Manager(rootPath: rootPath, configuration: config)
+                    man.generate()
+                }
+            } else if input == "exit" {
                 exit(0)
             } else {
                 println("Unknown command. Type \"help\" to get a list of available commands.")
@@ -50,21 +58,17 @@ func mainloop() {
     }
 }
 
-func generateWithRootPath(rootPath : String) {
+func loadConfigurationFromPath(rootPath : String)-> Config? {
     if NSFileManager.defaultManager().fileExistsAtPath(rootPath) {
         if NSFileManager.defaultManager().fileExistsAtPath(rootPath.stringByAppendingPathComponent("config")) {
-            let configuration = ConfigLoader.loadConfigFileAtPath(rootPath.stringByAppendingPathComponent("config"))
-            let loader = Loader(folderPath: configuration.articlesPath, defaultAuthor: configuration.defaultAuthor, dateStyle:configuration.dateStyle)
-            loader.sortArticles()
-            let renderer = Renderer(articles: loader.articles, articlesPath: configuration.articlesPath, exportPath: configuration.outputPath, rootPath: rootPath, defaultWidth:configuration.imageWidth, blogTitle: configuration.blogTitle)
-            renderer.fullExport()
-            println("Export done !")
+            return ConfigLoader.loadConfigFileAtPath(rootPath.stringByAppendingPathComponent("config"))
         } else {
             println("No config file found in the designated directory.")
         }
     } else {
-         println("The folder at path \(rootPath) doesn't exist.")
+        println("The folder at path \(rootPath) doesn't exist.")
     }
+    return nil
 }
 
 main()

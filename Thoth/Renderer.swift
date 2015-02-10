@@ -23,7 +23,7 @@ class Renderer {
     var footerHtml : NSString = ""
     var insertIndex = 0
     var markdown : Markdown
-    var forceUpdate : Bool = false
+    //var forceUpdate : Bool = false
     
     init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, defaultWidth : String, blogTitle : String){
         self.exportPath = exportPath
@@ -40,30 +40,27 @@ class Renderer {
         loadTemplate()
     }
     
-    func updateExport(){
-        forceUpdate = false
+    func updateIndex(){
+        //forceUpdate = false
         renderIndex()
         copyRessources(false)
-        copyImages(false)
     }
     
     func overwriteExport() {
-        forceUpdate = true
-        renderArticles()
-        renderDrafts()
+        //forceUpdate = true
+        renderArticles(true)
+        renderDrafts(false)
         renderIndex()
         copyRessources(false)
-        copyImages(true)
     }
     
     func fullExport() {
-        forceUpdate = true
+        //forceUpdate = true
         clean()
         restoreTemplate()
-        renderArticles()
-        renderDrafts()
+        renderArticles(true)
+        renderDrafts(true)
         renderIndex()
-        copyImages(true)
         copyRessources(true)
     }
     
@@ -76,21 +73,6 @@ class Renderer {
         NSFileManager.defaultManager().createDirectoryAtPath(exportPath.stringByAppendingPathComponent("drafts"), withIntermediateDirectories: true, attributes: nil, error: nil)
     }
     
-    func copyImages(forceUpdate : Bool){
-        if NSFileManager.defaultManager().fileExistsAtPath(imagesPath) {
-            let exportImagesPath = exportPath.stringByAppendingPathComponent("images")
-            if !NSFileManager.defaultManager().fileExistsAtPath(exportImagesPath) {
-                NSFileManager.defaultManager().createDirectoryAtPath(exportImagesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
-            }
-            let paths = NSFileManager.defaultManager().contentsOfDirectoryAtPath(imagesPath, error: nil) as [NSString]
-            for path in paths {
-                if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(exportImagesPath.stringByAppendingPathComponent(path)){
-                    NSFileManager.defaultManager().copyItemAtPath(imagesPath.stringByAppendingPathComponent(path), toPath: exportImagesPath.stringByAppendingPathComponent(path), error: nil)
-                }
-            }
-        }
-
-    }
     
     func copyRessources(forceUpdate : Bool){
         if NSFileManager.defaultManager().fileExistsAtPath(ressourcesPath) {
@@ -161,47 +143,48 @@ class Renderer {
         return ""
     }
     
-    func renderArticles(){
+    func renderArticles(forceUpdate : Bool){
         for article in articlesToRender {
             if !article.isDraft {
-                renderArticle(article, inFolder: "articles")
+                renderArticle(article, inFolder: "articles", forceUpdate : forceUpdate)
             }
         }
     }
     
-    func renderDrafts(){
+    func renderDrafts(forceUpdate : Bool){
         for article in articlesToRender {
             if article.isDraft {
-                renderArticle(article, inFolder: "drafts")
+                renderArticle(article, inFolder: "drafts", forceUpdate : forceUpdate)
             }
         }
     }
     //, var withRenderer markdown : Markdown)
-    func renderArticle(article : Article, inFolder folder : String){
-        var html: NSString = articleHtml.copy() as NSString
-        html = html.stringByReplacingOccurrencesOfString("{#TITLE}", withString: article.title)
-        html = html.stringByReplacingOccurrencesOfString("{#DATE}", withString: article.dateString)
-        html = html.stringByReplacingOccurrencesOfString("{#AUTHOR}", withString: article.author)
-        html = html.stringByReplacingOccurrencesOfString("{#BLOGTITLE}", withString: blogTitle)
-        var contentHtml = markdown.transform(article.content)
-        contentHtml = addFootnotes(contentHtml)
+    func renderArticle(article : Article, inFolder folder : String, forceUpdate : Bool){
         let filePath = exportPath.stringByAppendingPathComponent(folder).stringByAppendingPathComponent(article.getUrlPathname())
-        contentHtml = manageImages(contentHtml,links: markdown.imagesUrl, path: filePath)
-        html = html.stringByReplacingOccurrencesOfString("{#CONTENT}", withString: contentHtml)
-        NSFileManager.defaultManager().createFileAtPath(filePath, contents: html.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
-        
+        if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(filePath){
+            var html: NSString = articleHtml.copy() as NSString
+            html = html.stringByReplacingOccurrencesOfString("{#TITLE}", withString: article.title)
+            html = html.stringByReplacingOccurrencesOfString("{#DATE}", withString: article.dateString)
+            html = html.stringByReplacingOccurrencesOfString("{#AUTHOR}", withString: article.author)
+            html = html.stringByReplacingOccurrencesOfString("{#BLOGTITLE}", withString: blogTitle)
+            var contentHtml = markdown.transform(article.content)
+            contentHtml = addFootnotes(contentHtml)
+            contentHtml = manageImages(contentHtml,links: markdown.imagesUrl, path: filePath, forceUpdate : forceUpdate)
+            html = html.stringByReplacingOccurrencesOfString("{#CONTENT}", withString: contentHtml)
+            NSFileManager.defaultManager().createFileAtPath(filePath, contents: html.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
+        }
     }
     
-    func manageImages(var content : String, links : [String], path filePath : String) -> String {
+    func manageImages(var content : String, links : [String], path filePath : String, forceUpdate : Bool) -> String {
+        if !NSFileManager.defaultManager().fileExistsAtPath(filePath.stringByDeletingPathExtension) {
+            NSFileManager.defaultManager().createDirectoryAtPath(filePath.stringByDeletingPathExtension, withIntermediateDirectories: true, attributes: nil, error: nil)
+        }
         for link in links {
             if !link.hasPrefix("http://") && !link.hasPrefix("www.") {
                 //We are now sure the file is stored locally
                 var path = expandLink(link)
                 
                 if NSFileManager.defaultManager().fileExistsAtPath(path) {
-                    if !NSFileManager.defaultManager().fileExistsAtPath(filePath.stringByDeletingPathExtension) {
-                        NSFileManager.defaultManager().createDirectoryAtPath(filePath.stringByDeletingPathExtension, withIntermediateDirectories: true, attributes: nil, error: nil)
-                    }
                     let newFilePath = filePath.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent)
                     if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(newFilePath) {
                         NSFileManager.defaultManager().copyItemAtPath(path, toPath: newFilePath, error: nil)
