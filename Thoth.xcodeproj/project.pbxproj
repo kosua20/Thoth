@@ -71,13 +71,12 @@
 		F4FBC9F31A89163C00E1B6A0 /* Thoth */ = {
 			isa = PBXGroup;
 			children = (
-				F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */,
-				F4FBC9F51A89163C00E1B6A0 /* Loader.swift */,
 				F4FBC9F61A89163C00E1B6A0 /* main.swift */,
 				F4FBC9F71A89163C00E1B6A0 /* Manager.swift */,
-				F4FBC9F81A89163C00E1B6A0 /* Markdown.swift */,
+				F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */,
+				F4FBC9F51A89163C00E1B6A0 /* Loader.swift */,
 				F4FBC9F91A89163C00E1B6A0 /* Renderer.swift */,
-				F4FBC9FA1A89163C00E1B6A0 /* swift-libedit */,
+				F4FBCA051A8921BC00E1B6A0 /* Libraries */,
 			);
 			path = Thoth;
 			sourceTree = "<group>";
@@ -90,6 +89,15 @@
 				F4FBC9FD1A89163C00E1B6A0 /* swift-libedit-Bridging-Header.h */,
 			);
 			path = "swift-libedit";
+			sourceTree = "<group>";
+		};
+		F4FBCA051A8921BC00E1B6A0 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F4FBC9F81A89163C00E1B6A0 /* Markdown.swift */,
+				F4FBC9FA1A89163C00E1B6A0 /* swift-libedit */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

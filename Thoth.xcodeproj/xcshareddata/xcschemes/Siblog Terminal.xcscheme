@@ -62,7 +62,7 @@
       </MacroExpansion>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "open -a ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}"
+            argument = "/Users/simon/Library/Developer/Xcode/DerivedData/Thoth-adqwjneawsnejufwjwqsitalwljz/Build/Products/Debug/Thoth"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

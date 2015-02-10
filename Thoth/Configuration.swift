@@ -69,6 +69,15 @@ class ConfigLoader {
     }
     
     class func saveConfigFile(configuration : Config){
+        var s = ""
+        let ref = reflect(configuration)
+        for i in 0..<ref.count {
+            let tr = ref[i].1.value as String
+            s = s + ref[i].0 + ":" + "\t\t" + tr + "\n"
+        }
+        if !NSFileManager.defaultManager().createFileAtPath(configuration.selfPath, contents: s.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false), attributes: nil) {
+            println("Unable to save the config")
+        }
         
     }
 
