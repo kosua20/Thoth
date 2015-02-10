@@ -16,6 +16,17 @@ func main(args : [String] = []){
         exit(0)
     }
     
+    mainloop()
+    /*if let data =  NSFileManager.defaultManager().contentsAtPath("/Developer/XCode/Siblog/Test/articles/Aquarii1.md"){
+        var content = NSString(data: data, encoding: NSUTF8StringEncoding)
+        var mrk = Markdown(options: nil)
+        content = mrk.transform(content!)
+        println("\(mrk.imagesUrl)")
+    }*/
+    
+}
+
+func mainloop() {
     println("Welcome in {#Thoth}, a static blog generator.")
     let prompt: Prompt = Prompt(argv0: C_ARGV[0])
     
@@ -37,7 +48,6 @@ func main(args : [String] = []){
             println("Error : Null input")
         }
     }
-
 }
 
 func generateWithRootPath(rootPath : String) {
@@ -46,7 +56,7 @@ func generateWithRootPath(rootPath : String) {
             let configuration = ConfigLoader.loadConfigFileAtPath(rootPath.stringByAppendingPathComponent("config"))
             let loader = Loader(folderPath: configuration.articlesPath, defaultAuthor: configuration.defaultAuthor, dateStyle:configuration.dateStyle)
             loader.sortArticles()
-            let renderer = Renderer(articles: loader.articles, exportPath: configuration.outputPath, rootPath: rootPath, defaultWidth:configuration.imageWidth, blogTitle: configuration.blogTitle)
+            let renderer = Renderer(articles: loader.articles, articlesPath: configuration.articlesPath, exportPath: configuration.outputPath, rootPath: rootPath, defaultWidth:configuration.imageWidth, blogTitle: configuration.blogTitle)
             renderer.fullExport()
             println("Export done !")
         } else {

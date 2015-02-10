@@ -14,6 +14,7 @@ class Renderer {
     let templatePath : String
     let imagesPath : String
     let ressourcesPath : String
+    let articlesPath : String
     let blogTitle : String
     var articleHtml : NSString = ""
     var indexHtml : NSString = ""
@@ -21,11 +22,12 @@ class Renderer {
     var headerHtml : NSString = ""
     var footerHtml : NSString = ""
     var insertIndex = 0
-    //var defaultWidth : String = ""
     var markdown : Markdown
+    var forceUpdate : Bool = false
     
-    init(articles: [Article],exportPath : String, rootPath : String, defaultWidth : String, blogTitle : String){
+    init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, defaultWidth : String, blogTitle : String){
         self.exportPath = exportPath
+        self.articlesPath = articlesPath
         self.templatePath = rootPath.stringByAppendingPathComponent("template")
         self.imagesPath = rootPath.stringByAppendingPathComponent("images")
         self.ressourcesPath = rootPath.stringByAppendingPathComponent("ressources")
@@ -39,13 +41,14 @@ class Renderer {
     }
     
     func updateExport(){
-        
+        forceUpdate = false
         renderIndex()
         copyRessources(false)
         copyImages(false)
     }
     
     func overwriteExport() {
+        forceUpdate = true
         renderArticles()
         renderDrafts()
         renderIndex()
@@ -54,6 +57,7 @@ class Renderer {
     }
     
     func fullExport() {
+        forceUpdate = true
         clean()
         restoreTemplate()
         renderArticles()
@@ -181,8 +185,42 @@ class Renderer {
         html = html.stringByReplacingOccurrencesOfString("{#BLOGTITLE}", withString: blogTitle)
         var contentHtml = markdown.transform(article.content)
         contentHtml = addFootnotes(contentHtml)
+        let filePath = exportPath.stringByAppendingPathComponent(folder).stringByAppendingPathComponent(article.getUrlPathname())
+        contentHtml = manageImages(contentHtml,links: markdown.imagesUrl, path: filePath)
         html = html.stringByReplacingOccurrencesOfString("{#CONTENT}", withString: contentHtml)
-        NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent(folder).stringByAppendingPathComponent(article.getUrlPathname()), contents: html.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
+        NSFileManager.defaultManager().createFileAtPath(filePath, contents: html.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
+        
+    }
+    
+    func manageImages(var content : String, links : [String], path filePath : String) -> String {
+        for link in links {
+            if !link.hasPrefix("http://") && !link.hasPrefix("www.") {
+                //We are now sure the file is stored locally
+                var path = expandLink(link)
+                
+                if NSFileManager.defaultManager().fileExistsAtPath(path) {
+                    if !NSFileManager.defaultManager().fileExistsAtPath(filePath.stringByDeletingPathExtension) {
+                        NSFileManager.defaultManager().createDirectoryAtPath(filePath.stringByDeletingPathExtension, withIntermediateDirectories: true, attributes: nil, error: nil)
+                    }
+                    let newFilePath = filePath.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent)
+                    if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(newFilePath) {
+                        NSFileManager.defaultManager().copyItemAtPath(path, toPath: newFilePath, error: nil)
+                        content = content.stringByReplacingOccurrencesOfString(link, withString: filePath.lastPathComponent.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent), options: nil, range: nil)
+                    }
+                }
+            }
+        }
+        return content
+    }
+    
+    func expandLink(link : String) -> String {
+        if link.hasPrefix("/") {
+            //Absolute path
+            return link
+        } else {
+            //Relative path
+            return articlesPath.stringByAppendingPathComponent(link)
+        }
     }
     
     func renderIndex() {
@@ -221,7 +259,9 @@ class Renderer {
             }
         }
         var isFirst = true
+        var loopUsed = false
         while !scanner1.atEnd {
+            loopUsed = true
             if let tempContent = tempContent {
                 if isFirst {
                     newContent = newContent.stringByAppendingString(tempContent)
@@ -239,6 +279,11 @@ class Renderer {
                 count++
             }
             scanner1.scanUpToString("[^", intoString: &tempContent)
+        }
+        if loopUsed {
+            if let tempContent = tempContent {
+                newContent = newContent.stringByAppendingString(tempContent.substringFromIndex(1))
+            }
         }
         endContent += "</ol>\n"
         newContent += endContent

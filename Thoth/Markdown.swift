@@ -162,7 +162,7 @@ public struct Markdown {
     
     /// MarkdownSharp version on which this implementation is based
     private let _version = "1.13"
-    
+   
     /// Create a new Markdown instance and set the options from the MarkdownOptions object.
     public init(options: MarkdownOptions? = nil) {
         if Markdown.staticsInitialized {
@@ -232,6 +232,9 @@ public struct Markdown {
         set(value) { _defaultWidth = value }
     }
     private var _defaultWidth = ""
+    
+    //An array to store the img URLs
+    public var imagesUrl : [String] = []
     
     private enum TokenType {
         case Text
@@ -317,7 +320,7 @@ public struct Markdown {
         // and img tags get encoded.
         
         if text.isEmpty { return "" }
-        
+        imagesUrl = []
         setup()
         
         text = normalize(text)
@@ -352,7 +355,7 @@ public struct Markdown {
     }
     
     /// Perform transformations that occur *within* block-level tags like paragraphs, headers, and list items.
-    private func runSpanGamut(var text: String) -> String {
+    private mutating func runSpanGamut(var text: String) -> String {
         text = doCodeSpans(text)
         text = escapeSpecialCharsWithinTagAttributes(text)
         text = escapeBackslashes(text)
@@ -383,7 +386,7 @@ public struct Markdown {
     
     /// splits on two or more newlines, to form "paragraphs";
     /// each paragraph is then unhashed (if it is a hash and unhashing isn't turned off) or wrapped in HTML p tag
-    private func formParagraphs(text: String, unhash: Bool = true) -> String
+    private mutating func formParagraphs(text: String, unhash: Bool = true) -> String
     {
         // split on two or more newlines
         var grafs = Markdown._newlinesMultiple.split(
@@ -928,7 +931,7 @@ public struct Markdown {
     ///
     /// - ![alt text][id]
     /// - ![alt text](url "optional title")
-    private func doImages(var text: String) -> String {
+    private mutating func doImages(var text: String) -> String {
         // First, handle reference-style labeled images: ![alt text][id]
         text = Markdown._imagesRef.replace(text) { self.imageReferenceEvaluator($0) }
     
@@ -948,7 +951,7 @@ public struct Markdown {
         return s
     }
     
-    private func imageReferenceEvaluator(match: Match) -> String {
+    private mutating func imageReferenceEvaluator(match: Match) -> String {
         let wholeMatch = match.valueOfGroupAtIndex(1)
         let altText = match.valueOfGroupAtIndex(2)
         var linkID = match.valueOfGroupAtIndex(3).lowercaseString
@@ -972,7 +975,7 @@ public struct Markdown {
         }
     }
     
-    private func imageInlineEvaluator(match: Match) -> String {
+    private mutating func imageInlineEvaluator(match: Match) -> String {
         let alt = match.valueOfGroupAtIndex(2)
         var url = match.valueOfGroupAtIndex(3)
         let title = match.valueOfGroupAtIndex(6)
@@ -983,19 +986,22 @@ public struct Markdown {
         return imageTag(url, altText: alt, title: title)
     }
     
-     func imageTag(var url: String, var altText: String, var title: String?) -> String {
+     mutating func imageTag(var url: String, var altText: String, var title: String?) -> String {
         altText = escapeImageAltText(Markdown.attributeEncode(altText))
+        imagesUrl.append(url)
         url = encodeProblemUrlChars(url)
         url = escapeBoldItalic(url)
         var result = "<img src=\"\(url)\" alt=\"\(altText)\""
+        
+        
+        //Simon's modifications
+        //We are using the title element to allow for custom width/height
         var width = ""
         if !defaultWidth.isEmpty {
             width = " width=\"\(_defaultWidth)\""
         }
         var height = ""
         var properTitle = ""
-        //Simon's modifications
-        //We are piggybacking on the title element to allow for custom width/height
         if var title = title {
             if !title.isEmpty {
                 var titleComponents = title.componentsSeparatedByString(",")
@@ -1019,7 +1025,6 @@ public struct Markdown {
                     }
                 }
                 properTitle = " title=\"" + Markdown.attributeEncode(escapeBoldItalic(title))+"\""
-                
             }
         }
         result = result + width + height + properTitle
@@ -1074,19 +1079,19 @@ public struct Markdown {
     /// ...
     ///
     /// ###### Header 6
-    private func doHeaders(var text: String) -> String {
+    private mutating func doHeaders(var text: String) -> String {
         text = Markdown._headerSetext.replace(text) { self.setextHeaderEvaluator($0) }
         text = Markdown._headerAtx.replace(text) { self.atxHeaderEvaluator($0) }
         return text
     }
     
-    private func setextHeaderEvaluator(match: Match) -> String {
+    private mutating func setextHeaderEvaluator(match: Match) -> String {
         let header = match.valueOfGroupAtIndex(1)
         let level = match.valueOfGroupAtIndex(2).hasPrefix("=") ? 1 : 2
         return "<h\(level)>\(runSpanGamut(header))</h\(level)>\n\n"
     }
     
-    private func atxHeaderEvaluator(match: Match) -> String {
+    private mutating func atxHeaderEvaluator(match: Match) -> String {
         let header = match.valueOfGroupAtIndex(2)
         let level = match.valueOfGroupAtIndex(1).length
         return "<h\(level)>\(runSpanGamut(header))</h\(level)>\n\n"
