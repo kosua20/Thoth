@@ -12,7 +12,6 @@ class Renderer {
     let articlesToRender : [Article]
     let exportPath: String
     let templatePath : String
-    let imagesPath : String
     let ressourcesPath : String
     let articlesPath : String
     let blogTitle : String
@@ -29,10 +28,8 @@ class Renderer {
         self.exportPath = exportPath
         self.articlesPath = articlesPath
         self.templatePath = rootPath.stringByAppendingPathComponent("template")
-        self.imagesPath = rootPath.stringByAppendingPathComponent("images")
         self.ressourcesPath = rootPath.stringByAppendingPathComponent("ressources")
         self.articlesToRender = articles
-        //self.defaultWidth = defaultWidth
         self.blogTitle = blogTitle
         var options = MarkdownOptions()
         options.defaultWidth = defaultWidth
@@ -41,26 +38,41 @@ class Renderer {
     }
     
     func updateIndex(){
-        //forceUpdate = false
         renderIndex()
         copyRessources(false)
     }
     
-    func overwriteExport() {
-        //forceUpdate = true
+    func defaultExport(){
+        renderArticles(false)
+        renderDrafts(false)
+        renderIndex()
+        copyRessources(false)
+    }
+    
+    func articlesOnly() {
         renderArticles(true)
         renderDrafts(false)
         renderIndex()
         copyRessources(false)
     }
     
+    func draftsOnly() {
+        renderArticles(false)
+        renderDrafts(true)
+        renderIndex()
+        copyRessources(false)
+    }
+    
     func fullExport() {
-        //forceUpdate = true
         clean()
         restoreTemplate()
         renderArticles(true)
         renderDrafts(true)
         renderIndex()
+        copyRessources(true)
+    }
+    
+    func updateRessources(){
         copyRessources(true)
     }
     

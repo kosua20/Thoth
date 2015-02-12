@@ -1,5 +1,6 @@
 #{#THOT}, a simple static blog generator.
 
+![{#Thoth}](thoth_circle.png)
 ## Meet Thoth
 {#Thoth} (or more commonly Thoth) is a new, simple static blog generator. Just write your articles in Markdown, put them in a directory, point Thoth to this directory, a template and an output directory, and *voilà* !  
 
