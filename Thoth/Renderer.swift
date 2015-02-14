@@ -44,7 +44,7 @@ class Renderer {
     
     func defaultExport(){
         renderArticles(false)
-        renderDrafts(false)
+        renderDrafts(true)
         renderIndex()
         copyRessources(false)
     }
@@ -57,7 +57,6 @@ class Renderer {
     }
     
     func draftsOnly() {
-        renderArticles(false)
         renderDrafts(true)
         renderIndex()
         copyRessources(false)
@@ -85,6 +84,13 @@ class Renderer {
         NSFileManager.defaultManager().createDirectoryAtPath(exportPath.stringByAppendingPathComponent("drafts"), withIntermediateDirectories: true, attributes: nil, error: nil)
     }
     
+    func cleanFolder(folder : String) {
+        let folderPath = exportPath.stringByAppendingPathComponent(folder)
+        if NSFileManager.defaultManager().fileExistsAtPath(folderPath) {
+            NSFileManager.defaultManager().removeItemAtPath(folderPath, error: nil)
+        }
+        NSFileManager.defaultManager().createDirectoryAtPath(folderPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+    }
     
     func copyRessources(forceUpdate : Bool){
         if NSFileManager.defaultManager().fileExistsAtPath(ressourcesPath) {
@@ -156,6 +162,9 @@ class Renderer {
     }
     
     func renderArticles(forceUpdate : Bool){
+        if forceUpdate {
+            cleanFolder("articles")
+        }
         for article in articlesToRender {
             if !article.isDraft {
                 renderArticle(article, inFolder: "articles", forceUpdate : forceUpdate)
@@ -164,12 +173,17 @@ class Renderer {
     }
     
     func renderDrafts(forceUpdate : Bool){
+        if forceUpdate {
+            cleanFolder("drafts")
+        }
         for article in articlesToRender {
             if article.isDraft {
                 renderArticle(article, inFolder: "drafts", forceUpdate : forceUpdate)
             }
         }
     }
+    
+    
     //, var withRenderer markdown : Markdown)
     func renderArticle(article : Article, inFolder folder : String, forceUpdate : Bool){
         let filePath = exportPath.stringByAppendingPathComponent(folder).stringByAppendingPathComponent(article.getUrlPathname())
@@ -188,19 +202,20 @@ class Renderer {
     }
     
     func manageImages(var content : String, links : [String], path filePath : String, forceUpdate : Bool) -> String {
-        if !NSFileManager.defaultManager().fileExistsAtPath(filePath.stringByDeletingPathExtension) {
-            NSFileManager.defaultManager().createDirectoryAtPath(filePath.stringByDeletingPathExtension, withIntermediateDirectories: true, attributes: nil, error: nil)
-        }
-        for link in links {
-            if !link.hasPrefix("http://") && !link.hasPrefix("www.") {
+        if links.count > 0 {
+            if !NSFileManager.defaultManager().fileExistsAtPath(filePath.stringByDeletingPathExtension) {
+                NSFileManager.defaultManager().createDirectoryAtPath(filePath.stringByDeletingPathExtension, withIntermediateDirectories: true, attributes: nil, error: nil)
+            }
+            for link in links {
+                if !link.hasPrefix("http://") && !link.hasPrefix("www.") {
                 //We are now sure the file is stored locally
-                var path = expandLink(link)
-                
-                if NSFileManager.defaultManager().fileExistsAtPath(path) {
-                    let newFilePath = filePath.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent)
-                    if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(newFilePath) {
-                        NSFileManager.defaultManager().copyItemAtPath(path, toPath: newFilePath, error: nil)
-                        content = content.stringByReplacingOccurrencesOfString(link, withString: filePath.lastPathComponent.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent), options: nil, range: nil)
+                    var path = expandLink(link)
+                    if NSFileManager.defaultManager().fileExistsAtPath(path) {
+                        let newFilePath = filePath.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent)
+                        if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(newFilePath) {
+                            NSFileManager.defaultManager().copyItemAtPath(path, toPath: newFilePath, error: nil)
+                            content = content.stringByReplacingOccurrencesOfString(link, withString: filePath.lastPathComponent.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent), options: nil, range: nil)
+                        }
                     }
                 }
             }

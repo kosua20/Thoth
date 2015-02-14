@@ -33,6 +33,7 @@ func mainloop() {
             //-----------------help----------------------//
             if input == "help" {
                 println("Here's your help")
+                //printbonus()
                 
             //--------------generation-------------------//
             } else if input.hasPrefix("generate ") {
@@ -67,6 +68,8 @@ func mainloop() {
                 exit(0)
                 
             //-------------Unknown command---------------//
+            } else if input == "bonus" {
+                printbonus()
             } else {
                 println("Unknown command. Type \"help\" to get a list of available commands.")
             }
@@ -116,6 +119,10 @@ func loadConfigurationFromPath(rootPath : String)-> Config? {
         println("The folder at path \(rootPath) doesn't exist.")
     }
     return nil
+}
+
+func printbonus(){
+    println("                                                         \n                                                         \n                        ,,,,,,,,,,                       \n                  ,yQQQQQQQQQQQQQQQQQQyQ                 \n               yQQQQRR^ ..       .``RWQQQQQ,             \n            ,QQQ#R    ,yyy,             \"WQQQQ           \n          ,QQQR^  ,,@R` , 7Q               \"@QQQ         \n         QQQR,y#RR`,,      @Q                `QQQQ       \n       ,QQQR@QyQRR^`7RQQ   ]Q                  YQQQ      \n     ,#RQgRRT.        ]#  ,Qh                   1QQQ     \n   ,#QQQQ~           ,#. y#^                     @QQQ    \n  ]Q#@QQL           y#  #R                        QQQ    \n   . QQQ           @R yR`                         @QQm   \n     QQQ         ,QL @R                           ]QQQ   \n     QQQ        ,Q` @L                            @QQM   \n     ]QQQ       Q. ]Q           ,,yyyyyy,,        QQQ    \n      QQQ       Q   QQ    ,yQQQRRRRRRRW@QQQRRQ,  {QQR    \n      4QQQ       @Q  ^RRR`@R^.           '7R@yQRQQQ#     \n       1QQQ       ?Q,     @y,                .`@QQ#      \n        \"QQQy       ?WRRQy,.`RWRQQyy,,,      ,QQQR       \n          KQQQy           `RQQ     ..^QQRRRQQQQE         \n            KQQQQQ           `RQy,,,,  KQgQQQRV          \n              `RQQQQQQ,           `]Q@QQQQRT             \n                  \"WQQQQQQQQQQQQQQQQQQRR^                \n                        `\"RRRRRRRR^.                     \n                                                         \n                                                         \n                                                         \n")
 }
 
 main()
