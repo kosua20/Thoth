@@ -24,7 +24,7 @@ class Renderer {
     var markdown : Markdown
     //var forceUpdate : Bool = false
     
-    init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, defaultWidth : String, blogTitle : String){
+    init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, defaultWidth : String, blogTitle : String, imagesLink : Bool){
         self.exportPath = exportPath
         self.articlesPath = articlesPath
         self.templatePath = rootPath.stringByAppendingPathComponent("template")
@@ -33,6 +33,7 @@ class Renderer {
         self.blogTitle = blogTitle
         var options = MarkdownOptions()
         options.defaultWidth = defaultWidth
+        options.imagesAsLinks = imagesLink
         markdown = Markdown(options: options)
         if !NSFileManager.defaultManager().fileExistsAtPath(exportPath) {
             NSFileManager.defaultManager().createDirectoryAtPath(exportPath, withIntermediateDirectories: true, attributes: nil, error: nil)
@@ -50,6 +51,7 @@ class Renderer {
         renderArticles(false)
         renderDrafts(true)
         renderIndex()
+        renderDraftIndex()
         copyRessources(false)
     }
     
@@ -63,18 +65,20 @@ class Renderer {
         renderArticles(true)
         renderDrafts(false)
         renderIndex()
+        renderDraftIndex()
         copyRessources(false)
     }
     
     func draftsOnly(){
         renderDrafts(true)
-        renderIndex()
+        renderDraftIndex()
         copyRessources(false)
     }
     
     func draftsForceOnly() {
         renderDrafts(true)
-         renderArticles(false)
+        renderArticles(false)
+        renderDraftIndex()
         renderIndex()
         copyRessources(false)
     }
@@ -85,6 +89,7 @@ class Renderer {
         renderArticles(true)
         renderDrafts(true)
         renderIndex()
+        renderDraftIndex()
         copyRessources(true)
     }
     
@@ -132,7 +137,7 @@ class Renderer {
                 NSFileManager.defaultManager().copyItemAtPath(templatePath.stringByAppendingPathComponent(path), toPath: exportPath.stringByAppendingPathComponent(path.lastPathComponent), error: nil)
             }
         }
-        NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("index.html"), error: nil)
+        //NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("index.html"), error: nil)
         NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("article.html"), error: nil)
     }
         
@@ -245,6 +250,8 @@ class Renderer {
                             NSFileManager.defaultManager().copyItemAtPath(path, toPath: newFilePath, error: nil)
                             content = content.stringByReplacingOccurrencesOfString(link, withString: filePath.lastPathComponent.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent), options: nil, range: nil)
                         }
+                    } else {
+                        println("Warning: some images were not found")
                     }
                 }
             }
@@ -258,6 +265,7 @@ class Renderer {
             return link
         } else {
             //Relative path
+            //TODO: gérer la navigation ".."
             return articlesPath.stringByAppendingPathComponent(link)
         }
     }
@@ -284,7 +292,30 @@ class Renderer {
         NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
     }
     
+    func renderDraftIndex() {
+        indexHtml = footerHtml.copy() as NSString
+        for article in articlesToRender {
+            if article.isDraft {
+                var html : NSString = snippetHtml.copy() as NSString
+                html = html.stringByReplacingOccurrencesOfString("{#TITLE}", withString: article.title)
+                html = html.stringByReplacingOccurrencesOfString("{#DATE}", withString: article.dateString)
+                html = html.stringByReplacingOccurrencesOfString("{#AUTHOR}", withString: article.author)
+                html = html.stringByReplacingOccurrencesOfString("{#LINK}", withString: "drafts/"+article.getUrlPathname())
+                let contentHtml0 : NSString = markdown.transform(article.getSummary())
+                var contentHtml = contentHtml0.mutableCopy() as NSMutableString
+                let regex1 = NSRegularExpression(pattern: "<[^>]+>", options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
+                regex1?.replaceMatchesInString(contentHtml, options: NSMatchingOptions.ReportProgress, range: NSMakeRange(0, contentHtml.length), withTemplate: "")
+                html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: contentHtml)
+                indexHtml = NSString(format: "%@\n%@", html,indexHtml)
+            }
+        }
+        indexHtml = headerHtml.stringByAppendingString(indexHtml)
+        indexHtml = indexHtml.stringByReplacingOccurrencesOfString("{#BLOGTITLE}", withString: blogTitle.stringByAppendingString(" - Drafts"))
+        NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index-drafts.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
+    }
+    
     func addFootnotes(var content : String) -> String{
+        //TODO: gérer les footnotes référencées
         var count = 1
         let scanner1 = NSScanner(string: content)
         var newContent = ""

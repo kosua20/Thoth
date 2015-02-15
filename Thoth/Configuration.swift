@@ -17,7 +17,7 @@ struct Config {
     let dateStyle = "dd/mm/YYYY"
     let blogTitle = "A new blog"
     let imageWidth = "640"
-    
+    let imagesLinks = false
 }
 
 class ConfigLoader {
@@ -31,30 +31,26 @@ class ConfigLoader {
         var dateStyle = "dd/mm/YYYY"
         var blogTitle = "A new blog"
         var imageWidth = "640"
+        var imagesLinks = false
         
         if let data = NSFileManager.defaultManager().contentsAtPath(path) {
             if let contentOfConfigFile = NSString(data: data, encoding: NSUTF8StringEncoding) {
                let lines = contentOfConfigFile.componentsSeparatedByString("\n")
                 for line in lines {
-                    if !line.hasPrefix("#"){
+                    if !line.hasPrefix("_"){
                         //Ignoring the comments
                         let newLines = line.componentsSeparatedByString(":") as [String]
                         if newLines.count > 1 {
                             //var value = newLines[1].stringByReplacingOccurrencesOfString("\\ ", withString: "{#PL@CEHO£D&R$}", options: nil, range: nil)
                             var value = newLines[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                            if value != "" {
                             switch newLines[0] as String {
                                 case "templatePath":
-                                    if value != "" {
-                                        templatePath = value
-                                }
+                                    templatePath = value
                                 case "articlesPath":
-                                    if value != "" {
-                                        articlesPath = value
-                                    }
+                                    articlesPath = value
                                 case "outputPath":
-                                    if value != "" {
-                                        outputPath = value
-                                }
+                                    outputPath = value
                                 case "defaultAuthor":
                                     defaultAuthor = value
                                 case "dateStyle":
@@ -63,15 +59,18 @@ class ConfigLoader {
                                     blogTitle = value
                                 case "imageWidth":
                                     imageWidth = value
+                                case "imagesAsLinks":
+                                    imagesLinks = value=="true"
                             default:
                                 break
+                            }
                             }
                         }
                     }
                 }
             }
         }
-        return Config(selfPath:path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth)
+        return Config(selfPath:path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks)
     }
     
     class func saveConfigFile(configuration : Config){

@@ -145,6 +145,12 @@ public struct MarkdownOptions {
     /// as it is linked to the use of "width,height,title" instead of "title" in images insertions
     public var defaultWidth: String = ""
     
+    
+    /// when true, a link to the image is added to each inserted image
+    /// WARNING: this is a significant deviation from the markdown spec
+    /// as it is linked to the use of "width,height,title" instead of "title" in images insertions
+    public var imagesAsLinks : Bool = false
+    
     public init() {}
 }
 
@@ -174,6 +180,7 @@ public struct Markdown {
                 _linkEmails = options.linkEmails
                 _strictBoldItalic = options.strictBoldItalic
                 _defaultWidth = options.defaultWidth
+                _imagesAsLinks = options.imagesAsLinks
             }
         }
     }
@@ -232,6 +239,14 @@ public struct Markdown {
         set(value) { _defaultWidth = value }
     }
     private var _defaultWidth = ""
+    
+    ///
+    /// WARNING: this is a significant deviation from the markdown spec
+    public var imagesAsLinks: Bool {
+        get        { return _imagesAsLinks }
+        set(value) { _imagesAsLinks = value }
+    }
+    private var _imagesAsLinks = false
     
     //An array to store the img URLs
     public var imagesUrl : [String] = []
@@ -1001,7 +1016,7 @@ public struct Markdown {
             width = " width=\"\(_defaultWidth)\""
         }
         var height = ""
-        var properTitle = ""
+        var properTitle = " title=\"\""
         if var title = title {
             if !title.isEmpty {
                 var titleComponents = title.componentsSeparatedByString(",")
@@ -1029,6 +1044,9 @@ public struct Markdown {
         }
         result = result + width + height + properTitle
         result += _emptyElementSuffix
+        if _imagesAsLinks {
+            result = "<a href=\"\(url)\""+properTitle+">"+result+"</a>"
+        }
         return result
     }
     

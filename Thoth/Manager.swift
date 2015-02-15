@@ -22,7 +22,7 @@ class Manager {
         println("Loader loaded")
         self.loader.sortArticles()
         println("Articles sorted")
-        self.renderer = Renderer(articles: self.loader.articles, articlesPath: config.articlesPath, exportPath: config.outputPath, rootPath: rootPath, defaultWidth:config.imageWidth, blogTitle: config.blogTitle)
+        self.renderer = Renderer(articles: self.loader.articles, articlesPath: config.articlesPath, exportPath: config.outputPath, rootPath: rootPath, defaultWidth:config.imageWidth, blogTitle: config.blogTitle, imagesLink : config.imagesLinks)
         println("Renderer rendered")
     }
     

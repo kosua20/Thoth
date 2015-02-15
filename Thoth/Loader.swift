@@ -28,7 +28,6 @@ class Article {
     }
     
     convenience init(title: String, date: NSDate?, author: String, content:String, dateString : String){
-        
         self.init(title: title,date: date,author: author,content: content,isDraft: date==nil, dateString: date==nil ? "DRAFT" : dateString)
     }
     
@@ -74,7 +73,7 @@ class Loader {
         let fileManager = NSFileManager.defaultManager()
         let directoryEnum = fileManager.enumeratorAtPath(folderPath)
         while var file: AnyObject = directoryEnum?.nextObject() {
-           if (file as String).pathExtension == "md" {
+           if (file as String).pathExtension == "md" && !(file as String).lastPathComponent.hasPrefix("_") {
                 // process the document
                 self.loadFileAtPath(file as String)
             }
@@ -102,7 +101,6 @@ class Loader {
                           trueDate = formatter.dateFromString(date)
                     }
                     //Treating the author
-                    
                     var author = defaultAuthor
                     if arrayHeader.count > 2{
                         author = arrayHeader[2]
