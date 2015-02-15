@@ -24,9 +24,9 @@ class ConfigLoader {
     
     class func loadConfigFileAtPath(path: String) -> Config{
         //Defaults
-        var templatePath = ""
-        var articlesPath = ""
-        var outputPath = ""
+        var templatePath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("template")
+        var articlesPath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("articles")
+        var outputPath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("output")
         var defaultAuthor = "John Appleseed"
         var dateStyle = "dd/mm/YYYY"
         var blogTitle = "A new blog"
@@ -44,11 +44,17 @@ class ConfigLoader {
                             var value = newLines[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
                             switch newLines[0] as String {
                                 case "templatePath":
-                                    templatePath = value
+                                    if value != "" {
+                                        templatePath = value
+                                }
                                 case "articlesPath":
-                                    articlesPath = value
+                                    if value != "" {
+                                        articlesPath = value
+                                    }
                                 case "outputPath":
-                                    outputPath = value
+                                    if value != "" {
+                                        outputPath = value
+                                }
                                 case "defaultAuthor":
                                     defaultAuthor = value
                                 case "dateStyle":

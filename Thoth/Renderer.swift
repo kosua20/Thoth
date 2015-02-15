@@ -34,6 +34,10 @@ class Renderer {
         var options = MarkdownOptions()
         options.defaultWidth = defaultWidth
         markdown = Markdown(options: options)
+        if !NSFileManager.defaultManager().fileExistsAtPath(exportPath) {
+            NSFileManager.defaultManager().createDirectoryAtPath(exportPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+        }
+        initializeTemplate()
         loadTemplate()
     }
     
@@ -49,15 +53,28 @@ class Renderer {
         copyRessources(false)
     }
     
-    func articlesOnly() {
+    func articlesOnly(){
+        renderArticles(true)
+        renderIndex()
+        copyRessources(false)
+    }
+    
+    func articlesForceOnly() {
         renderArticles(true)
         renderDrafts(false)
         renderIndex()
         copyRessources(false)
     }
     
-    func draftsOnly() {
+    func draftsOnly(){
         renderDrafts(true)
+        renderIndex()
+        copyRessources(false)
+    }
+    
+    func draftsForceOnly() {
+        renderDrafts(true)
+         renderArticles(false)
         renderIndex()
         copyRessources(false)
     }
@@ -107,6 +124,18 @@ class Renderer {
         }
         
     }
+        
+    func initializeTemplate(){
+        let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as [String]
+        for path in templateFiles{
+            if !NSFileManager.defaultManager().fileExistsAtPath(exportPath.stringByAppendingPathComponent(path.lastPathComponent)){
+                NSFileManager.defaultManager().copyItemAtPath(templatePath.stringByAppendingPathComponent(path), toPath: exportPath.stringByAppendingPathComponent(path.lastPathComponent), error: nil)
+            }
+        }
+        NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("index.html"), error: nil)
+        NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("article.html"), error: nil)
+    }
+        
     func restoreTemplate(){
         let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as [String]
         for path in templateFiles{

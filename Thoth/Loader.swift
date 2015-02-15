@@ -91,7 +91,7 @@ class Loader {
                     //Treating the title (possible markdown on the beginning)
                     var title = arrayHeader[0]
                     title = title.stringByReplacingOccurrencesOfString("##", withString: "");
-                    title = title.stringByReplacingOccurrencesOfString("#", withString: "", range: Range(start: title.startIndex, end: advance(title.startIndex,1)))
+                    title = title.stringByReplacingOccurrencesOfString("#", withString: "", range: Range(start: title.startIndex, end: advance(title.startIndex,1,title.endIndex)))
                     //Treating the date
                     var date = "draft"
                     var trueDate : NSDate? = nil;
@@ -99,9 +99,10 @@ class Loader {
                          date = arrayHeader[1]
                     }
                     if date.lowercaseString != "draft" {
-                            trueDate = formatter.dateFromString(date)!
+                          trueDate = formatter.dateFromString(date)
                     }
                     //Treating the author
+                    
                     var author = defaultAuthor
                     if arrayHeader.count > 2{
                         author = arrayHeader[2]

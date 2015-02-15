@@ -42,7 +42,9 @@ func mainloop() {
                 if let (option, rootPath1) = generateWithArguments(args){
                     var rootPath = rootPath1.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
                     if let config = loadConfigurationFromPath(rootPath) {
+                        //println("Configuration : \(config.articlesPath), \(config.outputPath),\(config.templatePath)")
                         let man = Manager(rootPath: rootPath, configuration: config)
+                        println("Manager managed")
                         man.generate(option)
                     }
                 }
