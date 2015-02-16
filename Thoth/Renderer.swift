@@ -259,13 +259,14 @@ class Renderer {
         return content
     }
     
-    func expandLink(link : String) -> String {
+    func expandLink(var link : String) -> String {
         if link.hasPrefix("/") {
             //Absolute path
             return link
         } else {
             //Relative path
-            //TODO: gérer la navigation ".."
+            //???: apparemment NSFileManager gère ça tout seul, à tester avec des images dans un dossier du dossier parent.
+            
             return articlesPath.stringByAppendingPathComponent(link)
         }
     }
