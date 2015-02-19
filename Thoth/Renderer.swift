@@ -265,8 +265,7 @@ class Renderer {
             return link
         } else {
             //Relative path
-            //???: apparemment NSFileManager gère ça tout seul, à tester avec des images dans un dossier du dossier parent.
-            
+            //Apparemment NSFileManager gère ça tout seul, à tester avec des images dans un dossier du dossier parent.
             return articlesPath.stringByAppendingPathComponent(link)
         }
     }

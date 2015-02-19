@@ -708,7 +708,7 @@ public struct Markdown {
         return "\u{1A}" + delim + String(abs(s.hashValue)) + delim
     }
 
-    // TODO: C# code uses RegexOptions.ExplicitCapture here. Need to figure out
+    // C# code uses RegexOptions.ExplicitCapture here. Need to figure out
     // how/whether to emulate that with NSRegularExpression.
     private static let _htmlTokens = Regex("\n".join([
         "(<!--(?:|(?:[^>-]|-[^>])(?:[^-]|-[^-])*)-->)|   # match <!-- foo -->",
@@ -1578,7 +1578,7 @@ public struct Markdown {
         let at: UInt8 = 64    // '@'
         for c in addr.utf8 {
             let r = arc4random_uniform(99) + 1
-            // TODO: verify that the following stuff works as expected in Swift
+            // verify that the following stuff works as expected in Swift
             if (r > 90 || c == colon) && c != at {
                 sb += String(count: 1, repeatedValue: UnicodeScalar(UInt32(c))) // m
             } else if r < 45 {
@@ -1614,7 +1614,7 @@ public struct Markdown {
         }
     }
     
-    // TODO: C# code uses RegexOptions.ExplicitCapture here. Need to figure out
+    //C# code uses RegexOptions.ExplicitCapture here. Need to figure out
     // how/whether to emulate that with NSRegularExpression.
     private static let _amps = Regex("&(?!((#[0-9]+)|(#[xX][a-fA-F0-9]+)|([a-zA-Z][a-zA-Z0-9]*));)")
     private static let _angles = Regex("<(?![A-Za-z/?\\$!])")

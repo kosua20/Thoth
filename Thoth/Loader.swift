@@ -73,7 +73,7 @@ class Loader {
         let fileManager = NSFileManager.defaultManager()
         let directoryEnum = fileManager.enumeratorAtPath(folderPath)
         while var file: AnyObject = directoryEnum?.nextObject() {
-           if (file as String).pathExtension == "md" && !(file as String).lastPathComponent.hasPrefix("_") {
+           if (file as String).pathExtension == "md" && !((file as String).lastPathComponent.hasPrefix("_") || (file as String).lastPathComponent.hasPrefix("#")) {
                 // process the document
                 self.loadFileAtPath(file as String)
             }

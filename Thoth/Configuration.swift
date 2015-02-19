@@ -37,7 +37,7 @@ class ConfigLoader {
             if let contentOfConfigFile = NSString(data: data, encoding: NSUTF8StringEncoding) {
                let lines = contentOfConfigFile.componentsSeparatedByString("\n")
                 for line in lines {
-                    if !line.hasPrefix("_"){
+                    if !(line.hasPrefix("_") || !line.hasPrefix("#")){
                         //Ignoring the comments
                         let newLines = line.componentsSeparatedByString(":") as [String]
                         if newLines.count > 1 {
