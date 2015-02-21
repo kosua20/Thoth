@@ -3,3 +3,4 @@
 //
 
 #import "Prompt.h"
+#import "FTPManager.h"

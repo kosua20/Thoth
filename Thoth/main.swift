@@ -15,6 +15,7 @@ func main(args : [String] = []){
             if let config = loadConfigurationFromPath(rootPath) {
                 let man = Manager(rootPath: rootPath, configuration: config)
                 man.generate(option)
+                man.upload()
             }
         }
         exit(0)
@@ -36,7 +37,7 @@ func mainloop() {
                 //printbonus()
                 
             //--------------generation-------------------//
-            } else if input.hasPrefix("generate ") {
+            } else if input.hasPrefix("scribe ") {
                 input = input.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: nil, range: nil)
                 let args = input.componentsSeparatedByString(" ")
                 if let (option, rootPath1) = generateWithArguments(args){
@@ -64,13 +65,20 @@ func mainloop() {
                     let man = Manager(rootPath: input, configuration: config)
                     man.ressources()
                 }
+            //--------------upload-------------------//
+            } else if input.hasPrefix("upload "){
+                input = input.substringFromIndex(advance(input.startIndex,7))
+                if let config = loadConfigurationFromPath(input) {
+                    let man = Manager(rootPath: input, configuration: config)
+                    man.upload()
+                }
                 
             //-----------------exit----------------------//
             } else if input == "exit" {
                 exit(0)
                 
             //-------------Unknown command---------------//
-            } else if input == "bonus" {
+            } else if input == "ibis" {
                 printbonus()
             } else {
                 println("Unknown command. Type \"help\" to get a list of available commands.")

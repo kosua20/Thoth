@@ -18,6 +18,10 @@ struct Config {
     let blogTitle = "A new blog"
     let imageWidth = "640"
     let imagesLinks = false
+    let ftpAdress = ""
+    let ftpUsername = ""
+    let ftpPassword = ""
+    let ftpPort = 21
 }
 
 class ConfigLoader {
@@ -27,17 +31,21 @@ class ConfigLoader {
         var templatePath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("template")
         var articlesPath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("articles")
         var outputPath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("output")
-        var defaultAuthor = "John Appleseed"
-        var dateStyle = "dd/mm/YYYY"
+        var defaultAuthor = ""
+        var dateStyle = "dd/MM/YYYY"
         var blogTitle = "A new blog"
         var imageWidth = "640"
         var imagesLinks = false
+        var ftpAdress = ""
+        var ftpUsername = ""
+        var ftpPassword = ""
+        var ftpPort = 21
         
         if let data = NSFileManager.defaultManager().contentsAtPath(path) {
             if let contentOfConfigFile = NSString(data: data, encoding: NSUTF8StringEncoding) {
                let lines = contentOfConfigFile.componentsSeparatedByString("\n")
                 for line in lines {
-                    if !(line.hasPrefix("_") || !line.hasPrefix("#")){
+                    if !(line.hasPrefix("_") || line.hasPrefix("#")) {
                         //Ignoring the comments
                         let newLines = line.componentsSeparatedByString(":") as [String]
                         if newLines.count > 1 {
@@ -60,17 +68,29 @@ class ConfigLoader {
                                 case "imageWidth":
                                     imageWidth = value
                                 case "imagesAsLinks":
-                                    imagesLinks = value=="true"
-                            default:
-                                break
+                                    imagesLinks = (value=="true")
+                                case "ftpAdress":
+                                    ftpAdress = value
+                                case "ftpUsername":
+                                    ftpUsername = value
+                                case "ftpPassword":
+                                    ftpPassword = value
+                                case "ftpPort":
+                                    if let intvalue = value.toInt() {
+                                        ftpPort = intvalue
+                                    }
+                                default:
+                                    break
                             }
                             }
                         }
+                    
                     }
                 }
             }
         }
-        return Config(selfPath:path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks)
+        
+        return Config(selfPath:path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks, ftpAdress: ftpAdress, ftpUsername:ftpUsername, ftpPassword:ftpPassword,ftpPort:ftpPort)
     }
     
     class func saveConfigFile(configuration : Config){

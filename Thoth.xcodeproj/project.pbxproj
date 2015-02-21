@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F45BD9A21A9910E300FA82EF /* FTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F45BD9A11A9910E300FA82EF /* FTPManager.m */; };
 		F4FBC9FE1A89163C00E1B6A0 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */; };
 		F4FBC9FF1A89163C00E1B6A0 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F51A89163C00E1B6A0 /* Loader.swift */; };
 		F4FBCA001A89163C00E1B6A0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F61A89163C00E1B6A0 /* main.swift */; };
@@ -30,6 +31,9 @@
 
 /* Begin PBXFileReference section */
 		F44B72631A7584A900C92E3E /* Thoth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Thoth; sourceTree = BUILT_PRODUCTS_DIR; };
+		F45BD9A01A9910E300FA82EF /* FTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPManager.h; sourceTree = "<group>"; };
+		F45BD9A11A9910E300FA82EF /* FTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPManager.m; sourceTree = "<group>"; };
+		F45BD9A41A99126800FA82EF /* Thoth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thoth-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		F4FBC9F51A89163C00E1B6A0 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		F4FBC9F61A89163C00E1B6A0 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -38,7 +42,6 @@
 		F4FBC9F91A89163C00E1B6A0 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		F4FBC9FB1A89163C00E1B6A0 /* Prompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prompt.h; sourceTree = "<group>"; };
 		F4FBC9FC1A89163C00E1B6A0 /* Prompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Prompt.m; sourceTree = "<group>"; };
-		F4FBC9FD1A89163C00E1B6A0 /* swift-libedit-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "swift-libedit-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F45BD99F1A99105E00FA82EF /* FTPManager */ = {
+			isa = PBXGroup;
+			children = (
+				F45BD9A01A9910E300FA82EF /* FTPManager.h */,
+				F45BD9A11A9910E300FA82EF /* FTPManager.m */,
+			);
+			name = FTPManager;
+			sourceTree = "<group>";
+		};
 		F4FBC9F31A89163C00E1B6A0 /* Thoth */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,7 +98,6 @@
 			children = (
 				F4FBC9FB1A89163C00E1B6A0 /* Prompt.h */,
 				F4FBC9FC1A89163C00E1B6A0 /* Prompt.m */,
-				F4FBC9FD1A89163C00E1B6A0 /* swift-libedit-Bridging-Header.h */,
 			);
 			path = "swift-libedit";
 			sourceTree = "<group>";
@@ -94,6 +105,8 @@
 		F4FBCA051A8921BC00E1B6A0 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F45BD9A41A99126800FA82EF /* Thoth-Bridging-Header.h */,
+				F45BD99F1A99105E00FA82EF /* FTPManager */,
 				F4FBC9F81A89163C00E1B6A0 /* Markdown.swift */,
 				F4FBC9FA1A89163C00E1B6A0 /* swift-libedit */,
 			);
@@ -160,6 +173,7 @@
 				F4FBCA021A89163C00E1B6A0 /* Markdown.swift in Sources */,
 				F4FBCA031A89163C00E1B6A0 /* Renderer.swift in Sources */,
 				F4FBCA001A89163C00E1B6A0 /* main.swift in Sources */,
+				F45BD9A21A9910E300FA82EF /* FTPManager.m in Sources */,
 				F4FBC9FE1A89163C00E1B6A0 /* Configuration.swift in Sources */,
 				F4FBCA011A89163C00E1B6A0 /* Manager.swift in Sources */,
 				F4FBC9FF1A89163C00E1B6A0 /* Loader.swift in Sources */,
@@ -258,7 +272,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = Thoth;
-				SWIFT_OBJC_BRIDGING_HEADER = "Thoth/swift-libedit/swift-libedit-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Thoth/Thoth-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -269,7 +283,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = Thoth;
-				SWIFT_OBJC_BRIDGING_HEADER = "Thoth/swift-libedit/swift-libedit-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Thoth/Thoth-Bridging-Header.h";
 			};
 			name = Release;
 		};
