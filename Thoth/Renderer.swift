@@ -12,7 +12,7 @@ class Renderer {
     let articlesToRender : [Article]
     let exportPath: String
     let templatePath : String
-    let ressourcesPath : String
+    let resourcesPath : String
     let articlesPath : String
     let blogTitle : String
     var articleHtml : NSString = ""
@@ -24,11 +24,11 @@ class Renderer {
     var markdown : Markdown
     //var forceUpdate : Bool = false
     
-    init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, defaultWidth : String, blogTitle : String, imagesLink : Bool){
+    init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, templatePath: String, defaultWidth : String, blogTitle : String, imagesLink : Bool){
         self.exportPath = exportPath
         self.articlesPath = articlesPath
-        self.templatePath = rootPath.stringByAppendingPathComponent("template")
-        self.ressourcesPath = rootPath.stringByAppendingPathComponent("ressources")
+        self.templatePath = templatePath
+        self.resourcesPath = rootPath.stringByAppendingPathComponent("resources")
         self.articlesToRender = articles
         self.blogTitle = blogTitle
         var options = MarkdownOptions()
@@ -44,7 +44,7 @@ class Renderer {
     
     func updateIndex(){
         renderIndex()
-        copyRessources(false)
+        copyResources(false)
     }
     
     func defaultExport(){
@@ -52,13 +52,13 @@ class Renderer {
         renderDrafts(true)
         renderIndex()
         renderDraftIndex()
-        copyRessources(false)
+        copyResources(false)
     }
     
     func articlesOnly(){
         renderArticles(true)
         renderIndex()
-        copyRessources(false)
+        copyResources(false)
     }
     
     func articlesForceOnly() {
@@ -66,13 +66,13 @@ class Renderer {
         renderDrafts(false)
         renderIndex()
         renderDraftIndex()
-        copyRessources(false)
+        copyResources(false)
     }
     
     func draftsOnly(){
         renderDrafts(true)
         renderDraftIndex()
-        copyRessources(false)
+        copyResources(false)
     }
     
     func draftsForceOnly() {
@@ -80,7 +80,7 @@ class Renderer {
         renderArticles(false)
         renderDraftIndex()
         renderIndex()
-        copyRessources(false)
+        copyResources(false)
     }
     
     func fullExport() {
@@ -90,11 +90,11 @@ class Renderer {
         renderDrafts(true)
         renderIndex()
         renderDraftIndex()
-        copyRessources(true)
+        copyResources(true)
     }
     
-    func updateRessources(){
-        copyRessources(true)
+    func updateResources(){
+        copyResources(true)
     }
     
     func clean(){
@@ -114,16 +114,16 @@ class Renderer {
         NSFileManager.defaultManager().createDirectoryAtPath(folderPath, withIntermediateDirectories: true, attributes: nil, error: nil)
     }
     
-    func copyRessources(forceUpdate : Bool){
-        if NSFileManager.defaultManager().fileExistsAtPath(ressourcesPath) {
-            let exportRessourcesPath = exportPath.stringByAppendingPathComponent("ressources")
-            if !NSFileManager.defaultManager().fileExistsAtPath(exportRessourcesPath) {
-                NSFileManager.defaultManager().createDirectoryAtPath(exportRessourcesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+    func copyResources(forceUpdate : Bool){
+        if NSFileManager.defaultManager().fileExistsAtPath(resourcesPath) {
+            let exportResourcesPath = exportPath.stringByAppendingPathComponent("resources")
+            if !NSFileManager.defaultManager().fileExistsAtPath(exportResourcesPath) {
+                NSFileManager.defaultManager().createDirectoryAtPath(exportResourcesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
             }
-            let paths = NSFileManager.defaultManager().contentsOfDirectoryAtPath(ressourcesPath, error: nil) as [NSString]
+            let paths = NSFileManager.defaultManager().contentsOfDirectoryAtPath(resourcesPath, error: nil) as [NSString]
             for path in paths {
-                if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(exportRessourcesPath.stringByAppendingPathComponent(path)){
-                    NSFileManager.defaultManager().copyItemAtPath(ressourcesPath.stringByAppendingPathComponent(path), toPath: exportRessourcesPath.stringByAppendingPathComponent(path), error: nil)
+                if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(exportResourcesPath.stringByAppendingPathComponent(path)){
+                    NSFileManager.defaultManager().copyItemAtPath(resourcesPath.stringByAppendingPathComponent(path), toPath: exportResourcesPath.stringByAppendingPathComponent(path), error: nil)
                 }
             }
         }

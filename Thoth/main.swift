@@ -11,11 +11,11 @@ import Foundation
 
 func main(args : [String] = []){
     if Process.arguments.count > 1 {
-        if let (option, rootPath) = generateWithArguments(Process.arguments){
+        if let (option, rootPath) = interprateArguments(Process.arguments){
             if let config = loadConfigurationFromPath(rootPath) {
                 let man = Manager(rootPath: rootPath, configuration: config)
                 man.generate(option)
-                man.upload()
+                man.upload(option: option)
             }
         }
         exit(0)
@@ -40,7 +40,7 @@ func mainloop() {
             } else if input.hasPrefix("scribe ") {
                 input = input.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: nil, range: nil)
                 let args = input.componentsSeparatedByString(" ")
-                if let (option, rootPath1) = generateWithArguments(args){
+                if let (option, rootPath1) = interprateArguments(args){
                     var rootPath = rootPath1.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
                     if let config = loadConfigurationFromPath(rootPath) {
                         //println("Configuration : \(config.articlesPath), \(config.outputPath),\(config.templatePath)")
@@ -58,21 +58,24 @@ func mainloop() {
                     man.index()
                 }
                 
-            //--------------ressources-------------------//
-            } else if input.hasPrefix("ressources "){
-                input = input.substringFromIndex(advance(input.startIndex,11))
+            //--------------resources-------------------//
+            } else if input.hasPrefix("resources "){
+                input = input.substringFromIndex(advance(input.startIndex,10))
                 if let config = loadConfigurationFromPath(input) {
                     let man = Manager(rootPath: input, configuration: config)
-                    man.ressources()
+                    man.resources()
                 }
             //--------------upload-------------------//
             } else if input.hasPrefix("upload "){
-                input = input.substringFromIndex(advance(input.startIndex,7))
-                if let config = loadConfigurationFromPath(input) {
-                    let man = Manager(rootPath: input, configuration: config)
-                    man.upload()
+                input = input.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: nil, range: nil)
+                let args = input.componentsSeparatedByString(" ")
+                if let (option, rootPath1) = interprateArguments(args){
+                    var rootPath = rootPath1.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
+                    if let config = loadConfigurationFromPath(rootPath) {
+                        let man = Manager(rootPath: rootPath, configuration: config)
+                        man.upload(option: option)
+                    }
                 }
-                
             //-----------------exit----------------------//
             } else if input == "exit" {
                 exit(0)
@@ -89,7 +92,7 @@ func mainloop() {
     }
 }
 
-func generateWithArguments(args : [String]) -> (Int, String)?{
+func interprateArguments(args : [String]) -> (Int, String)?{
     var option = 0
     for i in 1..<args.count-1 {
         if args[i].hasPrefix("-") && args[i].utf16Count == 2{
