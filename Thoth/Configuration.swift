@@ -14,7 +14,7 @@ struct Config {
     let articlesPath = ""
     let outputPath = ""
     let defaultAuthor = "John Appleseed"
-    let dateStyle = "dd/mm/YYYY"
+    let dateStyle = "MM/dd/YYYY"
     let blogTitle = "A new blog"
     let imageWidth = "640"
     let imagesLinks = false
@@ -32,7 +32,7 @@ class ConfigLoader {
         var articlesPath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("articles")
         var outputPath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("output")
         var defaultAuthor = ""
-        var dateStyle = "dd/MM/YYYY"
+        var dateStyle = "MM/dd/YYYY"
         var blogTitle = "A new blog"
         var imageWidth = "640"
         var imagesLinks = false
@@ -67,7 +67,7 @@ class ConfigLoader {
                                     blogTitle = value
                                 case "imageWidth":
                                     imageWidth = value
-                                case "imagesAsLinks":
+                                case "imagesLinks":
                                     imagesLinks = (value=="true")
                                 case "ftpAdress":
                                     ftpAdress = value
@@ -94,16 +94,43 @@ class ConfigLoader {
     }
     
     class func saveConfigFile(configuration : Config){
-        var s = ""
+        let dict = [
+            "templatePath":"# The path to the template folder\n#\t(defaults to rootPath/template)\n",
+            "articlesPath":"# The path to the articles folder containing the .md files\n#\t(defaults to rootPath/articles)\n",
+            "outputPath":"# The path where Thoth should output the generated content\n#\t(defaults to rootPath/output)\n",
+            "blogTitle":"# The title of the blog\n#\t(defaults to \"A new blog\")\n",
+            "defaultAuthor":"# The default author name to use on each article page\n#\t(defaults to the current Mac user)\n",
+            "dateStyle":"# The date style used in each article (.md file)\n# Please see the NSDateFormatter documentation for this\n#\t(defaults to MM/dd/yyyy)\n",
+            "imageWidth":"# The default width for each image in articles html pages.\n#\t(defaults to 640)\n",
+            "imagesLinks":"# Set to true if you want each image of an article to link directly to the corresponding file\n#\t(defaults to false)\n",
+            "ftpAdress":"# The ftp address pointing to the exact folder where the output should be uploaded\n",
+            "ftpUsername":"# The ftp username\n",
+            "ftpPassword":"# The ftp password (the best way is to create a specific user/password with restricted rights to access your FTP)\n",
+            "ftpPort":"# The ftp port to use\n#\t(defaults to 21)\n",
+        ]
+        
+        var s = "#{#Thoth} config file\n#The root path is deduced from the position of this config file\n\n"
         let ref = reflect(configuration)
         for i in 0..<ref.count {
-            let tr = ref[i].1.value as String
-            s = s + ref[i].0 + ":" + "\t\t" + tr + "\n"
+            let tr = "\(ref[i].1.value)"
+            let key = ref[i].0
+            if key != "selfPath"{
+                if let exp = dict[key] {
+                    s = s + exp
+                }
+                s = s + key + ":" + "\t\t" + tr + "\n\n"
+            }
         }
         if !NSFileManager.defaultManager().createFileAtPath(configuration.selfPath, contents: s.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false), attributes: nil) {
             println("Unable to save the config")
         }
+    }
+    
+    class func generateConfigFileAtPath(path : String)-> Config{
+        var configuration = Config(selfPath: path.stringByAppendingPathComponent("config"), templatePath: path.stringByAppendingPathComponent("template"), articlesPath: path.stringByAppendingPathComponent("articles"), outputPath: path.stringByAppendingPathComponent("output"), defaultAuthor: NSFullUserName(), dateStyle: "MM/dd/YYYY", blogTitle: "A new blog", imageWidth: "640", imagesLinks: false, ftpAdress: "", ftpUsername: "", ftpPassword: "", ftpPort: 21)
         
+        saveConfigFile(configuration)
+        return configuration
     }
 
 }

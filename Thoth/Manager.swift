@@ -17,21 +17,21 @@ class Manager {
     var server : FMServer?
     
     init(rootPath : String, configuration : Config){
-        println("Initializing the manager...")
+       // println("Initializing the manager...")
         self.rootPath = rootPath
         self.config = configuration
         self.loader = Loader(folderPath: config.articlesPath, defaultAuthor: config.defaultAuthor, dateStyle:config.dateStyle)
-        println("Loader loaded")
+        //println("Loader loaded")
         self.loader.sortArticles()
-        println("Articles sorted")
+        //println("Articles sorted")
         self.renderer = Renderer(articles: self.loader.articles, articlesPath: config.articlesPath, exportPath: config.outputPath, rootPath: rootPath, templatePath:config.templatePath, defaultWidth:config.imageWidth, blogTitle: config.blogTitle, imagesLink : config.imagesLinks)
-        println("Renderer rendered")
+        //println("Renderer rendered")
         self.uploader = FTPManager()
         
     }
     
     func generate(option : Int) {
-        println("Option : \(option)")
+       // println("Option : \(option)")
         switch option {
             case 1:
                 renderer.articlesOnly()
@@ -48,8 +48,6 @@ class Manager {
     func upload(option : Int = 0){
         server = FMServer(destination: config.ftpAdress, username: config.ftpUsername, password: config.ftpPassword)
         if !uploader.checkLogin(server) { println("Unable to login.");return}
-        println("Option : \(option)")
-        let progTimer = NSTimer(timeInterval: 0.1, target: self, selector: Selector("changeProgress()"), userInfo: nil, repeats: true)
         println("Begining upload to \(config.ftpAdress)")
         var succeeded = true
         let contents1 = uploader.contentsOfServer(server) as [NSDictionary]
@@ -97,8 +95,6 @@ class Manager {
         } else {
             println("Upload successful !")
         }
-        
-        progTimer.invalidate()
     }
     
     func cleanElementAtPath(path : String) {
@@ -132,7 +128,7 @@ class Manager {
                     found = true
                     isDistantDirectory = (dict.objectForKey(kCFFTPResourceType)?.intValue) == 4
                     
-                    println("\(path) \(isDistantDirectory)")
+                    //println("\(path) \(isDistantDirectory)")
                     break superLoop
                 }
             }
@@ -145,7 +141,7 @@ class Manager {
                 }
                 server!.destination = server!.destination.stringByAppendingPathComponent(path.lastPathComponent)
                 if found {
-                    println("1 ")
+                    //println("1 ")
                 }
                 
                 let contents1 = uploader.contentsOfServer(server) as [NSDictionary]
@@ -163,12 +159,6 @@ class Manager {
         }
         
         return succeeded
-    }
-    
-    func changeProgress() {
-        if let progress : NSNumber = uploader.progress().objectForKey("kFMProcessInfoProgress") as? NSNumber{
-            println(progress.floatValue * 100)
-        }
     }
     
     func index() {

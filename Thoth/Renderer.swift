@@ -7,6 +7,7 @@
 //
 
 import Foundation
+//TODO: générer sitemap.xml et feed.xml
 
 class Renderer {
     let articlesToRender : [Article]
@@ -345,7 +346,7 @@ class Renderer {
             if var footNote : NSString = footNote {
                 footNote = footNote.substringFromIndex(2)
                 newContent = newContent.stringByAppendingString("<sup id=\"ref\(count)\"><a class=\"footnote-link\" href=\"#fn\(count)\" title=\"\" rel=\"footnote\">[\(count)]</a></sup>")
-                endContent = endContent + "<li id=\"fn\(count)\"><p>\(footNote) <a class=\"footnote-link\" href=\"#ref\(count)\" title=\"Return to footnote in the text.\" >&#8617;</a></p></li>\n"
+                endContent = endContent + "<li id=\"fn\(count)\" class=\"footnote\"><p>\(footNote) <a class=\"footnote-link\" href=\"#ref\(count)\" title=\"Return to footnote in the text.\" >&#8617;</a></p></li>\n"
                 count++
             }
             scanner1.scanUpToString("[^", intoString: &tempContent)
