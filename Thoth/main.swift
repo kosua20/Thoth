@@ -29,93 +29,170 @@ func mainloop() {
     
     while true {
         if let input1 = prompt.gets() {
-            var input = input1.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            
-            //-----------------help----------------------//
-            if input == "help" {
-                printhelp()
-                //printbonus()
+            var input2 = input1.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            input2 = input2.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: nil, range: nil)
+            var args = input2.componentsSeparatedByString(" ")
+            if args.count > 1 {
                 
-            //--------------generation-------------------//
-            } else if input.hasPrefix("scribe") {
-                input = input.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: nil, range: nil)
-                let args = input.componentsSeparatedByString(" ")
-                if let (option, rootPath1) = interprateArguments(args){
-                    var rootPath = rootPath1.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
-                    if let config = loadConfigurationFromPath(rootPath) {
-                        //println("Configuration : \(config.articlesPath), \(config.outputPath),\(config.templatePath)")
-                        let man = Manager(rootPath: rootPath, configuration: config)
-                        //println("Manager managed")
-                        man.generate(option)
+                for arg in args {
+                    args.filter({
+                        (x : String) -> Bool in
+                        x.utf16Count > 0
+                    })
+                    args.map({
+                        (x : String) -> String in
+                        x.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
+                    })
+                }
+                
+                switch args[0] {
+                case "help":
+                    printhelp()
+                case "exit":
+                    exit(0)
+                case "ibis":
+                    printbonus()
+                case "setup":
+                    if !NSFileManager.defaultManager().fileExistsAtPath(args[1]) {
+                        NSFileManager.defaultManager().createDirectoryAtPath(args[1], withIntermediateDirectories: true, attributes: nil, error: nil)
                     }
-                }
-                
-            //----------------index----------------------//
-            } else if input.hasPrefix("index"){
-                input = input.substringFromIndex(advance(input.startIndex,6))
-                if let config = loadConfigurationFromPath(input) {
-                    let man = Manager(rootPath: input, configuration: config)
-                    man.index()
-                }
-            //----------------index----------------------//
-            } else if input.hasPrefix("check"){
-                input = input.substringFromIndex(advance(input.startIndex,6))
-                if let config = loadConfigurationFromPath(input) {
-                    println("The config file seems ok")
-                }
-                
-            //----------------setup----------------------//
-            } else if input.hasPrefix("setup"){
-                input = input.substringFromIndex(advance(input.startIndex,6))
-                if !NSFileManager.defaultManager().fileExistsAtPath(input) {
-                     NSFileManager.defaultManager().createDirectoryAtPath(input, withIntermediateDirectories: true, attributes: nil, error: nil)
-                }
-                ConfigLoader.generateConfigFileAtPath(input)
-                let folders = ["articles","template","output","resources"] as [String]
-                for folder in folders {
-                    if !NSFileManager.defaultManager().fileExistsAtPath(input.stringByAppendingPathComponent(folder)){
-                        NSFileManager.defaultManager().createDirectoryAtPath(input.stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil, error: nil)
+                    ConfigLoader.generateConfigFileAtPath(args[1])
+                    let folders = ["articles","template","output","resources"] as [String]
+                    for folder in folders {
+                        if !NSFileManager.defaultManager().fileExistsAtPath(args[1].stringByAppendingPathComponent(folder)){
+                            NSFileManager.defaultManager().createDirectoryAtPath(args[1].stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil, error: nil)
+                        }
                     }
-                }
-                
+                case "check":
+                    if let config = loadConfigurationFromPath(args[1]) {
+                        println("The config file seems ok")
+                    }
+                case "index","resources","first","uplaod","scribe":
+                    if let config = loadConfigurationFromPath(args[1]) {
+                        let man = Manager(rootPath: args[1], configuration: config)
+                        switch args[0] {
+                        case "index":
+                            man.index()
+                        case "resources":
+                            man.resources()
+                        case "first":
+                            man.generate(3)
+                            man.upload(option: 3)
+                        case "scribe":
+                            args.removeRange(Range(start: 0, end: 2))
+                            if let option = interprateArguments(args) {
+                                man.generate(option)
+                            }
+                        case "upload":
+                            args.removeRange(Range(start: 0,end: 2))
+                            if let option = interprateArguments(args) {
+                                man.upload(option: option)
+                            }
+                        default:
+                            break
+                        }
+                    }
 
-            //--------------resources-------------------//
-            } else if input.hasPrefix("resources"){
-                input = input.substringFromIndex(advance(input.startIndex,10))
-                if let config = loadConfigurationFromPath(input) {
-                    let man = Manager(rootPath: input, configuration: config)
-                    man.resources()
+                default:
+                    println("Unknown command. Type \"help\" to get a list of available commands.")
+                    break
                 }
                 
-            //--------------first generation and upload-------------------//
-            } else if input.hasPrefix("first"){
-                input = input.substringFromIndex(advance(input.startIndex,6))
-                if let config = loadConfigurationFromPath(input) {
-                    let man = Manager(rootPath: input, configuration: config)
-                    man.generate(3)
-                    man.upload(option: 3)
-                }
                 
-            //--------------upload-------------------//
-            } else if input.hasPrefix("upload"){
+                /*
+                arg[0] : command
+                arg[1] : path
+                arg[2],... : options
+                
+                
+                                        //-----------------help----------------------//
+                                        if input == "help" {
+                                        printhelp()
+                                        //printbonus()
+                
+                //--------------generation-------------------//
+                } else if input.hasPrefix("scribe") {
                 input = input.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: nil, range: nil)
                 let args = input.componentsSeparatedByString(" ")
                 if let (option, rootPath1) = interprateArguments(args){
-                    var rootPath = rootPath1.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
-                    if let config = loadConfigurationFromPath(rootPath) {
-                        let man = Manager(rootPath: rootPath, configuration: config)
-                        man.upload(option: option)
-                    }
+                var rootPath = rootPath1.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
+                if let config = loadConfigurationFromPath(rootPath) {
+                //println("Configuration : \(config.articlesPath), \(config.outputPath),\(config.templatePath)")
+                let man = Manager(rootPath: rootPath, configuration: config)
+                //println("Manager managed")
+                man.generate(option)
                 }
-            //-----------------exit----------------------//
-            } else if input == "exit" {
-                exit(0)
+                }
                 
-            //-------------Unknown command---------------//
-            } else if input == "ibis" {
-                printbonus()
+                                        //----------------index----------------------//
+                                        } else if input.hasPrefix("index"){
+                                        input = input.substringFromIndex(advance(input.startIndex,6))
+                                        if let config = loadConfigurationFromPath(input) {
+                                        let man = Manager(rootPath: input, configuration: config)
+                                        man.index()
+                                        }
+                                        //----------------check----------------------//
+                                        } else if input.hasPrefix("check"){
+                                        input = input.substringFromIndex(advance(input.startIndex,6))
+                                        if let config = loadConfigurationFromPath(input) {
+                                        println("The config file seems ok")
+                                        }
+                                        
+                                        //----------------setup----------------------//
+                                        } else if input.hasPrefix("setup"){
+                                        input = input.substringFromIndex(advance(input.startIndex,6))
+                                        if !NSFileManager.defaultManager().fileExistsAtPath(input) {
+                                        NSFileManager.defaultManager().createDirectoryAtPath(input, withIntermediateDirectories: true, attributes: nil, error: nil)
+                                        }
+                                        ConfigLoader.generateConfigFileAtPath(input)
+                                        let folders = ["articles","template","output","resources"] as [String]
+                                        for folder in folders {
+                                        if !NSFileManager.defaultManager().fileExistsAtPath(input.stringByAppendingPathComponent(folder)){
+                                        NSFileManager.defaultManager().createDirectoryAtPath(input.stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil, error: nil)
+                                        }
+                                        }
+                
+                
+                                        //--------------resources-------------------//
+                                        } else if input.hasPrefix("resources"){
+                                        input = input.substringFromIndex(advance(input.startIndex,10))
+                                        if let config = loadConfigurationFromPath(input) {
+                                        let man = Manager(rootPath: input, configuration: config)
+                                        man.resources()
+                                        }
+                                        
+                                        //--------------first generation and upload-------------------//
+                                        } else if input.hasPrefix("first"){
+                                        input = input.substringFromIndex(advance(input.startIndex,6))
+                                        if let config = loadConfigurationFromPath(input) {
+                                        let man = Manager(rootPath: input, configuration: config)
+                                        man.generate(3)
+                                        man.upload(option: 3)
+                                        }
+                
+                //--------------upload-------------------//
+                } else if input.hasPrefix("upload"){
+                input = input.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: nil, range: nil)
+                let args = input.componentsSeparatedByString(" ")
+                if let (option, rootPath1) = interprateArguments(args){
+                var rootPath = rootPath1.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
+                if let config = loadConfigurationFromPath(rootPath) {
+                let man = Manager(rootPath: rootPath, configuration: config)
+                man.upload(option: option)
+                }
+                }
+                                        //-----------------exit----------------------//
+                                        } else if input == "exit" {
+                                        exit(0)
+                                        
+                                        //-------------Unknown command---------------//
+                                        } else if input == "ibis" {
+                                        printbonus()
+                                        } else {
+                                        println("Unknown command. Type \"help\" to get a list of available commands.")
+                }*/
             } else {
-                println("Unknown command. Type \"help\" to get a list of available commands.")
+                println("Missiong argument. Type \"help\" to get a list of available commands.")
             }
         } else {
             println("Error : Null input")
@@ -123,34 +200,27 @@ func mainloop() {
     }
 }
 
-func interprateArguments(args : [String]) -> (Int, String)?{
+func interprateArguments(args : [String]) -> Int? {
     var option = 0
-    if args.count <= 1 {
-        println("No arguments provided")
-        return nil
+    if args.count == 0 {
+        //No arguments provided -> default : 0
+        return 0
     }
-    for i in 2..<args.count {
-        if args[i].hasPrefix("-") && args[i].utf16Count == 2{
-            //Keeping this structure for future combined arguments
-            switch args[i] {
-            case "-a":
-                option = 1
-            case "-d":
-                option = 2
-            case "-f":
-                option = 3
-            default:
-                println("Unknown argument")
-                return nil
-            }
-        } else {
-            println("Unknown argument")
+    
+    for i in 0..<args.count {
+        switch args[i]{
+        case "-a","--a","--articles":
+            option = 1
+        case "-d","--d","--drafts":
+            option = 2
+        case "-f","--f","--full":
+            option = 3
+        default:
+            println("Unknown argument: \(args[i])")
             return nil
         }
     }
-    let rootPath = args[1]
-    return (option, rootPath)
-    
+    return option
 }
 
 func loadConfigurationFromPath(rootPath : String)-> Config? {

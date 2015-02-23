@@ -16,7 +16,7 @@ class Article {
     var isDraft:Bool
     var dateString : String
     //class let setToKeep = NSMutableCharacterSet(charactersInString: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_")
-
+    
     
     init(title: String, date: NSDate?, author: String, content:String, isDraft: Bool, dateString: String){
         self.title = title
@@ -73,7 +73,7 @@ class Loader {
         let fileManager = NSFileManager.defaultManager()
         let directoryEnum = fileManager.enumeratorAtPath(folderPath)
         while var file: AnyObject = directoryEnum?.nextObject() {
-           if (file as String).pathExtension == "md" && !((file as String).lastPathComponent.hasPrefix("_") || (file as String).lastPathComponent.hasPrefix("#")) {
+            if (file as String).pathExtension == "md" && !((file as String).lastPathComponent.hasPrefix("_") || (file as String).lastPathComponent.hasPrefix("#")) {
                 // process the document
                 self.loadFileAtPath(file as String)
             }
@@ -95,10 +95,10 @@ class Loader {
                     var date = "draft"
                     var trueDate : NSDate? = nil;
                     if arrayHeader.count > 1{
-                         date = arrayHeader[1]
+                        date = arrayHeader[1]
                     }
                     if date.lowercaseString != "draft" {
-                          trueDate = formatter.dateFromString(date)
+                        trueDate = formatter.dateFromString(date)
                     }
                     //Treating the author
                     var author = defaultAuthor
@@ -127,7 +127,7 @@ class Loader {
                 //println("\t\t" + article.content.substringToIndex(advance(article.content.startIndex,30)))
             } else if showDrafts {
                 println(article.title + " - DRAFT - " + article.author)
-               // println("\t\t" + article.content.substringToIndex(advance(article.content.startIndex,30)))
+                // println("\t\t" + article.content.substringToIndex(advance(article.content.startIndex,30)))
             }
         }
     }

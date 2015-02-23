@@ -43,7 +43,7 @@ class ConfigLoader {
         
         if let data = NSFileManager.defaultManager().contentsAtPath(path) {
             if let contentOfConfigFile = NSString(data: data, encoding: NSUTF8StringEncoding) {
-               let lines = contentOfConfigFile.componentsSeparatedByString("\n")
+                let lines = contentOfConfigFile.componentsSeparatedByString("\n")
                 for line in lines {
                     if !(line.hasPrefix("_") || line.hasPrefix("#")) {
                         //Ignoring the comments
@@ -52,7 +52,7 @@ class ConfigLoader {
                             //var value = newLines[1].stringByReplacingOccurrencesOfString("\\ ", withString: "{#PL@CEHO£D&R$}", options: nil, range: nil)
                             var value = newLines[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
                             if value != "" {
-                            switch newLines[0] as String {
+                                switch newLines[0] as String {
                                 case "templatePath":
                                     templatePath = value
                                 case "articlesPath":
@@ -81,10 +81,10 @@ class ConfigLoader {
                                     }
                                 default:
                                     break
-                            }
+                                }
                             }
                         }
-                    
+                        
                     }
                 }
             }
@@ -132,5 +132,5 @@ class ConfigLoader {
         saveConfigFile(configuration)
         return configuration
     }
-
+    
 }

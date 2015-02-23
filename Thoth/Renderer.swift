@@ -130,7 +130,7 @@ class Renderer {
         }
         
     }
-        
+    
     func initializeTemplate(){
         let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as [String]
         for path in templateFiles{
@@ -141,7 +141,7 @@ class Renderer {
         //NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("index.html"), error: nil)
         NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("article.html"), error: nil)
     }
-        
+    
     func restoreTemplate(){
         let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as [String]
         for path in templateFiles{
@@ -152,11 +152,11 @@ class Renderer {
     }
     
     func loadTemplate(){
-       if let data: NSData = NSFileManager.defaultManager().contentsAtPath(templatePath.stringByAppendingPathComponent("article.html")) {
+        if let data: NSData = NSFileManager.defaultManager().contentsAtPath(templatePath.stringByAppendingPathComponent("article.html")) {
             if let str = NSString(data: data, encoding : NSUTF8StringEncoding) {
                 articleHtml = str
             } else {
-                 println("error")
+                println("error")
             }
         } else {
             println("error")
@@ -243,7 +243,7 @@ class Renderer {
             }
             for link in links {
                 if !link.hasPrefix("http://") && !link.hasPrefix("www.") {
-                //We are now sure the file is stored locally
+                    //We are now sure the file is stored locally
                     var path = expandLink(link)
                     if NSFileManager.defaultManager().fileExistsAtPath(path) {
                         let newFilePath = filePath.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent)

@@ -17,7 +17,7 @@ class Manager {
     var server : FMServer?
     
     init(rootPath : String, configuration : Config){
-       // println("Initializing the manager...")
+        // println("Initializing the manager...")
         self.rootPath = rootPath
         self.config = configuration
         self.loader = Loader(folderPath: config.articlesPath, defaultAuthor: config.defaultAuthor, dateStyle:config.dateStyle)
@@ -31,16 +31,16 @@ class Manager {
     }
     
     func generate(option : Int) {
-       // println("Option : \(option)")
+        // println("Option : \(option)")
         switch option {
-            case 1:
-                renderer.articlesOnly()
-            case 2:
-                renderer.draftsOnly()
-            case 3:
-                renderer.fullExport()
-            default:
-                renderer.defaultExport()
+        case 1:
+            renderer.articlesOnly()
+        case 2:
+            renderer.draftsOnly()
+        case 3:
+            renderer.fullExport()
+        default:
+            renderer.defaultExport()
         }
         println("Export done !")
     }
@@ -73,22 +73,22 @@ class Manager {
             succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("resources"), force: false, contents: contents1)
         }
         /*for element in NSFileManager.defaultManager().contentsOfDirectoryAtPath(config.outputPath, error: nil) as [String] {
-            if option == 3 {
-                //Full export
-                succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
-            } else if element == "articles" && option == 1{
-                //Articles only
-                succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
-            } else if element == "drafts" && (option == 2 || option == 0){
-                //Drafts only
-                succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
-            } else if element == "index.html" || element == "index-drafts.html" {
-                succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
-            } else {
-                succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: false)
-            }
+        if option == 3 {
+        //Full export
+        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
+        } else if element == "articles" && option == 1{
+        //Articles only
+        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
+        } else if element == "drafts" && (option == 2 || option == 0){
+        //Drafts only
+        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
+        } else if element == "index.html" || element == "index-drafts.html" {
+        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
+        } else {
+        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: false)
+        }
         }*/
-
+        
         
         if !succeeded {
             println("An error occured during the upload")
@@ -103,10 +103,10 @@ class Manager {
             if isDir {
                 server!.destination = server!.destination.stringByAppendingPathComponent(path.lastPathComponent)
                 for file in NSFileManager.defaultManager().contentsOfDirectoryAtPath(path, error: nil) as [String]{
-                        cleanElementAtPath(path.stringByAppendingPathComponent(file))
+                    cleanElementAtPath(path.stringByAppendingPathComponent(file))
                 }
                 server!.destination = server!.destination.stringByDeletingLastPathComponent
-            
+                
             }
             uploader.deleteFileNamed(path.lastPathComponent, fromServer: server)
         }
