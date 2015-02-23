@@ -1055,7 +1055,7 @@ public struct Markdown {
         let regex = NSRegularExpression(pattern: pattern, options: options, error: nil)
         var matches = 0
         if let regex = regex {
-            matches = regex.numberOfMatchesInString(text, options: nil, range: NSMakeRange(0, text.utf16Count))
+            matches = regex.numberOfMatchesInString(text, options: nil, range: NSMakeRange(0, countElements(text.utf16)))
         }
         return matches > 0
     }

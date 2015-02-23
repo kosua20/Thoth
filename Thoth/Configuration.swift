@@ -22,6 +22,7 @@ struct Config {
     let ftpUsername = ""
     let ftpPassword = ""
     let ftpPort = 21
+    
 }
 
 class ConfigLoader {

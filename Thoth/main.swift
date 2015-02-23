@@ -11,10 +11,14 @@ import Foundation
 
 func main(args : [String] = []){
     println(Process.arguments)
-    if Process.arguments.count > 1 {
-        if let option = interprateArguments(Process.arguments){
-            if let config = loadConfigurationFromPath("/Developer/XCode/Siblog/test") {
-                let man = Manager(rootPath: "/Developer/XCode/Siblog/test", configuration: config)
+    var args = Process.arguments
+    if args.count > 1 {
+        args.removeAtIndex(0)
+        let path = args[0]
+        if let config = loadConfigurationFromPath(path) {
+            args.removeAtIndex(0)
+            if let option = interprateArguments(args){
+                let man = Manager(rootPath: path, configuration: config)
                 man.generate(option)
                 man.upload(option: option)
             }
@@ -37,20 +41,16 @@ func mainloop() {
             arg[1] : path
             arg[2],... : options
             */
+            args = args.filter({
+                (x : String) -> Bool in
+                !x.isEmpty
+            })
+            args = args.map({
+                (x : String) -> String in
+                x.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
+            })
             
             if args.count > 1 {
-                
-                for arg in args {
-                    args.filter({
-                        (x : String) -> Bool in
-                        x.utf16Count > 0
-                    })
-                    args.map({
-                        (x : String) -> String in
-                        x.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
-                    })
-                }
-                
                 switch args[0] {
                 case "setup":
                     if !NSFileManager.defaultManager().fileExistsAtPath(args[1]) {
@@ -67,7 +67,7 @@ func mainloop() {
                     if let config = loadConfigurationFromPath(args[1]) {
                         println("The config file seems ok")
                     }
-                case "index","resources","first","uplaod","scribe":
+                case "index","resources","first","upload","scribe","generate":
                     if let config = loadConfigurationFromPath(args[1]) {
                         let man = Manager(rootPath: args[1], configuration: config)
                         switch args[0] {
@@ -78,7 +78,7 @@ func mainloop() {
                         case "first":
                             man.generate(3)
                             man.upload(option: 3)
-                        case "scribe":
+                        case "generate":
                             args.removeRange(Range(start: 0, end: 2))
                             if let option = interprateArguments(args) {
                                 man.generate(option)
@@ -86,6 +86,12 @@ func mainloop() {
                         case "upload":
                             args.removeRange(Range(start: 0,end: 2))
                             if let option = interprateArguments(args) {
+                                man.upload(option: option)
+                            }
+                        case "scribe":
+                            args.removeRange(Range(start: 0, end: 2))
+                            if let option = interprateArguments(args) {
+                                man.generate(option)
                                 man.upload(option: option)
                             }
                         default:
@@ -97,7 +103,7 @@ func mainloop() {
                     println("Unknown command. Type \"help\" to get a list of available commands.")
                     break
                 }
-            } else {
+            } else if args.count == 1 {
                 //Commands with no arguments except the first
                 switch args[0] {
                 case "help":
@@ -109,6 +115,8 @@ func mainloop() {
                 default:
                     println("Missing argument. Type \"help\" to get a list of available commands.")
                 }
+            } else {
+                println("Empty command. Type \"help\" to get a list of available commands.")
             }
         } else {
             println("Error : Null input")
@@ -157,7 +165,41 @@ func printbonus(){
 }
 
 func printhelp(){
-    println("setup <path>\tCreates the configuration files and folders (articles, template, output, ressources) in the indicated directory.\n\t\tArgument:\n\t\t<path> points to the directory where the configurations files and folders  should be created.\n\nfirst <path>\tRuns the first generation/upload of the site\n\t\tArgument:\n\t\t<path> points to the directory containing the config file of the site to generate\n\nscribe <path> [-a|-d|-f]  Generates the site in the specified ouput folder. All existing files are kept.\n\t\tDrafts are updated. New articles are added. Index is rebuilt.\n\t\tArgument:\n\t\t<path> points to the directory containing the config file of the site to generate\n\t\tOptions:\n\t\t-a rebuilds articles only\n\t\t-d rebuilds drafts only\n\t\t-f forces to rebuild everything\n\nupload <path> [-a|-d|-f]  Upload the content of the site to the FTP set in the config file\n\t\tArgument:\n\t\t<path> points to the directory containing the config file of the site to generate\n\t\tOptions:\n\t\t-a uploads articles only\n\t\t-d uploads drafts only\n\t\t-f uploads everything (Warning: the content of the ftp directory where the site content is put will be deleted)\n\nindex <path>\tRegenerates the index.html file.\n\t\tArgument:\n\t\t<path> points to the directory containing the config file\n\nresources <path>  Rebuilds the resources directory.\n\t\tArgument:\n\t\t<path> points to the directory containing the config file\n\ncheck <path>\tChecks the configuration file.\n\t\tArgument:\n\t\t<path> points to the directory containing the config file\n\nhelp\t\tDisplays this help text\n\nexit\t\tQuits the program")
+    println("setup <path>\tCreates the configuration files and folders (articles, template, output, ressources) in the indicated directory.\n"
+            + "\t\tArgument:\n"
+            + "\t\t<path> points to the directory where the configurations files and folders  should be created.\n\n"
+        + "first <path>\tRuns the first generation/upload of the site\n\t\t"
+            + "Argument:\n"
+            + "\t\t<path> points to the directory containing the config file of the site to generate\n\n"
+        + "generate <path> [-a|-d|-f]  Generates the site in the specified ouput folder. All existing files are kept.\n"
+        + "\t\tDrafts are updated. New articles are added. Index is rebuilt.\n"
+            + "\t\tArgument:\n"
+            + "\t\t<path> points to the directory containing the config file of the site to generate\n"
+            + "\t\tOptions:\n"
+            + "\t\t-a rebuilds articles only\n"
+            + "\t\t-d rebuilds drafts only\n"
+            + "\t\t-f forces to rebuild everything\n\n"
+        + "upload <path> [-a|-d|-f]  Upload the content of the site to the FTP set in the config file\n"
+            + "\t\tArgument:\n"
+            + "\t\t<path> points to the directory containing the config file of the site to generate\n"
+            + "\t\tOptions:\n"
+            + "\t\t-a uploads articles only\n"
+            + "\t\t-d uploads drafts only\n"
+            + "\t\t-f uploads everything (Warning: the content of the ftp directory where the site content is put will be deleted)\n\n"
+        + "scribe <path> [-a|-d|-f]  Combines \"generate\" and \"upload\" with the corresponding path and option\n"
+            + "\t\tArgument:\n"
+            + "\t\t<path> points to the directory containing the config file of the site to generate and upload\n\n"
+        + "index <path>\tRegenerates the index.html file.\n"
+            + "\t\tArgument:\n"
+            + "\t\t<path> points to the directory containing the config file\n\n"
+        + "resources <path>  Rebuilds the resources directory.\n"
+            + "\t\tArgument:\n"
+            + "\t\t<path> points to the directory containing the config file\n\n"
+        + "check <path>\tChecks the configuration file.\n"
+            + "\t\tArgument:\n"
+            + "\t\t<path> points to the directory containing the config file\n\n"
+        + "help\t\tDisplays this help text\n\n"
+        + "exit\t\tQuits the program")
 }
 
 main()

@@ -16,13 +16,13 @@ class Renderer {
     let resourcesPath : String
     let articlesPath : String
     let blogTitle : String
-    var articleHtml : NSString = ""
-    var indexHtml : NSString = ""
-    var snippetHtml : NSString = ""
-    var headerHtml : NSString = ""
-    var footerHtml : NSString = ""
-    var insertIndex = 0
-    var markdown : Markdown
+    private var articleHtml : NSString = ""
+    private var indexHtml : NSString = ""
+    private var snippetHtml : NSString = ""
+    private var headerHtml : NSString = ""
+    private var footerHtml : NSString = ""
+    private var insertIndex = 0
+    private var markdown : Markdown
     //var forceUpdate : Bool = false
     
     init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, templatePath: String, defaultWidth : String, blogTitle : String, imagesLink : Bool){
@@ -98,7 +98,7 @@ class Renderer {
         copyResources(true)
     }
     
-    func clean(){
+    private func clean(){
         if NSFileManager.defaultManager().fileExistsAtPath(exportPath) {
             NSFileManager.defaultManager().removeItemAtPath(exportPath, error: nil)
         }
@@ -107,7 +107,7 @@ class Renderer {
         NSFileManager.defaultManager().createDirectoryAtPath(exportPath.stringByAppendingPathComponent("drafts"), withIntermediateDirectories: true, attributes: nil, error: nil)
     }
     
-    func cleanFolder(folder : String) {
+    private func cleanFolder(folder : String) {
         let folderPath = exportPath.stringByAppendingPathComponent(folder)
         if NSFileManager.defaultManager().fileExistsAtPath(folderPath) {
             NSFileManager.defaultManager().removeItemAtPath(folderPath, error: nil)
@@ -115,7 +115,7 @@ class Renderer {
         NSFileManager.defaultManager().createDirectoryAtPath(folderPath, withIntermediateDirectories: true, attributes: nil, error: nil)
     }
     
-    func copyResources(forceUpdate : Bool){
+    private func copyResources(forceUpdate : Bool){
         if NSFileManager.defaultManager().fileExistsAtPath(resourcesPath) {
             let exportResourcesPath = exportPath.stringByAppendingPathComponent("resources")
             if !NSFileManager.defaultManager().fileExistsAtPath(exportResourcesPath) {
@@ -131,7 +131,7 @@ class Renderer {
         
     }
     
-    func initializeTemplate(){
+   private func initializeTemplate(){
         let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as [String]
         for path in templateFiles{
             if !NSFileManager.defaultManager().fileExistsAtPath(exportPath.stringByAppendingPathComponent(path.lastPathComponent)){
@@ -142,7 +142,7 @@ class Renderer {
         NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("article.html"), error: nil)
     }
     
-    func restoreTemplate(){
+    private func restoreTemplate(){
         let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as [String]
         for path in templateFiles{
             NSFileManager.defaultManager().copyItemAtPath(templatePath.stringByAppendingPathComponent(path), toPath: exportPath.stringByAppendingPathComponent(path.lastPathComponent), error: nil)
@@ -151,7 +151,7 @@ class Renderer {
         NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("article.html"), error: nil)
     }
     
-    func loadTemplate(){
+    private func loadTemplate(){
         if let data: NSData = NSFileManager.defaultManager().contentsAtPath(templatePath.stringByAppendingPathComponent("article.html")) {
             if let str = NSString(data: data, encoding : NSUTF8StringEncoding) {
                 articleHtml = str
@@ -184,7 +184,7 @@ class Renderer {
         }
     }
     
-    func extractSnippetHtml(code : NSString)-> NSString{
+    private func extractSnippetHtml(code : NSString)-> NSString{
         let scanner = NSScanner(string:  code)
         var res : NSString?
         scanner.scanUpToString("{#ARTICLE_BEGIN}", intoString: nil)
@@ -196,7 +196,7 @@ class Renderer {
         return ""
     }
     
-    func renderArticles(forceUpdate : Bool){
+    private func renderArticles(forceUpdate : Bool){
         if forceUpdate {
             cleanFolder("articles")
         }
@@ -207,7 +207,7 @@ class Renderer {
         }
     }
     
-    func renderDrafts(forceUpdate : Bool){
+    private func renderDrafts(forceUpdate : Bool){
         if forceUpdate {
             cleanFolder("drafts")
         }
@@ -220,7 +220,7 @@ class Renderer {
     
     
     //, var withRenderer markdown : Markdown)
-    func renderArticle(article : Article, inFolder folder : String, forceUpdate : Bool){
+    private func renderArticle(article : Article, inFolder folder : String, forceUpdate : Bool){
         let filePath = exportPath.stringByAppendingPathComponent(folder).stringByAppendingPathComponent(article.getUrlPathname())
         if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(filePath){
             var html: NSString = articleHtml.copy() as NSString
@@ -236,7 +236,7 @@ class Renderer {
         }
     }
     
-    func manageImages(var content : String, links : [String], path filePath : String, forceUpdate : Bool) -> String {
+    private func manageImages(var content : String, links : [String], path filePath : String, forceUpdate : Bool) -> String {
         if links.count > 0 {
             if !NSFileManager.defaultManager().fileExistsAtPath(filePath.stringByDeletingPathExtension) {
                 NSFileManager.defaultManager().createDirectoryAtPath(filePath.stringByDeletingPathExtension, withIntermediateDirectories: true, attributes: nil, error: nil)
@@ -260,7 +260,7 @@ class Renderer {
         return content
     }
     
-    func expandLink(var link : String) -> String {
+    private func expandLink(var link : String) -> String {
         if link.hasPrefix("/") {
             //Absolute path
             return link
@@ -271,7 +271,7 @@ class Renderer {
         }
     }
     
-    func renderIndex() {
+    private func renderIndex() {
         indexHtml = footerHtml.copy() as NSString
         for article in articlesToRender {
             if !article.isDraft {
@@ -293,7 +293,7 @@ class Renderer {
         NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
     }
     
-    func renderDraftIndex() {
+    private func renderDraftIndex() {
         indexHtml = footerHtml.copy() as NSString
         for article in articlesToRender {
             if article.isDraft {
@@ -315,7 +315,7 @@ class Renderer {
         NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index-drafts.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
     }
     
-    func addFootnotes(var content : String) -> String{
+    private func addFootnotes(var content : String) -> String{
         //TODO: gérer les footnotes référencées
         var count = 1
         let scanner1 = NSScanner(string: content)
