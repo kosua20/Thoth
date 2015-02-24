@@ -44,7 +44,7 @@ Each article markdown file should be put in the `articles` directory, and follow
 	
 For drafts, just replace the date on the second line by the mention `draft`. Those files will be treated separately, and listed in an `index-drafts.html` file in the output.
 
-Once you have finished writing your article, run the `scribe /path/to/blog/folder` command to automatically update the output and upload it. Do the same if you want to preview a draft online, or just call `generate /path/to/blog/folder` generate it in the output folder.
+Once you have finished writing your article, run the `scribe /path/to/blog/folder` command to automatically update the output and upload it. Do the same if you want to preview a draft online, or just call `generate /path/to/blog/folder` to generate it in the output folder.
 
 ##Commands 
 
@@ -195,7 +195,7 @@ During articles processing and copy, files beginning with `_` or `#` won't be pr
 - better reliability of the `upload <path> -f` command
 
 ## Authors and Contributors
-Created in Swift using Xcode by [Simon Rodriguez](simonrodriguez.fr).  
+Created in Swift using Xcode by [Simon Rodriguez](http://simonrodriguez.fr).  
 See the license file for the licenses of third-party components and libraries.
 
 ## Support or Contact
