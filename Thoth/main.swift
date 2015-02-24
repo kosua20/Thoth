@@ -220,6 +220,8 @@ func printhelp(){
         + "\t\tArgument:\n"
         + "\t\t<path> points to the directory containing the config file\n\n"
         + "help\t\tDisplays this help text\n\n"
+        + "--version\t\tDisplays the current Thoth version\n\n"
+        + "license\t\tDisplays thie license text\n\n"
         + "exit\t\tQuits the program"
     println(s)
 }
