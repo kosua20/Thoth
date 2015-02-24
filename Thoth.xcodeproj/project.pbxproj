@@ -34,7 +34,6 @@
 		F45BD9A01A9910E300FA82EF /* FTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPManager.h; sourceTree = "<group>"; };
 		F45BD9A11A9910E300FA82EF /* FTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPManager.m; sourceTree = "<group>"; };
 		F45BD9A41A99126800FA82EF /* Thoth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thoth-Bridging-Header.h"; sourceTree = "<group>"; };
-		F4ACF0B01A9CE8DD00CE11EB /* libedit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libedit.dylib; path = usr/lib/libedit.dylib; sourceTree = SDKROOT; };
 		F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		F4FBC9F51A89163C00E1B6A0 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		F4FBC9F61A89163C00E1B6A0 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -59,7 +58,6 @@
 		F44B725A1A7584A900C92E3E = {
 			isa = PBXGroup;
 			children = (
-				F4ACF0B01A9CE8DD00CE11EB /* libedit.dylib */,
 				F4FBC9F31A89163C00E1B6A0 /* Thoth */,
 				F44B72641A7584A900C92E3E /* Products */,
 			);
