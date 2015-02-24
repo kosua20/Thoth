@@ -22,7 +22,6 @@ or launch it as an application which will display its own prompt :
 	> _
 
 ##Install and setup
-
 ###Install
 You can either download the installer package and execute it : Thoth will be installed in `/usr/local/bin`, or you can download the sources and compile it using Xcode.
 
@@ -40,11 +39,12 @@ Each article markdown file should be put in the `articles` directory, and follow
 	32/12/2032
 	The author (optional)
 	
-	The beginning of the article content starts here. Nullam id dolor id nibh ultricies vehicula ut id elit. Maecenas sed diam eget risus varius blandit sit amet non magna.
+	The beginning of the article content starts here. Nullam id dolor id nibh ultricies vehica  
+	ut id elit. Maecenas sed diam eget risus varius blandit sit amet non magna.
 	
 For drafts, just replace the date on the second line by the mention `draft`. Those files will be treated separately, and listed in an `index-drafts.html` file in the output.
 
-Once you have finish writing your article, run the `scribe /path/to/blog/folder` command to automatically update the output and upload it.
+Once you have finished writing your article, run the `scribe /path/to/blog/folder` command to automatically update the output and upload it. Do the same if you want to preview a draft online, or just call `generate /path/to/blog/folder` generate it in the output folder.
 
 ##Commands 
 
