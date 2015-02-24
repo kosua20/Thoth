@@ -31,7 +31,7 @@ class Manager {
     }
     
     func generate(option : Int) {
-        // println("Option : \(option)")
+        //println("Option : \(option)")
         switch option {
         case 1:
             renderer.articlesOnly()
@@ -46,6 +46,7 @@ class Manager {
     }
     
     func upload(option : Int = 0){
+        //println("Option : \(option)")
         server = FMServer(destination: config.ftpAdress, username: config.ftpUsername, password: config.ftpPassword)
         if !uploader.checkLogin(server) { println("Unable to login.");return}
         println("Begining upload to \(config.ftpAdress)")
@@ -88,7 +89,6 @@ class Manager {
         succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: false)
         }
         }*/
-        
         
         if !succeeded {
             println("An error occured during the upload")

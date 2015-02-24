@@ -10,22 +10,15 @@ import Foundation
 
 
 func main(args : [String] = []){
-    println(Process.arguments)
+    //println(Process.arguments)
     var args = Process.arguments
     if args.count > 1 {
         args.removeAtIndex(0)
-        let path = args[0]
-        if let config = loadConfigurationFromPath(path) {
-            args.removeAtIndex(0)
-            if let option = interprateArguments(args){
-                let man = Manager(rootPath: path, configuration: config)
-                man.generate(option)
-                man.upload(option: option)
-            }
-        }
+        mainSwitch(args)
         exit(0)
+    } else {
+        mainloop()
     }
-    mainloop()
 }
 
 func mainloop() {
@@ -50,87 +43,114 @@ func mainloop() {
                 x.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
             })
             
-            if args.count > 1 {
-                switch args[0] {
-                case "setup":
-                    if !NSFileManager.defaultManager().fileExistsAtPath(args[1]) {
-                        NSFileManager.defaultManager().createDirectoryAtPath(args[1], withIntermediateDirectories: true, attributes: nil, error: nil)
-                    }
-                    ConfigLoader.generateConfigFileAtPath(args[1])
-                    let folders = ["articles","template","output","resources"] as [String]
-                    for folder in folders {
-                        if !NSFileManager.defaultManager().fileExistsAtPath(args[1].stringByAppendingPathComponent(folder)){
-                            NSFileManager.defaultManager().createDirectoryAtPath(args[1].stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil, error: nil)
-                        }
-                    }
-                case "check":
-                    if let config = loadConfigurationFromPath(args[1]) {
-                        println("The config file seems ok")
-                    }
-                case "index","resources","first","upload","scribe","generate":
-                    if let config = loadConfigurationFromPath(args[1]) {
-                        let man = Manager(rootPath: args[1], configuration: config)
-                        switch args[0] {
-                        case "index":
-                            man.index()
-                        case "resources":
-                            man.resources()
-                        case "first":
-                            man.generate(3)
-                            man.upload(option: 3)
-                        case "generate":
-                            args.removeRange(Range(start: 0, end: 2))
-                            if let option = interprateArguments(args) {
-                                man.generate(option)
-                            }
-                        case "upload":
-                            args.removeRange(Range(start: 0,end: 2))
-                            if let option = interprateArguments(args) {
-                                man.upload(option: option)
-                            }
-                        case "scribe":
-                            args.removeRange(Range(start: 0, end: 2))
-                            if let option = interprateArguments(args) {
-                                man.generate(option)
-                                man.upload(option: option)
-                            }
-                        default:
-                            break
-                        }
-                    }
-
-                default:
-                    println("Unknown command. Type \"help\" to get a list of available commands.")
-                    break
-                }
-            } else if args.count == 1 {
-                //Commands with no arguments except the first
-                switch args[0] {
-                case "help":
-                    printhelp()
-                case "exit":
-                    exit(0)
-                case "ibis":
-                    printbonus()
-                default:
-                    println("Missing argument. Type \"help\" to get a list of available commands.")
-                }
-            } else {
-                println("Empty command. Type \"help\" to get a list of available commands.")
-            }
+            mainSwitch(args)
         } else {
             println("Error : Null input")
         }
     }
 }
 
-func interprateArguments(args : [String]) -> Int? {
-    var option = 0
-    if args.count == 0 {
-        //No arguments provided -> default : 0
-        return 0
+func mainSwitch(var args : [String]) {
+    if args.count > 1 {
+        switch args[0] {
+        case "setup":
+            if !NSFileManager.defaultManager().fileExistsAtPath(args[1]) {
+                NSFileManager.defaultManager().createDirectoryAtPath(args[1], withIntermediateDirectories: true, attributes: nil, error: nil)
+            }
+            ConfigLoader.generateConfigFileAtPath(args[1])
+            let folders = ["articles","template","output","resources"] as [String]
+            for folder in folders {
+                if !NSFileManager.defaultManager().fileExistsAtPath(args[1].stringByAppendingPathComponent(folder)){
+                    NSFileManager.defaultManager().createDirectoryAtPath(args[1].stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil, error: nil)
+                }
+            }
+        case "check":
+            if let config = loadConfigurationFromPath(args[1]) {
+                println("The config file seems ok")
+            }
+        case "index","resources","first","upload","scribe","generate":
+            if let config = loadConfigurationFromPath(args[1]) {
+                let man = Manager(rootPath: args[1], configuration: config)
+                switch args[0] {
+                case "index":
+                    man.index()
+                case "resources":
+                    man.resources()
+                case "first":
+                    man.generate(3)
+                    man.upload(option: 3)
+                case "generate":
+                    args.removeRange(Range(start: 0, end: 2))
+                    if let option = interprateArguments(args) {
+                        man.generate(option)
+                    }
+                case "upload":
+                    args.removeRange(Range(start: 0,end: 2))
+                    if let option = interprateArguments(args) {
+                        man.upload(option: option)
+                    }
+                case "scribe":
+                    args.removeRange(Range(start: 0, end: 2))
+                    if let option = interprateArguments(args) {
+                        man.generate(option)
+                        man.upload(option: option)
+                    }
+                default:
+                    break
+                }
+            }
+            
+        default:
+            if NSFileManager.defaultManager().fileExistsAtPath(args[0]) {
+                let potentialPath = args[0]
+                if let config = loadConfigurationFromPath(potentialPath) {
+                    args.removeAtIndex(0)
+                    if let option = interprateArguments(args){
+                        let man = Manager(rootPath: potentialPath, configuration: config)
+                        man.generate(option)
+                        man.upload(option: option)
+                    }
+                }
+            } else {
+                println("Unknown command. Type \"help\" to get a list of available commands.")
+            }
+            break
+        }
+    } else if args.count == 1 {
+        //Commands with no arguments except the first
+        switch args[0] {
+        case "help":
+            printhelp()
+        case "exit":
+            exit(0)
+        case "ibis":
+            printbonus()
+        case "setup","chech","index","resources","first","upload","scribe","generate":
+            println("Missing argument. Type \"help\" to get a list of available commands.")
+        default:
+            if NSFileManager.defaultManager().fileExistsAtPath(args[0]) {
+                let potentialPath = args[0]
+                if let config = loadConfigurationFromPath(potentialPath) {
+                    args.removeAtIndex(0)
+                    if let option = interprateArguments(args){
+                        let man = Manager(rootPath: potentialPath, configuration: config)
+                        man.generate(option)
+                        man.upload(option: option)
+                    }
+                }
+            } else {
+                println("Unknown command. Type \"help\" to get a list of available commands.")
+            }
+        }
+    } else {
+        println("Empty command. Type \"help\" to get a list of available commands.")
     }
-    
+}
+
+func interprateArguments(args : [String]) -> Int? {
+    //No arguments provided -> default : 0
+    if args.count == 0 { return 0 }
+    var option = 0
     for i in 0..<args.count {
         switch args[i]{
         case "-a","--a","--articles":
