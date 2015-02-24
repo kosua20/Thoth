@@ -42,7 +42,7 @@ class Manager {
         default:
             renderer.defaultExport()
         }
-        println("Export done !")
+        println("Generation done !")
     }
     
     func upload(option : Int = 0){

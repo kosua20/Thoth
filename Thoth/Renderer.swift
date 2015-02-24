@@ -156,26 +156,26 @@ class Renderer {
             if let str = NSString(data: data, encoding : NSUTF8StringEncoding) {
                 articleHtml = str
             } else {
-                println("error")
+                println("Unable to load the article.html template.")
             }
         } else {
-            println("error")
+            println("Unable to load the article.html template.")
         }
         
         if let data: NSData = NSFileManager.defaultManager().contentsAtPath(templatePath.stringByAppendingPathComponent("index.html")) {
             if let str = NSString(data: data, encoding : NSUTF8StringEncoding) {
                 indexHtml = str
             } else {
-                println("error")
+                println("Unable to load the index.html template.")
             }
         } else {
-            println("error")
+            println("Unable to load the index.html template.")
         }
         
         if indexHtml.length > 0 {
             snippetHtml = extractSnippetHtml(indexHtml)
             if snippetHtml.length == 0 {
-                println("error")
+                println("Unable to extract the short-article snippet from the index.html template file.")
                 return
             }
             headerHtml = indexHtml.substringToIndex(insertIndex)
