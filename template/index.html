@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>{#BLOG_TITLE}</title>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="favicon.png">
+		<link rel="stylesheet" href="style.css" title="CSS Style" type="text/css" media="screen" charset="utf-8">
+	</head>
+	<body>
+        <div id="header_list">
+            {#BLOG_TITLE}
+             <hr>
+        </div>
+		<div class="list">
+            <br>
+            {#ARTICLE_BEGIN}
+            <div class="short_article">
+                    <div class="article_header">
+                        <a href="{#LINK}">{#TITLE}</a>
+                        <div class="subtitle">
+                            {#DATE}
+                        </div>
+                    </div>
+                    <a href="{#LINK}">
+                        <p>
+                        {#SUMMARY}
+                        </p>
+                    </a>
+            </div>
+            {#ARTICLE_END}
+		</div>
+	</body>
+</html>
