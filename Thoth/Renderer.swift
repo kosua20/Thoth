@@ -227,7 +227,9 @@ class Renderer {
             html = html.stringByReplacingOccurrencesOfString("{#TITLE}", withString: article.title)
             html = html.stringByReplacingOccurrencesOfString("{#DATE}", withString: article.dateString)
             html = html.stringByReplacingOccurrencesOfString("{#AUTHOR}", withString: article.author)
-            html = html.stringByReplacingOccurrencesOfString("{#BLOGTITLE}", withString: blogTitle)
+            html = html.stringByReplacingOccurrencesOfString("{#BLOG_TITLE}", withString: blogTitle)
+            html = html.stringByReplacingOccurrencesOfString("{#LINK}", withString: article.getUrlPathname())
+            html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: article.getSummary())
             var contentHtml = markdown.transform(article.content)
             contentHtml = addFootnotes(contentHtml)
             contentHtml = manageImages(contentHtml,links: markdown.imagesUrl, path: filePath, forceUpdate : forceUpdate)
@@ -289,7 +291,7 @@ class Renderer {
             }
         }
         indexHtml = headerHtml.stringByAppendingString(indexHtml)
-        indexHtml = indexHtml.stringByReplacingOccurrencesOfString("{#BLOGTITLE}", withString: blogTitle)
+        indexHtml = indexHtml.stringByReplacingOccurrencesOfString("{#BLOG_TITLE}", withString: blogTitle)
         NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
     }
     
@@ -311,7 +313,7 @@ class Renderer {
             }
         }
         indexHtml = headerHtml.stringByAppendingString(indexHtml)
-        indexHtml = indexHtml.stringByReplacingOccurrencesOfString("{#BLOGTITLE}", withString: blogTitle.stringByAppendingString(" - Drafts"))
+        indexHtml = indexHtml.stringByReplacingOccurrencesOfString("{#BLOG_TITLE}", withString: blogTitle.stringByAppendingString(" - Drafts"))
         NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index-drafts.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
     }
     
