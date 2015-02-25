@@ -113,7 +113,9 @@ class Manager {
     }
     
     func uploadElementAtPath(path :  String, force : Bool, contents : [NSDictionary]) -> Bool {
-        
+        if path.lastPathComponent.hasPrefix("."){
+            return true
+        }
         if force {
             cleanElementAtPath(path)
         }
