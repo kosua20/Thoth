@@ -24,7 +24,7 @@ or launch it as an application which will display its own prompt :
 
 ##Install and setup
 ###Install
-You can either download the installer package from the [download folder](http://github.com/kosua20/Thoth/tree/master/download/Thoth-installer.mpkg) and execute it : Thoth will be installed in `/usr/local/bin`, or you can download the sources and compile it using Xcode.
+You can either download the installer package from the [download folder](http://github.com/kosua20/Thoth/tree/master/download/) and execute it : Thoth will be installed in `/usr/local/bin`, or you can download the sources and compile it using Xcode.
 
 ###Setup
 You can ask Thoth to create a folder containing a config file and all the needed directories by running the command `setup /path/to/the/future/blog/directory`.  
