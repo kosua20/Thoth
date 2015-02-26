@@ -20,17 +20,18 @@ or launch it as an application which will display its own prompt :
 	Export done !
 	Uploading to FTP... Upload done !
 	> _
+	
 
 ##Install and setup
 ###Install
-You can either download the installer package and execute it : Thoth will be installed in `/usr/local/bin`, or you can download the sources and compile it using Xcode.
+You can either download the installer package from the [download folder](http://github.com/kosua20/Thoth/tree/master/download/Thoth-installer.mpkg) and execute it : Thoth will be installed in `/usr/local/bin`, or you can download the sources and compile it using Xcode.
 
 ###Setup
 You can ask Thoth to create a folder containing a config file and all the needed directories by running the command `setup /path/to/the/future/blog/directory`.  
 
 The config file is a plain text file, so you can create it yourself if you prefer (see the **Config file** section). In all cases, you must fill it before running other Thoth commands.  
 
-Don't forget to add a template in the corresponding folder. You can use the default tempalte, stored in this repository (`tempalte.zip`).
+Don't forget to add a template in the corresponding folder. You can use the default template, stored in the [download folder](http://github.com/kosua20/Thoth/tree/master/download/) of this repository.
 
 When you want to generate and upload your site for the first time, use the `first /path/to/your/blog/folder` command.
 

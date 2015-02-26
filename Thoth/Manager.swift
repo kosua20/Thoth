@@ -49,7 +49,7 @@ class Manager {
         //println("Option : \(option)")
         server = FMServer(destination: config.ftpAdress, username: config.ftpUsername, password: config.ftpPassword)
         if !uploader.checkLogin(server) { println("Unable to login.");return}
-        print("Beginning upload to \(config.ftpAdress)...\t")
+        println("Beginning upload to \(config.ftpAdress)...\t")
         var succeeded = true
         let contents1 = uploader.contentsOfServer(server) as [NSDictionary]
         switch option {

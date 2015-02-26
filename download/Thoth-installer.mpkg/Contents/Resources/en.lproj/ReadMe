@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+	body{
+		font-family: sans-serif;
+	}
+</style>
+<title>{#Thoth}, a simple static blog generator.</title>
+
+</head>
+<body>
+<br>
+<h2>Meet Thoth</h2>
+
+<p>{#Thoth} (or more commonly Thoth) is a new, simple static blog generator written in Swift. <br/>
+Just write your articles in Markdown, put them in a directory, point Thoth to this directory, add a template, FTP settings and an output directory, and <em>voilà</em> !
+Thoth will generate HTML pages for all articles, drafts, and index, and upload the output to your FTP.</p>
+
+<p>You can use it as a command-line tool :</p>
+
+<pre><code>$ thoth scribe /path/to/your/blog/folder
+</code></pre>
+<br>
+<p>or launch it as an application which will display its own prompt :</p>
+
+<pre><code>./Thoth
+Welcome in {#THOTH}, a static blog generator.
+&gt; scribe /path/to/your/blog/folder
+Export done !
+Uploading to FTP... Upload done !
+&gt; _
+</code></pre>
+<br>
+<h2>Install and setup</h2>
+
+<h3>Install</h3>
+
+<p>You can either download the installer package and execute it : Thoth will be installed in <code>/usr/local/bin</code>, or you can download the sources and compile it using Xcode.</p>
+
+<h3>Setup</h3>
+
+<p>You can ask Thoth to create a folder containing a config file and all the needed directories by running the command <code>setup /path/to/the/future/blog/directory</code>.</p>
+
+<p>The config file is a plain text file, so you can create it yourself if you prefer (see the <strong>Config file</strong> section). In all cases, you must fill it before running other Thoth commands.</p>
+
+<p>Don't forget to add a template in the corresponding folder. You can use the default tempalte, stored in this repository (<code>tempalte.zip</code>).</p>
+
+<p>When you want to generate and upload your site for the first time, use the <code>first /path/to/your/blog/folder</code> command.</p>
+
+<h2>Writing</h2>
+
+<p>Each article markdown file should be put in the <code>articles</code> directory, and follow this header style :</p>
+
+<pre><code>#The title
+32/12/2032
+The author (optional)
+
+The beginning of the article content starts here. Nullam id dolor id nibh ultricies vehica  
+ut id elit. Maecenas sed diam eget risus varius blandit sit amet non magna.
+</code></pre>
+<br>
+<p>For drafts, just replace the date on the second line by the mention <code>draft</code>. Those files will be treated separately, and listed in an <code>index-drafts.html</code> file in the output.</p>
+
+<p>Once you have finished writing your article, run the <code>scribe /path/to/blog/folder</code> command to automatically update the output and upload it. Do the same if you want to preview a draft online, or just call <code>generate /path/to/blog/folder</code> to generate it in the output folder.</p>
+
+<h2>Commands</h2>
+
+<ul>
+<li><p><code>setup &lt;path&gt;</code>  <br/>
+  Creates the configuration files and folders (articles, template, output, ressources) in the indicated directory.<br/>
+  <strong>Argument:</strong> <br/>
+  <code>&lt;path&gt;</code> points to the directory where the configurations files and folders  should be created.</p></li>
+<li><p><code>first &lt;path&gt;</code><br/>
+  Runs the first generation/upload of the site<br/>
+  <strong>Argument:</strong> <br/>
+  <code>&lt;path&gt;</code> points to the directory containing the config file of the site to generate</p></li>
+<li><p><code>generate &lt;path&gt; [-a|-d|-f]</code><br/>
+  Generates the site in the specified ouput folder. All existing files are kept. Drafts are updated. New articles are added. Index is rebuilt.<br/>
+  <strong>Argument:</strong> <br/>
+  <code>&lt;path&gt;</code> points to the directory containing the config file of the site to generate<br/>
+  <strong>Options:</strong></p>
+
+<ul>
+<li><code>-a</code> rebuilds articles only</li>
+<li><code>-d</code> rebuilds drafts only</li>
+<li><code>-f</code> forces to rebuild everything</li>
+</ul>
+</li>
+<li><p><code>upload &lt;path&gt; [-a|-d|-f]</code><br/>
+  Upload the content of the site to the FTP set in the config file  <br/>
+  <strong>Argument:</strong> <br/>
+      <code>&lt;path&gt;</code> points to the directory containing the config file of the site to generate<br/>
+  <strong>Options:</strong></p>
+
+<ul>
+<li><code>-a</code> uploads articles only</li>
+<li><code>-d</code> uploads drafts only</li>
+<li><code>-f</code> uploads everything (Warning: the content of the ftp directory where the site content is put will be deleted)</li>
+</ul>
+</li>
+<li><p><code>scribe &lt;path&gt; [-a|-d|-f]</code><br/>
+  Combines generate and upload with the corresponding path and option<br/>
+  <strong>Argument:</strong><br/>
+  <code>&lt;path&gt;</code> points to the directory containing the config file of the site to generate and upload</p></li>
+<li><p><code>index &lt;path&gt;</code><br/>
+  Regenerates the index.html file.<br/>
+  <strong>Argument:</strong> <br/>
+  <code>&lt;path&gt;</code>points to the directory containing the config file</p></li>
+<li><p><code>resources &lt;path&gt;</code><br/>
+  Rebuilds the resources directory.<br/>
+  <strong>Argument:</strong><br/>
+  <code>&lt;path&gt;</code> points to the directory containing the config file</p></li>
+<li><p><code>check &lt;path&gt;</code><br/>
+  Checks the configuration file.<br/>
+  <strong>Argument:</strong><br/>
+  <code>&lt;path&gt;</code> points to the directory containing the config file</p></li>
+<li><p><code>help</code>   <br/>
+  Displays this help text</p></li>
+<li><p><code>--version   </code> <br/>
+  Displays the current Thoth version</p></li>
+<li><p><code>license </code> <br/>
+  Displays the license text</p></li>
+<li><p><code>exit</code><br/>
+  Quits the program</p></li>
+</ul>
+
+
+<h2>Functionalities</h2>
+
+<h3>Templates</h3>
+
+<p>Create your own HTML templates : Thoth expects at least two files in the template folder: index.html and article.html. All other files and folders will be also copied. Thoth uses a keywords system for inserting your articles content in the template you created or downloaded. Those keywords are simple and easy-to-use. You can use :</p>
+
+<ul>
+<li><code>{#BLOG_TITLE}</code> to insert the blog title</li>
+<li><code>{#TITLE}</code> to insert an article title</li>
+<li><code>{#AUTHOR}</code> to insert the author name</li>
+<li><code>{#DATE}</code> to insert the date of an article</li>
+<li><code>{#LINK}</code> to insert a link to an article.</li>
+<li><code>{#CONTENT}</code> to insert the content of an article</li>
+<li><code>{#SUMMARY}</code> to insert a shortened version of an article (200-300 characters max.)</li>
+<li><code>{#ARTICLE_BEGIN}</code> and <code>{#ARTICLE_END}</code> in the index.html template to delimitate the HTML corresponding to an article item in the list.</li>
+</ul>
+
+<br>
+<h3>Config file</h3>
+
+<p>A simple, human-readable config file. No XML, JSON or YAML. Just a simple flat text file, nothing more. It should be put at the root of your blog folder, along with <code>articles</code>, <code>template</code>, <code>output</code> folders. The current settings are :</p>
+
+<ul>
+<li><p>the path to the template folder (defaults to <code>rootPath/template</code>)<br/>
+<code>templatePath:      /custom/path/to/the/template/folder</code></p></li>
+<li><p>the path to the articles folder containing the .md files (defaults to <code>rootPath/articles</code>)<br/>
+<code>articlesPath:      /custom/path/to/the/articles/folder</code></p></li>
+<li><p>the path where Thoth should output the generated content (defaults to <code>rootPath/output</code>)<br/>
+<code>outputPath:        /custom/path/to/the/output/folder</code></p></li>
+<li><p>the default author name to use on each article page (defaults to the current Mac user)<br/>
+<code>defaultAuthor:     Simon Rodriguez</code></p></li>
+<li><p>the date style used in each article (in the .md file) (defaults to <code>MM/dd/yyyy</code>)<br/>
+<code>dateStyle:     dd/MM/YYYY</code></p></li>
+<li><p>the title of the blog (defaults to "A new blog")<br/>
+<code>blogTitle:     My blog !</code></p></li>
+<li><p>the default width for each image in articles html pages (defaults to <code>640</code>)<br/>
+<code>imageWidth:        640</code></p></li>
+<li><p>set to true if you want each image of an article to link directly to the corresponding file (defaults to <code>false</code>)<br/>
+<code>imagesLinks:       true</code></p></li>
+<li><p>the ftp address pointing to the exact folder where the output should be uploaded<br/>
+<code>ftpAdress:     domain-ftp.com/folder/for/blog</code></p></li>
+<li><p>the ftp username<br/>
+<code>ftpUsername:  </code></p></li>
+<li><p>the ftp password (the best way is to create a specific user/password with restricted rights to access your FTP)<br/>
+<code>ftpPassword:  </code></p></li>
+<li><p>the ftp port to use (defaults to 21)<br/>
+<code>ftpPort:       21</code></p></li>
+</ul>
+
+
+<h3>Extended markdown parsing</h3>
+
+<p>You can create inline footnotes using the common format :</p>
+
+<pre><code>[^ here's the content of my footnote]
+</code></pre>
+<br>
+<p>Use the classes <code>footnote-link</code> and <code>footnote</code> in your template to style the footnotes links and content, respectively.</p>
+
+<p>You can also easily manage your images size in markdown, either by setting a default width, or defining it using the following syntax :</p>
+
+<pre><code>![alt text](path/to/image.png "800,600,title")
+</code></pre>
+<br>
+<p>or just</p>
+
+<pre><code>![alt text](path/to/image.png "800,title")
+</code></pre>
+<br>
+<p>to automatically set the height according to the picture ratio.
+Pictures from your articles which are stored on your computer are also retrieved by Thoth and copied in article-specific folders, for an easier management.</p>
+
+<h3>Comments and ignored files</h3>
+
+<p>In the config file, lines beginning with a <code>#</code> or a <code>_</code> will be ignored.<br/>
+During articles processing and copy, files beginning with <code>_</code> or <code>#</code> won't be processed or copied.</p>
+
+<h2>TODO:</h2>
+
+<ul>
+<li>adding support for referenced footnotes</li>
+<li>adding the generation of sitemap.xml and feed.xml files</li>
+<li>more keywords and templates options</li>
+<li>better reliability of the <code>upload &lt;path&gt; -f</code> command</li>
+</ul>
+<br><br>
+
+<h2>Authors and Contributors</h2>
+
+<p>Created in Swift using Xcode by <a href="http://simonrodriguez.fr">Simon Rodriguez</a>.<br/>
+<a href="https://github.com/kosua20/Thoth">https://github.com/kosua20/Thoth</a><br/>
+See the license file for the licenses of third-party components and libraries.</p>
+
+<h2>Support or Contact</h2>
+
+<p>Having trouble with Thoth? Contact me at contact[...]simonrodriguez[...]fr and I'll try to help you.</p>
+</body>
+</html>
