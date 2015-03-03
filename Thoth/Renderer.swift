@@ -303,10 +303,11 @@ class Renderer {
                 indexHtml = NSString(format: "%@\n%@", html,indexHtml)
                 
                 let dateOutput = dateOutputFormatter.stringFromDate(article.date!)
+               println("date: \(article.date)")
                 feedXml = feedXml
                             + "<item>\n"
                    feedXml = feedXml + "<title>\(article.title)</title>\n"
-                            + "<pubDate>" + dateOutput + "</pubDate>"
+                            + "<pubDate>" + dateOutput + "</pubDate>\n"
                             + "<link>http://" + siteRoot + "/articles/\(article.getUrlPathname())</link>\n"
                             + "<description>\(contentHtml)</description>\n"
                     feedXml = feedXml + "<guid>http://" + siteRoot + "/articles/\(article.getUrlPathname())</guid>\n"

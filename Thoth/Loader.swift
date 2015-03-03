@@ -73,7 +73,8 @@ class Loader {
         self.defaultAuthor = defaultAuthor
         self.articles = []
         //DateFormatter
-        self.formatter.dateFormat = dateStyle
+        self.formatter.dateFormat = dateStyle //+ " HH:mm"
+        //self.formatter.timeStyle = NSDateFormatterStyle.NoStyle
         //Reading files
         let fileManager = NSFileManager.defaultManager()
         let directoryEnum = fileManager.enumeratorAtPath(folderPath)
@@ -103,7 +104,9 @@ class Loader {
                         date = arrayHeader[1]
                     }
                     if date.lowercaseString != "draft" {
+                        //date = date + "00:00"
                         trueDate = formatter.dateFromString(date)
+                       
                     }
                     //Treating the author
                     var author = defaultAuthor
