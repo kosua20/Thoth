@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//TODO: générer sitemap.xml et feed.xml
+//TODO: générer sitemap.xml
 
 class Renderer {
     let articlesToRender : [Article]
@@ -16,6 +16,8 @@ class Renderer {
     let resourcesPath : String
     let articlesPath : String
     let blogTitle : String
+    let siteRoot : String
+
     private var articleHtml : NSString = ""
     private var indexHtml : NSString = ""
     private var snippetHtml : NSString = ""
@@ -23,15 +25,15 @@ class Renderer {
     private var footerHtml : NSString = ""
     private var insertIndex = 0
     private var markdown : Markdown
-    //var forceUpdate : Bool = false
     
-    init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, templatePath: String, defaultWidth : String, blogTitle : String, imagesLink : Bool){
+    init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, templatePath: String, defaultWidth : String, blogTitle : String, imagesLink : Bool, siteRoot : String){
         self.exportPath = exportPath
         self.articlesPath = articlesPath
         self.templatePath = templatePath
         self.resourcesPath = rootPath.stringByAppendingPathComponent("resources")
         self.articlesToRender = articles
         self.blogTitle = blogTitle
+        self.siteRoot = siteRoot
         var options = MarkdownOptions()
         options.defaultWidth = defaultWidth
         options.imagesAsLinks = imagesLink
@@ -275,6 +277,17 @@ class Renderer {
     
     private func renderIndex() {
         indexHtml = footerHtml.copy() as NSString
+        
+        var feedXml = "<?xml version=\"1.0\" ?>\n"
+            + "<rss version=\"2.0\">\n"
+            + "<channel>\n"
+            + "<title>\(blogTitle)</title>\n"
+        feedXml = feedXml + "<link>http://" + siteRoot + "</link>\n"
+            + "<description>\(blogTitle), a blog.</description>\n"
+        let dateOutputFormatter = NSDateFormatter()
+        dateOutputFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss Z"
+        dateOutputFormatter.locale = NSLocale(localeIdentifier: "en")
+        
         for article in articlesToRender {
             if !article.isDraft {
                 var html : NSString = snippetHtml.copy() as NSString
@@ -288,12 +301,28 @@ class Renderer {
                 regex1?.replaceMatchesInString(contentHtml, options: NSMatchingOptions.ReportProgress, range: NSMakeRange(0, contentHtml.length), withTemplate: "")
                 html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: contentHtml)
                 indexHtml = NSString(format: "%@\n%@", html,indexHtml)
+                
+                let dateOutput = dateOutputFormatter.stringFromDate(article.date!)
+                feedXml = feedXml
+                            + "<item>\n"
+                   feedXml = feedXml + "<title>\(article.title)</title>\n"
+                            + "<pubDate>" + dateOutput + "</pubDate>"
+                            + "<link>http://" + siteRoot + "/articles/\(article.getUrlPathname())</link>\n"
+                            + "<description>\(contentHtml)</description>\n"
+                    feedXml = feedXml + "<guid>http://" + siteRoot + "/articles/\(article.getUrlPathname())</guid>\n"
+                            + "</item>\n"
             }
         }
+        
+        feedXml = feedXml + "</channel>\n</rss>"
         indexHtml = headerHtml.stringByAppendingString(indexHtml)
         indexHtml = indexHtml.stringByReplacingOccurrencesOfString("{#BLOG_TITLE}", withString: blogTitle)
-        NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
+    NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
+        NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("feed.xml"), contents: feedXml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
+       
     }
+    
+   
     
     private func renderDraftIndex() {
         indexHtml = footerHtml.copy() as NSString

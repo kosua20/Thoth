@@ -15,6 +15,7 @@ class Article {
     var author:String
     var isDraft:Bool
     var dateString : String
+    private var summary : NSString
     //class let setToKeep = NSMutableCharacterSet(charactersInString: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_")
     
     
@@ -25,6 +26,7 @@ class Article {
         self.content = content
         self.isDraft = isDraft
         self.dateString = dateString
+        self.summary = ""
     }
     
     convenience init(title: String, date: NSDate?, author: String, content:String, dateString : String){
@@ -36,11 +38,14 @@ class Article {
     }
     
     func getSummary() -> NSString {
-        let content2 = content as NSString
-        var summary = content2.substringToIndex(min(300, content2.length)) + "..."
-        let range : NSRange = content2.rangeOfString("---")
-        if range.length > 0 {
-            summary = content2.substringToIndex(min(300,range.location))
+        if summary.length == 0 {
+            let content2 = content as NSString
+            var summaryNew = content2.substringToIndex(min(300, content2.length)) + "..."
+            let range : NSRange = content2.rangeOfString("---")
+            if range.length > 0 {
+                summaryNew = content2.substringToIndex(min(300,range.location))
+            }
+            summary = summaryNew;
         }
         return summary
     }

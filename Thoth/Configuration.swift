@@ -22,6 +22,7 @@ struct Config {
     let ftpUsername = ""
     let ftpPassword = ""
     let ftpPort = 21
+    let siteRoot = ""
     
 }
 
@@ -41,6 +42,7 @@ class ConfigLoader {
         var ftpUsername = ""
         var ftpPassword = ""
         var ftpPort = 21
+        var siteRoot = ""
         
         if let data = NSFileManager.defaultManager().contentsAtPath(path) {
             if let contentOfConfigFile = NSString(data: data, encoding: NSUTF8StringEncoding) {
@@ -80,6 +82,8 @@ class ConfigLoader {
                                     if let intvalue = value.toInt() {
                                         ftpPort = intvalue
                                     }
+                                case "siteRoot":
+                                    siteRoot = value
                                 default:
                                     break
                                 }
@@ -91,7 +95,7 @@ class ConfigLoader {
             }
         }
         
-        return Config(selfPath:path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks, ftpAdress: ftpAdress, ftpUsername:ftpUsername, ftpPassword:ftpPassword,ftpPort:ftpPort)
+        return Config(selfPath:path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks, ftpAdress: ftpAdress, ftpUsername:ftpUsername, ftpPassword:ftpPassword,ftpPort:ftpPort, siteRoot:siteRoot)
     }
     
     class func saveConfigFile(configuration : Config){
@@ -108,6 +112,7 @@ class ConfigLoader {
             "ftpUsername":"# The ftp username\n",
             "ftpPassword":"# The ftp password (the best way is to create a specific user/password with restricted rights to access your FTP)\n",
             "ftpPort":"# The ftp port to use\n#\t(defaults to 21)\n",
+            "siteRoot":"The online URL of the blog, without http://",
         ]
         
         var s = "#{#Thoth} config file\n#The root path is deduced from the position of this config file\n\n"
@@ -128,7 +133,7 @@ class ConfigLoader {
     }
     
     class func generateConfigFileAtPath(path : String)-> Config{
-        var configuration = Config(selfPath: path.stringByAppendingPathComponent("config"), templatePath: path.stringByAppendingPathComponent("template"), articlesPath: path.stringByAppendingPathComponent("articles"), outputPath: path.stringByAppendingPathComponent("output"), defaultAuthor: NSFullUserName(), dateStyle: "MM/dd/YYYY", blogTitle: "A new blog", imageWidth: "640", imagesLinks: false, ftpAdress: "", ftpUsername: "", ftpPassword: "", ftpPort: 21)
+        var configuration = Config(selfPath: path.stringByAppendingPathComponent("config"), templatePath: path.stringByAppendingPathComponent("template"), articlesPath: path.stringByAppendingPathComponent("articles"), outputPath: path.stringByAppendingPathComponent("output"), defaultAuthor: NSFullUserName(), dateStyle: "MM/dd/YYYY", blogTitle: "A new blog", imageWidth: "640", imagesLinks: false, ftpAdress: "", ftpUsername: "", ftpPassword: "", ftpPort: 21, siteRoot:"")
         
         saveConfigFile(configuration)
         return configuration
