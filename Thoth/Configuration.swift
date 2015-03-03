@@ -14,7 +14,7 @@ struct Config {
     let articlesPath = ""
     let outputPath = ""
     let defaultAuthor = "John Appleseed"
-    let dateStyle = "MM/dd/YYYY"
+    let dateStyle = "MM/dd/yyyy"
     let blogTitle = "A new blog"
     let imageWidth = "640"
     let imagesLinks = false
@@ -34,7 +34,7 @@ class ConfigLoader {
         var articlesPath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("articles")
         var outputPath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("output")
         var defaultAuthor = ""
-        var dateStyle = "MM/dd/YYYY"
+        var dateStyle = "MM/dd/yyyy"
         var blogTitle = "A new blog"
         var imageWidth = "640"
         var imagesLinks = false
