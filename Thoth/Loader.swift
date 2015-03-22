@@ -144,7 +144,7 @@ class Loader {
         sort(&articles,isFirstArticleEarlier)
     }
     
-    func isFirstArticleEarlier(article1 : Article, article2: Article) -> Bool {
+    private func isFirstArticleEarlier(article1 : Article, article2: Article) -> Bool {
         if let article1Date = article1.date {
             if let article2Date = article2.date {
                 return article1Date.timeIntervalSinceDate(article2Date) <= 0

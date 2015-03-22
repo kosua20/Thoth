@@ -97,7 +97,7 @@ class Manager {
         }
     }
     
-    func cleanElementAtPath(path : String) {
+    private func cleanElementAtPath(path : String) {
         var isDir : ObjCBool = false
         if NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDir){
             if isDir {
@@ -112,7 +112,7 @@ class Manager {
         }
     }
     
-    func uploadElementAtPath(path :  String, force : Bool, contents : [NSDictionary]) -> Bool {
+    private func uploadElementAtPath(path :  String, force : Bool, contents : [NSDictionary]) -> Bool {
         if path.lastPathComponent.hasPrefix("."){
             return true
         }
