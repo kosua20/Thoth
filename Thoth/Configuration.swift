@@ -21,7 +21,7 @@ struct Config {
     var ftpAdress : String = ""
     var ftpUsername : String = ""
     var ftpPassword : String = ""
-    var ftpPort : Int = 21
+    var ftpPort : Int = 22
     var siteRoot : String = ""
     
   
@@ -43,7 +43,7 @@ class ConfigLoader {
         var ftpAdress = ""
         var ftpUsername = ""
         var ftpPassword = ""
-        var ftpPort = 21
+        var ftpPort = 22
         var siteRoot = ""
         
         
@@ -114,8 +114,8 @@ class ConfigLoader {
             "ftpAdress":"# The ftp address pointing to the exact folder where the output should be uploaded\n",
             "ftpUsername":"# The ftp username\n",
             "ftpPassword":"# The ftp password (the best way is to create a specific user/password with restricted rights to access your FTP)\n",
-            "ftpPort":"# The ftp port to use\n#\t(defaults to 21)\n",
-            "siteRoot":"The online URL of the blog, without http://",
+            "ftpPort":"# The ftp port to use\n#\t(defaults to 22)\n",
+            "siteRoot":"The online URL of the blog, without http:// (for RSS generation)",
         ]
         
         var s = "#{#Thoth} config file\n#The root path is deduced from the position of this config file\n\n"

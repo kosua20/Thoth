@@ -5,8 +5,8 @@
 ## Meet Thoth  
 
 {#Thoth} (or more commonly Thoth) is a new, simple static blog generator written in Swift.   
-Just write your articles in Markdown, put them in a directory, point Thoth to this directory, add a template, FTP settings and an output directory, and *voilà* !
-Thoth will generate HTML pages for all articles, drafts, and index, and upload the output to your FTP. 
+Just write your articles in Markdown, put them in a directory, point Thoth to this directory, add a template, SFTP settings and an output directory, and *voilà* !
+Thoth will generate HTML pages for all articles, drafts, and index, and upload the output to your SFTP. 
 
 You can use it as a command-line tool :
 
@@ -154,16 +154,19 @@ A simple, human-readable config file. No XML, JSON or YAML. Just a simple flat t
 `imagesLinks:		true`
 
 - the ftp address pointing to the exact folder where the output should be uploaded  
-`ftpAdress:		domain-ftp.com/folder/for/blog`
+`ftpAdress:		domain-sftp.com/folder/for/blog`
 
 - the ftp username  
 `ftpUsername:	`	
 
-- the ftp password (the best way is to create a specific user/password with restricted rights to access your FTP)  
+- the sftp password (the best way is to create a specific user/password with restricted rights to access your SFTP)  
 `ftpPassword:	`	
 
-- the ftp port to use (defaults to 21)  
-`ftpPort:		21`
+- the sftp port to use (defaults to 22)  
+`ftpPort:		22`
+
+- the online URL of the blog, without "http://"  
+`siteRoot:	blog.mysite.com`
 
 
 
@@ -193,9 +196,10 @@ During articles processing and copy, files beginning with `_` or `#` won't be pr
 ##TODO:
 
 - adding support for referenced footnotes
-- adding the generation of sitemap.xml and feed.xml files
+- adding the generation of sitemap.xml ~and feed.xml~ files
 - more keywords and templates options
-- better reliability of the `upload <path> -f` command
+- non synchronized logs when uploading
+- Apple Doc
 
 ## Authors and Contributors
 Created in Swift using Xcode by [Simon Rodriguez](http://simonrodriguez.fr).  

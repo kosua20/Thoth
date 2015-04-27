@@ -14,8 +14,6 @@ class Manager {
     let config : Config
     var loader : Loader?
     var renderer : Renderer?
-    var uploader : FTPManager
-    var server : FMServer?
     let ftpAdress : String
     let ftpPath : String
     var ftpServer : NMSFTP?
@@ -27,9 +25,7 @@ class Manager {
         self.config = configuration
         self.loader = nil
         self.renderer = nil
-        
-       self.uploader = FTPManager()
-        self.server = FMServer()
+
         
         //Bit of string refactoring for simpler access with NMSSH
         var pathscomp = config.ftpAdress.pathComponents
@@ -71,6 +67,7 @@ class Manager {
     }
     
     
+    
     func runTest(){
         print("Testing SFTP \(ftpAdress)...\t")
         if (ftpServer == nil){
@@ -92,7 +89,7 @@ class Manager {
    
     func initSession() -> Bool{
         print("Connecting to the server...\t")
-        NMSSHLogger.sharedLogger().enabled = true
+        NMSSHLogger.sharedLogger().enabled = false
         let session = NMSSHSession.connectToHost(self.ftpAdress, port: config.ftpPort, withUsername: config.ftpUsername)
         if session.connected {
             session.authenticateByPassword(config.ftpPassword)
