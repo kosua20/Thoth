@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class Manager {
     let rootPath : String
     let config : Config
@@ -15,6 +16,10 @@ class Manager {
     let renderer : Renderer
     var uploader : FTPManager
     var server : FMServer?
+    let ftpAdress : String
+    let ftpPath : String
+    var ftpServer : NMSFTP?
+    
     
     init(rootPath : String, configuration : Config){
         // println("Initializing the manager...")
@@ -25,12 +30,20 @@ class Manager {
         self.loader.sortArticles()
         //println("Articles sorted")
         self.renderer = Renderer(articles: self.loader.articles, articlesPath: config.articlesPath, exportPath: config.outputPath, rootPath: rootPath, templatePath:config.templatePath, defaultWidth:config.imageWidth, blogTitle: config.blogTitle, imagesLink : config.imagesLinks, siteRoot: config.siteRoot)
-        //println("Renderer rendered")
-        self.uploader = FTPManager()
+    //println("Renderer rendered")
+       self.uploader = FTPManager()
+        self.server = FMServer()
+        
+        //Bit of string refactoring for simpler access with NMSSH
+        var pathscomp = config.ftpAdress.pathComponents
+        self.ftpAdress = pathscomp.removeAtIndex(0)
+        self.ftpPath = "/".join(pathscomp).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "/"))
+        self.ftpServer = nil;
         
     }
     
     func generate(option : Int) {
+        
         //println("Option : \(option)")
         switch option {
         case 1:
@@ -45,117 +58,137 @@ class Manager {
         println("Generation done !")
     }
     
+    
+    func runTest(){
+        print("Testing SFTP \(ftpAdress)...\t")
+        if (ftpServer == nil){
+            if !initSession(){
+                println("Error when connecting to the server")
+                return
+            }
+        }
+        if let ftpServer = ftpServer {
+            if ftpServer.connected {
+                println("Connection to the server is valid.")
+                return
+            }
+        }
+        println("Encountered an error (probably)")
+    }
+    
+   
+    func initSession() -> Bool{
+        print("Connecting to the server...\t")
+        NMSSHLogger.sharedLogger().enabled = false
+        let session = NMSSHSession.connectToHost(self.ftpAdress, port: config.ftpPort, withUsername: config.ftpUsername)
+        if session.connected {
+            session.authenticateByPassword(config.ftpPassword)
+            
+        }
+        if session.connected && session.authorized {
+            ftpServer = NMSFTP.connectWithSession(session)
+            return true
+        } else {
+            println("Error when connecting to SFTP server")
+            ftpServer = nil;
+            return false
+        }
+    }
+    
+    
     func upload(option : Int = 0){
-        //println("Option : \(option)")
-        server = FMServer(destination: config.ftpAdress, username: config.ftpUsername, password: config.ftpPassword)
-        if !uploader.checkLogin(server) { println("Unable to login.");return}
-        println("Beginning upload to \(config.ftpAdress)...\t")
+        if (ftpServer == nil){
+            if !initSession(){
+                return
+            }
+        }
+        //From here, we can force unwrap ftpServer without risk
+        
+        print("Beginning upload to \(ftpAdress)...\t")
         var succeeded = true
-        let contents1 = uploader.contentsOfServer(server) as [NSDictionary]
         switch option {
         case 1:
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("articles"), force: true, contents: contents1)
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("index.html"), force: true, contents: contents1)
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("resources"), force: false, contents: contents1)
+            succeeded = succeeded && uploadElementAtPath("articles", force: true)
+            succeeded = succeeded && uploadElementAtPath("index.html", force: true)
+            succeeded = succeeded && uploadElementAtPath("resources", force: false)
         case 2:
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("drafts"), force: true, contents: contents1)
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("index-drafts.html"), force: true, contents: contents1)
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("resources"), force: false, contents: contents1)
+            succeeded = succeeded && uploadElementAtPath("drafts", force: true)
+            succeeded = succeeded && uploadElementAtPath("index-drafts.html", force: true)
+            succeeded = succeeded && uploadElementAtPath("resources", force: false)
         case 3:
-            for element in NSFileManager.defaultManager().contentsOfDirectoryAtPath(config.outputPath, error: nil) as [String] {
-                
-                succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true, contents: contents1)
+            for element in NSFileManager.defaultManager().contentsOfDirectoryAtPath(config.outputPath, error: nil) as! [String] {
+                succeeded = succeeded && uploadElementAtPath(element, force: true)
             }
         default:
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("drafts"), force: true, contents: contents1)
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("articles"), force: false, contents: contents1)
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("index.html"), force: true, contents: contents1)
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("index-drafts.html"), force: true, contents: contents1)
-            succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent("resources"), force: false, contents: contents1)
+            succeeded = succeeded && uploadElementAtPath("drafts", force: true)
+            succeeded = succeeded && uploadElementAtPath("articles", force: false)
+            succeeded = succeeded && uploadElementAtPath("index.html", force: true)
+            succeeded = succeeded && uploadElementAtPath("index-drafts.html",force: true)
+            succeeded = succeeded && uploadElementAtPath("resources", force: false)
         }
-        /*for element in NSFileManager.defaultManager().contentsOfDirectoryAtPath(config.outputPath, error: nil) as [String] {
-        if option == 3 {
-        //Full export
-        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
-        } else if element == "articles" && option == 1{
-        //Articles only
-        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
-        } else if element == "drafts" && (option == 2 || option == 0){
-        //Drafts only
-        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
-        } else if element == "index.html" || element == "index-drafts.html" {
-        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: true)
-        } else {
-        succeeded = succeeded && uploadElementAtPath(config.outputPath.stringByAppendingPathComponent(element), force: false)
-        }
-        }*/
         
         if !succeeded {
             println("An error occured during the upload")
         } else {
             println("Upload successful !")
         }
+        
+        ftpServer!.disconnect()
     }
     
-    private func cleanElementAtPath(path : String) {
-        var isDir : ObjCBool = false
-        if NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDir){
-            if isDir {
-                server!.destination = server!.destination.stringByAppendingPathComponent(path.lastPathComponent)
-                for file in NSFileManager.defaultManager().contentsOfDirectoryAtPath(path, error: nil) as [String]{
-                    cleanElementAtPath(path.stringByAppendingPathComponent(file))
-                }
-                server!.destination = server!.destination.stringByDeletingLastPathComponent
-                
-            }
-            uploader.deleteFileNamed(path.lastPathComponent, fromServer: server)
+    private func cleanElementAtPath(distantPath : String) {
+        //println("DB: " + distantPath)
+        if ftpServer!.fileExistsAtPath(distantPath) {
+            //println("File exists")
+            ftpServer!.removeFileAtPath(distantPath)
         }
+        if ftpServer!.directoryExistsAtPath(distantPath){
+          //  println("Folder exists")
+            ftpServer!.removeDirectoryAtPath(distantPath)
+        }
+        //println("Done cleaning")
     }
     
-    private func uploadElementAtPath(path :  String, force : Bool, contents : [NSDictionary]) -> Bool {
+    private func uploadElementAtPath(path :  String, force : Bool) -> Bool {
+        
+        
+        //hack for hidden files
         if path.lastPathComponent.hasPrefix("."){
             return true
         }
-        if force {
-            cleanElementAtPath(path)
-        }
+        
+        var succeeded = true;
+        
+        //Checking if the file exists locally (else we don't do anything)
         var isDir : ObjCBool = false
-        var succeeded = true
-        if NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDir){
-            var found = false
-            var isDistantDirectory = false
-            superLoop : for dict in contents {
-                let name: String = dict.objectForKey(kCFFTPResourceName) as String
-                if name == path.lastPathComponent {
-                    found = true
-                    isDistantDirectory = (dict.objectForKey(kCFFTPResourceType)?.intValue) == 4
-                    
-                    //println("\(path) \(isDistantDirectory)")
-                    break superLoop
-                }
+        if NSFileManager.defaultManager().fileExistsAtPath(config.outputPath.stringByAppendingPathComponent(path), isDirectory: &isDir){
+            
+            let distantPath = ftpPath.stringByAppendingPathComponent(path)
+            
+            //Cleaning the potentially already existing file on the server
+            
+            if force {
+               // println("Cleaning")
+                cleanElementAtPath(distantPath)
             }
             
-            
-            
-            if isDir {
-                if !found {
-                    uploader.createNewFolder(path.lastPathComponent , atServer: server)
-                }
-                server!.destination = server!.destination.stringByAppendingPathComponent(path.lastPathComponent)
-                if found {
-                    //println("1 ")
+            if isDir { //This is a folder
+                //Creating the folder if it doesn't already exist
+                //println("Creating directory")
+                if !ftpServer!.directoryExistsAtPath(distantPath) {
+                    ftpServer!.createDirectoryAtPath(distantPath)
                 }
                 
-                let contents1 = uploader.contentsOfServer(server) as [NSDictionary]
-                
-                for file in NSFileManager.defaultManager().contentsOfDirectoryAtPath(path, error: nil) as [String]{
-                    succeeded = succeeded && uploadElementAtPath(path.stringByAppendingPathComponent(file), force : force, contents : contents1)
+                for file in NSFileManager.defaultManager().contentsOfDirectoryAtPath(config.outputPath.stringByAppendingPathComponent(path), error: nil) as! [String]{
+                    succeeded = succeeded && uploadElementAtPath(path.stringByAppendingPathComponent(file), force : false)
                 }
-                server!.destination = server!.destination.stringByDeletingLastPathComponent
                 
-            } else {
-                if !found || force {
-                    succeeded = succeeded && uploader.uploadFile(NSURL(string: path), toServer: server)
+            } else { //This is a file
+                //If the file doesn't exists, or if we force (normally it has been cleaned, but let's be careful
+                 if !ftpServer!.fileExistsAtPath(distantPath) || force {
+                   // println("Uplaoding file...")
+                    succeeded = succeeded && ftpServer!.writeFileAtPath(config.outputPath.stringByAppendingPathComponent(path), toFileAtPath: distantPath)
+                    
                 }
             }
         }

@@ -4,3 +4,9 @@
 
 #import "Prompt.h"
 #import "FTPManager.h"
+
+#import <Foundation/Foundation.h>
+
+
+
+#import "NMSSH.h"

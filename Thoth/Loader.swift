@@ -79,9 +79,9 @@ class Loader {
         let fileManager = NSFileManager.defaultManager()
         let directoryEnum = fileManager.enumeratorAtPath(folderPath)
         while var file: AnyObject = directoryEnum?.nextObject() {
-            if (file as String).pathExtension == "md" && !((file as String).lastPathComponent.hasPrefix("_") || (file as String).lastPathComponent.hasPrefix("#")) {
+            if (file as! String).pathExtension == "md" && !((file as! String).lastPathComponent.hasPrefix("_") || (file as! String).lastPathComponent.hasPrefix("#")) {
                 // process the document
-                self.loadFileAtPath(file as String)
+                self.loadFileAtPath(file as! String)
             }
         }
     }
@@ -89,7 +89,7 @@ class Loader {
     func loadFileAtPath(path : String){
         if let data: NSData = NSFileManager.defaultManager().contentsAtPath(folderPath.stringByAppendingPathComponent(path)) {
             if let str = NSString(data: data, encoding : NSUTF8StringEncoding) {
-                var arrayFull = str.componentsSeparatedByString("\n\n") as [String]
+                var arrayFull = str.componentsSeparatedByString("\n\n") as! [String]
                 if arrayFull.count > 1 {
                     //Splitting the header
                     let arrayHeader = arrayFull[0].componentsSeparatedByString("\n") as [String]

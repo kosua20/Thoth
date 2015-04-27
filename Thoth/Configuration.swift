@@ -9,20 +9,22 @@
 import Foundation
 
 struct Config {
-    let selfPath = ""
-    let templatePath = ""
-    let articlesPath = ""
-    let outputPath = ""
-    let defaultAuthor = "John Appleseed"
-    let dateStyle = "MM/dd/yyyy"
-    let blogTitle = "A new blog"
-    let imageWidth = "640"
-    let imagesLinks = false
-    let ftpAdress = ""
-    let ftpUsername = ""
-    let ftpPassword = ""
-    let ftpPort = 21
-    let siteRoot = ""
+    var selfPath : String = ""
+    var templatePath : String = ""
+    var articlesPath : String = ""
+    var outputPath : String = ""
+    var defaultAuthor : String = "John Appleseed"
+    var dateStyle : String = "MM/dd/yyyy"
+    var blogTitle : String = "A new blog"
+    var imageWidth : String = "640"
+    var imagesLinks : Bool = false
+    var ftpAdress : String = ""
+    var ftpUsername : String = ""
+    var ftpPassword : String = ""
+    var ftpPort : Int = 21
+    var siteRoot : String = ""
+    
+  
     
 }
 
@@ -44,13 +46,14 @@ class ConfigLoader {
         var ftpPort = 21
         var siteRoot = ""
         
+        
         if let data = NSFileManager.defaultManager().contentsAtPath(path) {
             if let contentOfConfigFile = NSString(data: data, encoding: NSUTF8StringEncoding) {
                 let lines = contentOfConfigFile.componentsSeparatedByString("\n")
                 for line in lines {
                     if !(line.hasPrefix("_") || line.hasPrefix("#")) {
                         //Ignoring the comments
-                        let newLines = line.componentsSeparatedByString(":") as [String]
+                        let newLines = line.componentsSeparatedByString(":") as! [String]
                         if newLines.count > 1 {
                             //var value = newLines[1].stringByReplacingOccurrencesOfString("\\ ", withString: "{#PL@CEHO£D&R$}", options: nil, range: nil)
                             var value = newLines[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
@@ -95,7 +98,7 @@ class ConfigLoader {
             }
         }
         
-        return Config(selfPath:path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks, ftpAdress: ftpAdress, ftpUsername:ftpUsername, ftpPassword:ftpPassword,ftpPort:ftpPort, siteRoot:siteRoot)
+        return  Config(selfPath: path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks, ftpAdress: ftpAdress, ftpUsername: ftpUsername, ftpPassword: ftpPassword,ftpPort: ftpPort, siteRoot: siteRoot)
     }
     
     class func saveConfigFile(configuration : Config){
@@ -132,8 +135,8 @@ class ConfigLoader {
         }
     }
     
-    class func generateConfigFileAtPath(path : String)-> Config{
-        var configuration = Config(selfPath: path.stringByAppendingPathComponent("config"), templatePath: path.stringByAppendingPathComponent("template"), articlesPath: path.stringByAppendingPathComponent("articles"), outputPath: path.stringByAppendingPathComponent("output"), defaultAuthor: NSFullUserName(), dateStyle: "MM/dd/YYYY", blogTitle: "A new blog", imageWidth: "640", imagesLinks: false, ftpAdress: "", ftpUsername: "", ftpPassword: "", ftpPort: 21, siteRoot:"")
+    class func generateConfigFileAtPath(path : String)-> Config {
+        var configuration = Config(selfPath: path.stringByAppendingPathComponent("config") as String, templatePath: path.stringByAppendingPathComponent("template") as String, articlesPath: path.stringByAppendingPathComponent("articles") as String, outputPath: path.stringByAppendingPathComponent("output") as String, defaultAuthor: NSFullUserName(), dateStyle: "MM/dd/YYYY", blogTitle: "A new blog", imageWidth: "640", imagesLinks: false, ftpAdress: "", ftpUsername: "", ftpPassword: "", ftpPort: 21, siteRoot:"")
         
         saveConfigFile(configuration)
         return configuration

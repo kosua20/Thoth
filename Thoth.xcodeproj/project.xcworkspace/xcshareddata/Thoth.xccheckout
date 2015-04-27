@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>E29C017A-A803-440D-BC0E-2AEC8CB23D5B</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Thoth</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>88EA64390B4EC98721C285D18A506C335DFEAEDB</key>
 		<string>github.com:kosua20/THOTH.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Thoth.xcodeproj</string>
+	<string>Thoth.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>88EA64390B4EC98721C285D18A506C335DFEAEDB</key>

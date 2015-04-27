@@ -123,10 +123,10 @@ class Renderer {
             if !NSFileManager.defaultManager().fileExistsAtPath(exportResourcesPath) {
                 NSFileManager.defaultManager().createDirectoryAtPath(exportResourcesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
             }
-            let paths = NSFileManager.defaultManager().contentsOfDirectoryAtPath(resourcesPath, error: nil) as [NSString]
+            let paths = NSFileManager.defaultManager().contentsOfDirectoryAtPath(resourcesPath, error: nil) as! [NSString]
             for path in paths {
-                if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(exportResourcesPath.stringByAppendingPathComponent(path)){
-                    NSFileManager.defaultManager().copyItemAtPath(resourcesPath.stringByAppendingPathComponent(path), toPath: exportResourcesPath.stringByAppendingPathComponent(path), error: nil)
+                if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(exportResourcesPath.stringByAppendingPathComponent(path as String)){
+                    NSFileManager.defaultManager().copyItemAtPath(resourcesPath.stringByAppendingPathComponent(path as String), toPath: exportResourcesPath.stringByAppendingPathComponent(path as String), error: nil)
                 }
             }
         }
@@ -134,7 +134,7 @@ class Renderer {
     }
     
    private func initializeTemplate(){
-        let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as [String]
+        let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as! [String]
         for path in templateFiles{
             if !NSFileManager.defaultManager().fileExistsAtPath(exportPath.stringByAppendingPathComponent(path.lastPathComponent)){
                 NSFileManager.defaultManager().copyItemAtPath(templatePath.stringByAppendingPathComponent(path), toPath: exportPath.stringByAppendingPathComponent(path.lastPathComponent), error: nil)
@@ -145,7 +145,7 @@ class Renderer {
     }
     
     private func restoreTemplate(){
-        let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as [String]
+        let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as! [String]
         for path in templateFiles{
             NSFileManager.defaultManager().copyItemAtPath(templatePath.stringByAppendingPathComponent(path), toPath: exportPath.stringByAppendingPathComponent(path.lastPathComponent), error: nil)
         }
@@ -187,7 +187,7 @@ class Renderer {
     }
     
     private func extractSnippetHtml(code : NSString)-> NSString{
-        let scanner = NSScanner(string:  code)
+        let scanner = NSScanner(string:  code as String)
         var res : NSString?
         scanner.scanUpToString("{#ARTICLE_BEGIN}", intoString: nil)
         insertIndex = scanner.scanLocation
@@ -225,13 +225,13 @@ class Renderer {
     private func renderArticle(article : Article, inFolder folder : String, forceUpdate : Bool){
         let filePath = exportPath.stringByAppendingPathComponent(folder).stringByAppendingPathComponent(article.getUrlPathname())
         if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(filePath){
-            var html: NSString = articleHtml.copy() as NSString
+            var html: NSString = articleHtml.copy() as! NSString
             html = html.stringByReplacingOccurrencesOfString("{#TITLE}", withString: article.title)
             html = html.stringByReplacingOccurrencesOfString("{#DATE}", withString: article.dateString)
             html = html.stringByReplacingOccurrencesOfString("{#AUTHOR}", withString: article.author)
             html = html.stringByReplacingOccurrencesOfString("{#BLOG_TITLE}", withString: blogTitle)
             html = html.stringByReplacingOccurrencesOfString("{#LINK}", withString: article.getUrlPathname())
-            html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: article.getSummary())
+            html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: article.getSummary() as String)
             var contentHtml = markdown.transform(article.content)
             contentHtml = addFootnotes(contentHtml)
             contentHtml = manageImages(contentHtml,links: markdown.imagesUrl, path: filePath, forceUpdate : forceUpdate)
@@ -276,7 +276,7 @@ class Renderer {
     }
     
     private func renderIndex() {
-        indexHtml = footerHtml.copy() as NSString
+        indexHtml = footerHtml.copy() as! NSString
         
         var feedXml = "<?xml version=\"1.0\" ?>\n"
             + "<rss version=\"2.0\">\n"
@@ -290,16 +290,17 @@ class Renderer {
         
         for article in articlesToRender {
             if !article.isDraft {
-                var html : NSString = snippetHtml.copy() as NSString
+                var html : NSString = snippetHtml.copy() as! NSString
                 html = html.stringByReplacingOccurrencesOfString("{#TITLE}", withString: article.title)
                 html = html.stringByReplacingOccurrencesOfString("{#DATE}", withString: article.dateString)
                 html = html.stringByReplacingOccurrencesOfString("{#AUTHOR}", withString: article.author)
                 html = html.stringByReplacingOccurrencesOfString("{#LINK}", withString: "articles/"+article.getUrlPathname())
-                let contentHtml0 : NSString = markdown.transform(article.getSummary())
-                var contentHtml = contentHtml0.mutableCopy() as NSMutableString
+                let contentHtml0 : NSString = markdown.transform(article.getSummary() as String)
+                var contentHtml = contentHtml0.mutableCopy() as! NSMutableString
                 let regex1 = NSRegularExpression(pattern: "<[^>]+>", options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
                 regex1?.replaceMatchesInString(contentHtml, options: NSMatchingOptions.ReportProgress, range: NSMakeRange(0, contentHtml.length), withTemplate: "")
-                html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: contentHtml)
+               
+                html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: contentHtml as String)
                 indexHtml = NSString(format: "%@\n%@", html,indexHtml)
                 
                 let dateOutput = dateOutputFormatter.stringFromDate(article.date!)
@@ -316,7 +317,7 @@ class Renderer {
         }
         
         feedXml = feedXml + "</channel>\n</rss>"
-        indexHtml = headerHtml.stringByAppendingString(indexHtml)
+        indexHtml = headerHtml.stringByAppendingString(indexHtml as String)
         indexHtml = indexHtml.stringByReplacingOccurrencesOfString("{#BLOG_TITLE}", withString: blogTitle)
     NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
         NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("feed.xml"), contents: feedXml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
@@ -326,23 +327,23 @@ class Renderer {
    
     
     private func renderDraftIndex() {
-        indexHtml = footerHtml.copy() as NSString
+        indexHtml = footerHtml.copy() as! NSString
         for article in articlesToRender {
             if article.isDraft {
-                var html : NSString = snippetHtml.copy() as NSString
+                var html : NSString = snippetHtml.copy() as! NSString
                 html = html.stringByReplacingOccurrencesOfString("{#TITLE}", withString: article.title)
                 html = html.stringByReplacingOccurrencesOfString("{#DATE}", withString: article.dateString)
                 html = html.stringByReplacingOccurrencesOfString("{#AUTHOR}", withString: article.author)
                 html = html.stringByReplacingOccurrencesOfString("{#LINK}", withString: "drafts/"+article.getUrlPathname())
-                let contentHtml0 : NSString = markdown.transform(article.getSummary())
-                var contentHtml = contentHtml0.mutableCopy() as NSMutableString
+                let contentHtml0 : NSString = markdown.transform(article.getSummary() as String)
+                var contentHtml = contentHtml0.mutableCopy() as! NSMutableString
                 let regex1 = NSRegularExpression(pattern: "<[^>]+>", options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
                 regex1?.replaceMatchesInString(contentHtml, options: NSMatchingOptions.ReportProgress, range: NSMakeRange(0, contentHtml.length), withTemplate: "")
-                html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: contentHtml)
+                html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: contentHtml as String)
                 indexHtml = NSString(format: "%@\n%@", html,indexHtml)
             }
         }
-        indexHtml = headerHtml.stringByAppendingString(indexHtml)
+        indexHtml = headerHtml.stringByAppendingString(indexHtml as String)
         indexHtml = indexHtml.stringByReplacingOccurrencesOfString("{#BLOG_TITLE}", withString: blogTitle.stringByAppendingString(" - Drafts"))
         NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index-drafts.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
     }
@@ -358,7 +359,7 @@ class Renderer {
         scanner1.scanUpToString("[^", intoString: &tempContent)
         if scanner1.atEnd {
             if let tempContent = tempContent {
-                newContent = newContent.stringByAppendingString(tempContent)
+                newContent = newContent.stringByAppendingString(tempContent as String)
             }
         }
         var isFirst = true
@@ -367,7 +368,7 @@ class Renderer {
             loopUsed = true
             if let tempContent = tempContent {
                 if isFirst {
-                    newContent = newContent.stringByAppendingString(tempContent)
+                    newContent = newContent.stringByAppendingString(tempContent as String)
                     isFirst = false
                 } else {
                     newContent = newContent.stringByAppendingString(tempContent.substringFromIndex(1))

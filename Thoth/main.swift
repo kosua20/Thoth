@@ -23,7 +23,7 @@ func main(args : [String] = []){
 
 func mainloop() {
     println("Welcome in {#Thoth}, a static blog generator.")
-    let prompt: Prompt = Prompt(argv0: C_ARGV[0])
+    let prompt: Prompt = Prompt(argv0: Process.unsafeArgv[0])
     while true {
         if let input1 = prompt.gets() {
             var input2 = input1.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -67,6 +67,8 @@ func mainSwitch(var args : [String]) {
         case "check":
             if let config = loadConfigurationFromPath(args[1]) {
                 println("The config file seems ok")
+                let man = Manager(rootPath: args[1], configuration: config)
+                man.runTest()
             }
         case "index","resources","first","upload","scribe","generate":
             if let config = loadConfigurationFromPath(args[1]) {
