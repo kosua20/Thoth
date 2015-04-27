@@ -809,7 +809,7 @@
     const char *user = [server.username cStringUsingEncoding:NSUTF8StringEncoding];
     const char *pass = [server.password cStringUsingEncoding:NSUTF8StringEncoding];
     NSString* wdirs = [server.destination fmdir];
-    const char *wdir;
+    const char *wdir = NULL;
     BOOL chdir = NO;
     if (wdirs && wdirs.length > 0) {
         wdir = [wdirs cStringUsingEncoding:NSUTF8StringEncoding];

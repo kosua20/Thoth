@@ -12,8 +12,8 @@ import Foundation
 class Manager {
     let rootPath : String
     let config : Config
-    let loader : Loader
-    let renderer : Renderer
+    var loader : Loader?
+    var renderer : Renderer?
     var uploader : FTPManager
     var server : FMServer?
     let ftpAdress : String
@@ -25,12 +25,9 @@ class Manager {
         // println("Initializing the manager...")
         self.rootPath = rootPath
         self.config = configuration
-        self.loader = Loader(folderPath: config.articlesPath, defaultAuthor: config.defaultAuthor, dateStyle:config.dateStyle)
-        //println("Loader loaded")
-        self.loader.sortArticles()
-        //println("Articles sorted")
-        self.renderer = Renderer(articles: self.loader.articles, articlesPath: config.articlesPath, exportPath: config.outputPath, rootPath: rootPath, templatePath:config.templatePath, defaultWidth:config.imageWidth, blogTitle: config.blogTitle, imagesLink : config.imagesLinks, siteRoot: config.siteRoot)
-    //println("Renderer rendered")
+        self.loader = nil
+        self.renderer = nil
+        
        self.uploader = FTPManager()
         self.server = FMServer()
         
@@ -42,20 +39,35 @@ class Manager {
         
     }
     
-    func generate(option : Int) {
-        
+    func initRenderer(){
+        self.loader = Loader(folderPath: config.articlesPath, defaultAuthor: config.defaultAuthor, dateStyle:config.dateStyle)
+        //println("Loader loaded")
+        self.loader!.sortArticles()
+        //println("Articles sorted")
         //println("Option : \(option)")
-        switch option {
-        case 1:
-            renderer.articlesOnly()
-        case 2:
-            renderer.draftsOnly()
-        case 3:
-            renderer.fullExport()
-        default:
-            renderer.defaultExport()
+        self.renderer = Renderer(articles: self.loader!.articles, articlesPath: config.articlesPath, exportPath: config.outputPath, rootPath: rootPath, templatePath:config.templatePath, defaultWidth:config.imageWidth, blogTitle: config.blogTitle, imagesLink : config.imagesLinks, siteRoot: config.siteRoot)
+        //println("Renderer rendered")
+    }
+    
+    func generate(option : Int) {
+        if renderer == nil {
+            initRenderer()
         }
-        println("Generation done !")
+        if let renderer = renderer {
+            switch option {
+            case 1:
+                renderer.articlesOnly()
+            case 2:
+                renderer.draftsOnly()
+            case 3:
+                renderer.fullExport()
+            default:
+                renderer.defaultExport()
+            }
+            println("Generation done !")
+        } else {
+            println("Error with the renderer")
+        }
     }
     
     
@@ -70,6 +82,7 @@ class Manager {
         if let ftpServer = ftpServer {
             if ftpServer.connected {
                 println("Connection to the server is valid.")
+                ftpServer.disconnect()
                 return
             }
         }
@@ -79,7 +92,7 @@ class Manager {
    
     func initSession() -> Bool{
         print("Connecting to the server...\t")
-        NMSSHLogger.sharedLogger().enabled = false
+        NMSSHLogger.sharedLogger().enabled = true
         let session = NMSSHSession.connectToHost(self.ftpAdress, port: config.ftpPort, withUsername: config.ftpUsername)
         if session.connected {
             session.authenticateByPassword(config.ftpPassword)
@@ -197,11 +210,21 @@ class Manager {
     }
     
     func index() {
-        renderer.updateIndex()
+        if renderer == nil {
+            initRenderer()
+        }
+        if let renderer = renderer {
+            renderer.updateIndex()
+        }
     }
     
     func resources(){
-        renderer.updateResources()
+        if renderer == nil {
+            initRenderer()
+        }
+        if let renderer = renderer {
+            renderer.updateResources()
+        }
     }
     
 }
