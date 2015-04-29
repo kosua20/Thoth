@@ -9,15 +9,47 @@
 import Foundation
 
 
+
+  ///This class manages the upload functionnalities of the program and the initialisation of more specialised classes for loading and rendering the articles.
+
+
 class Manager {
+    
+    
+    
+    // MARK: Properties
+    
+    /// The path to the folder containing the configuration file
     let rootPath : String
+    
+    /// The configuration object for the current Manager instance
     let config : Config
+    
+    /// The Loader object for the current instance, will load the articles from disk.
     var loader : Loader?
+    
+    /// The Renderer for the current instance, will render the articles to disk.
     var renderer : Renderer?
-    let ftpAdress : String
-    let ftpPath : String
+    
+    /// The object managing the SFTP connection
     var ftpServer : NMSFTP?
     
+    /// A string representing the domain adress of the FTP
+    let ftpAdress : String
+    
+    /// A string representing the distant path to the destination folder on the FTP
+    let ftpPath : String
+    
+    
+    
+    // MARK: Initialisation methods
+    
+    
+    ///Initalisation method
+    ///
+    ///:param: rootPath      the path to the local directory containing the config file
+    ///:param: configuration a Configuration object for the current instance of the program
+    ///
     
     init(rootPath : String, configuration : Config){
         // println("Initializing the manager...")
@@ -25,15 +57,18 @@ class Manager {
         self.config = configuration
         self.loader = nil
         self.renderer = nil
-
         
         //Bit of string refactoring for simpler access with NMSSH
         var pathscomp = config.ftpAdress.pathComponents
         self.ftpAdress = pathscomp.removeAtIndex(0)
         self.ftpPath = "/".join(pathscomp).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "/"))
         self.ftpServer = nil;
-        
     }
+    
+    
+    /**
+    Initialises the Renderer for the current configuration and rootpath
+    */
     
     func initRenderer(){
         self.loader = Loader(folderPath: config.articlesPath, defaultAuthor: config.defaultAuthor, dateStyle:config.dateStyle)
@@ -44,6 +79,41 @@ class Manager {
         self.renderer = Renderer(articles: self.loader!.articles, articlesPath: config.articlesPath, exportPath: config.outputPath, rootPath: rootPath, templatePath:config.templatePath, defaultWidth:config.imageWidth, blogTitle: config.blogTitle, imagesLink : config.imagesLinks, siteRoot: config.siteRoot)
         //println("Renderer rendered")
     }
+    
+    
+    /**
+     Initialises the SFTP session for the current configuration and rootpath
+    
+    :returns: a boolean denoting the success or failure of the connection
+    */
+    
+    func initSession() -> Bool{
+        print("Connecting to the server...\t")
+        NMSSHLogger.sharedLogger().enabled = false
+        let session = NMSSHSession.connectToHost(self.ftpAdress, port: config.ftpPort, withUsername: config.ftpUsername)
+        if session.connected {
+            session.authenticateByPassword(config.ftpPassword)
+            
+        }
+        if session.connected && session.authorized {
+            ftpServer = NMSFTP.connectWithSession(session)
+            return true
+        } else {
+            println("Error when connecting to SFTP server")
+            ftpServer = nil;
+            return false
+        }
+    }
+    
+    
+    
+    // MARK: Rendering
+  
+    /**
+    Calls the Renderer with the correct settings
+    
+    :param: option the mode in which the Renderer should run
+    */
     
     func generate(option : Int) {
         if renderer == nil {
@@ -67,44 +137,43 @@ class Manager {
     }
     
     
+    /**
+    Regenerates the index page
+    */
     
-    func runTest(){
-        print("Testing SFTP \(ftpAdress)...\t")
-        if (ftpServer == nil){
-            if !initSession(){
-                println("Error when connecting to the server")
-                return
-            }
+    func index() {
+        if renderer == nil {
+            initRenderer()
         }
-        if let ftpServer = ftpServer {
-            if ftpServer.connected {
-                println("Connection to the server is valid.")
-                ftpServer.disconnect()
-                return
-            }
+        if let renderer = renderer {
+            renderer.updateIndex()
         }
-        println("Encountered an error (probably)")
     }
     
+    
+    /**
+    Regenerates the resources folder
+    */
+    
+    func resources(){
+        if renderer == nil {
+            initRenderer()
+        }
+        if let renderer = renderer {
+            renderer.updateResources()
+        }
+    }
+    
+    
+    
+    
+    // MARK: Uploading
    
-    func initSession() -> Bool{
-        print("Connecting to the server...\t")
-        NMSSHLogger.sharedLogger().enabled = false
-        let session = NMSSHSession.connectToHost(self.ftpAdress, port: config.ftpPort, withUsername: config.ftpUsername)
-        if session.connected {
-            session.authenticateByPassword(config.ftpPassword)
-            
-        }
-        if session.connected && session.authorized {
-            ftpServer = NMSFTP.connectWithSession(session)
-            return true
-        } else {
-            println("Error when connecting to SFTP server")
-            ftpServer = nil;
-            return false
-        }
-    }
+    /**
+    Uploads the generated content to the SFTP server designated in the Configuration.
     
+    :param: option the mode in which the upload should happen
+    */
     
     func upload(option : Int = 0){
         if (ftpServer == nil){
@@ -146,6 +215,12 @@ class Manager {
         ftpServer!.disconnect()
     }
     
+    
+    /**
+    Deletes the element passed as parameter if it exists on the server
+    
+    :param: distantPath The path of the element to delete on the server
+    */
     private func cleanElementAtPath(distantPath : String) {
         //println("DB: " + distantPath)
         if ftpServer!.fileExistsAtPath(distantPath) {
@@ -159,10 +234,19 @@ class Manager {
         //println("Done cleaning")
     }
     
+    
+    /**
+    Uploads the file or folder stored at the given local path.
+    
+    :param: path  the local path pointing to the element to upload
+    :param: force indicates if an already existing element on the server should be replaced
+    
+    :returns: a boolean denoting the success of the whole operation
+    */
+    
     private func uploadElementAtPath(path :  String, force : Bool) -> Bool {
         
-        
-        //hack for hidden files
+       //hack for hidden files
         if path.lastPathComponent.hasPrefix("."){
             return true
         }
@@ -206,22 +290,30 @@ class Manager {
         return succeeded
     }
     
-    func index() {
-        if renderer == nil {
-            initRenderer()
-        }
-        if let renderer = renderer {
-            renderer.updateIndex()
-        }
-    }
     
-    func resources(){
-        if renderer == nil {
-            initRenderer()
+    
+    // MARK: Misc.
+    
+    /**
+    Tests the connection to the SFTP
+    */
+    
+    func runTest(){
+        print("Testing SFTP \(ftpAdress)...\t")
+        if (ftpServer == nil){
+            if !initSession(){
+                println("Error when connecting to the server")
+                return
+            }
         }
-        if let renderer = renderer {
-            renderer.updateResources()
+        if let ftpServer = ftpServer {
+            if ftpServer.connected {
+                println("Connection to the server is valid.")
+                ftpServer.disconnect()
+                return
+            }
         }
+        println("Encountered an error (probably)")
     }
     
 }

@@ -8,6 +8,10 @@
 
 import Foundation
 
+
+/**
+*  A Config struct stores all elements of the configuration file in memory
+*/
 struct Config {
     var selfPath : String = ""
     var templatePath : String = ""
@@ -23,12 +27,21 @@ struct Config {
     var ftpPassword : String = ""
     var ftpPort : Int = 22
     var siteRoot : String = ""
-    
-  
-    
 }
 
+
+/**
+*  The ConfigLoader class is responsible for loading, generating and saving configurations files.
+*/
 class ConfigLoader {
+    
+    /**
+    lLads into memory a configuration file on the disk
+    
+    :param: path the path to the configuration file
+    
+    :returns: a Config element initialised with the content of the file
+    */
     
     class func loadConfigFileAtPath(path: String) -> Config{
         //Defaults
@@ -101,6 +114,13 @@ class ConfigLoader {
         return  Config(selfPath: path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks, ftpAdress: ftpAdress, ftpUsername: ftpUsername, ftpPassword: ftpPassword,ftpPort: ftpPort, siteRoot: siteRoot)
     }
     
+    
+    /**
+    Saves a Config object to disk
+    
+    :param: configuration The Config object to write on disk
+    */
+    
     class func saveConfigFile(configuration : Config){
         let dict = [
             "templatePath":"# The path to the template folder\n#\t(defaults to rootPath/template)\n",
@@ -135,6 +155,14 @@ class ConfigLoader {
         }
     }
     
+    
+    /**
+    Generates a default configuration file at the given path.
+    
+    :param: path The path of the directory where the configuration file should be generated
+    
+    :returns: the Config struct corresponding to the generated configuration file
+    */
     class func generateConfigFileAtPath(path : String)-> Config {
         var configuration = Config(selfPath: path.stringByAppendingPathComponent("config") as String, templatePath: path.stringByAppendingPathComponent("template") as String, articlesPath: path.stringByAppendingPathComponent("articles") as String, outputPath: path.stringByAppendingPathComponent("output") as String, defaultAuthor: NSFullUserName(), dateStyle: "MM/dd/YYYY", blogTitle: "A new blog", imageWidth: "640", imagesLinks: false, ftpAdress: "", ftpUsername: "", ftpPassword: "", ftpPort: 21, siteRoot:"")
         

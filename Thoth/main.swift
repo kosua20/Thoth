@@ -21,6 +21,12 @@ func main(args : [String] = []){
     }
 }
 
+
+
+/**
+The main loop of the program in interactive command-line mode
+*/
+
 func mainloop() {
     println("Welcome in {#Thoth}, a static blog generator.")
     let prompt: Prompt = Prompt(argv0: Process.unsafeArgv[0])
@@ -49,6 +55,14 @@ func mainloop() {
         }
     }
 }
+
+
+
+/**
+Called when executing thoth with launch arguments
+
+:param: args an array of arguments
+*/
 
 func mainSwitch(var args : [String]) {
     if args.count > 1 {
@@ -103,6 +117,7 @@ func mainSwitch(var args : [String]) {
             }
             
         default:
+            //Case where the only arguments are the path to a config file and a modulator.
             if NSFileManager.defaultManager().fileExistsAtPath(args[0]) {
                 let potentialPath = args[0]
                 if let config = loadConfigurationFromPath(potentialPath) {
@@ -119,7 +134,7 @@ func mainSwitch(var args : [String]) {
             break
         }
     } else if args.count == 1 {
-        //Commands with no arguments except the first
+        //Commands with no arguments except the command name
         switch args[0] {
         case "help":
             printhelp()
@@ -134,6 +149,7 @@ func mainSwitch(var args : [String]) {
         case "setup","chech","index","resources","first","upload","scribe","generate":
             println("Missing argument. Type \"help\" to get a list of available commands.")
         default:
+            //Case where the only argument is the path to a config file.
             if NSFileManager.defaultManager().fileExistsAtPath(args[0]) {
                 let potentialPath = args[0]
                 if let config = loadConfigurationFromPath(potentialPath) {
@@ -152,6 +168,15 @@ func mainSwitch(var args : [String]) {
         println("Empty command. Type \"help\" to get a list of available commands.")
     }
 }
+
+
+
+/**
+Detects the modulating arguments, and return a value corresponding to the right mode.
+
+:param: args an array of arguments
+:returns: an integer representing the mode
+*/
 
 func interprateArguments(args : [String]) -> Int? {
     //No arguments provided -> default : 0
@@ -173,6 +198,15 @@ func interprateArguments(args : [String]) -> Int? {
     return option
 }
 
+
+
+/**
+Loads a configuration file in memory
+
+:param: rootPath a String representing the path to the folder containing the config file
+:returns: the Config object corresponding to the config file
+*/
+
 func loadConfigurationFromPath(rootPath : String)-> Config? {
     if NSFileManager.defaultManager().fileExistsAtPath(rootPath) {
         if NSFileManager.defaultManager().fileExistsAtPath(rootPath.stringByAppendingPathComponent("config")) {
@@ -186,6 +220,11 @@ func loadConfigurationFromPath(rootPath : String)-> Config? {
     return nil
 }
 
+
+
+/**
+Displays the help text
+*/
 
 func printhelp(){
     let s = "setup <path>\tCreates the configuration files and folders (articles, template, output, ressources) in the indicated directory.\n"
@@ -229,13 +268,30 @@ func printhelp(){
 }
 
 
+
+/**
+Displays the version number.
+*/
+
 func printversion(){
     println("{#Thoth} version 1.1")
 }
 
+
+
+/**
+Displays the license text.
+*/
+
 func printlicense(){
     println("===============================================================\n{#Thoth}\n===============================================================\nCopyright (c) 2015, Simon Rodriguez\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n- Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n- Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\nContact : contact@simonrodriguez.fr - simonrodriguez.fr\n\n===============================================================\n{#Thoth} uses some third-party components and libraries.\nTheir licenses and copyright notices are displayed here.\n\n===============================================================\nMarkingbird - Markdown.swift\n===============================================================\nCopyright (c) 2014 Kristopher Johnson\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nMarkdown.swift is based on MarkdownSharp, which is based on earlier\nMarkdown implementations.\n\n===============================================================\nswift-libedit\n===============================================================\nCopyright (c) 2014, Neil Pankey\nhttps://github.com/neilpa/swift-libedit\n\n===============================================================\nNMSSH\n===============================================================\nCopyright (c) 2013 Nine Muses AB\nAll rights reserved.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nhttps://github.com/Lejdborg/NMSSH\n")
 }
+
+
+
+/**
+A mysterious function...
+*/
 
 func printbonus(){
     println("                                                         \n                                                         \n                        ,,,,,,,,,,                       \n                  ,yQQQQQQQQQQQQQQQQQQyQ                 \n               yQQQQRR^ ..       .``RWQQQQQ,             \n            ,QQQ#R    ,yyy,             \"WQQQQ           \n          ,QQQR^  ,,@R` , 7Q               \"@QQQ         \n         QQQR,y#RR`,,      @Q                `QQQQ       \n       ,QQQR@QyQRR^`7RQQ   ]Q                  YQQQ      \n     ,#RQgRRT.        ]#  ,Qh                   1QQQ     \n   ,#QQQQ~           ,#. y#^                     @QQQ    \n  ]Q#@QQL           y#  #R                        QQQ    \n   . QQQ           @R yR`                         @QQm   \n     QQQ         ,QL @R                           ]QQQ   \n     QQQ        ,Q` @L                            @QQM   \n     ]QQQ       Q. ]Q           ,,yyyyyy,,        QQQ    \n      QQQ       Q   QQ    ,yQQQRRRRRRRW@QQQRRQ,  {QQR    \n      4QQQ       @Q  ^RRR`@R^.           '7R@yQRQQQ#     \n       1QQQ       ?Q,     @y,                .`@QQ#      \n        \"QQQy       ?WRRQy,.`RWRQQyy,,,      ,QQQR       \n          KQQQy           `RQQ     ..^QQRRRQQQQE         \n            KQQQQQ           `RQy,,,,  KQgQQQRV          \n              `RQQQQQQ,           `]Q@QQQQRT             \n                  \"WQQQQQQQQQQQQQQQQQQRR^                \n                        `\"RRRRRRRR^.                     \n                                                         \n                                                         \n                                                         \n")
