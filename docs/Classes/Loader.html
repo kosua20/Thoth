@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Loader Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Loader" class="dashAnchor"></a>
+    <a title="Loader Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (52% documented)</p>
+        <p class="header-right"><a href=""><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Loader Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+          <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Article.html">Article</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConfigLoader.html">ConfigLoader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Loader.html">Loader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Manager.html">Manager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Renderer.html">Renderer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth19interprateArgumentsFGSaSS_GSqSi_">interprateArguments(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth25loadConfigurationFromPathFSSGSqVS_6Config_">loadConfigurationFromPath(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth4mainFT4argsGSaSS__T_">main(args:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth10mainSwitchFGSaSS_T_">mainSwitch(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth8mainloopFT_T_">mainloop()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth10printbonusFT_T_">printbonus()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth9printhelpFT_T_">printhelp()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth12printlicenseFT_T_">printlicense()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth12printversionFT_T_">printversion()</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Config.html">Config</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Markdown.html">Markdown</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownOptions.html">MarkdownOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownRegex.html">MarkdownRegex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownRegexMatch.html">MarkdownRegexMatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownRegexOptions.html">MarkdownRegexOptions</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Loader</h1>
+            <ul>
+<li> The laoder is responsible for loading the articles from files on the disk and generate the corresponding Articles objects</li>
+</ul>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Properties"></a>
+                  <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                  <a href="#/Properties">
+                    <h3 class="section-name">Properties</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth6Loader10folderPathSS"></a>
+                    <a name="//apple_ref/swift/Property/folderPath" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth6Loader10folderPathSS">folderPath</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The path to the folder containing the articles files</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">folderPath</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth6Loader8articlesGSaCS_7Article_"></a>
+                    <a name="//apple_ref/swift/Property/articles" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth6Loader8articlesGSaCS_7Article_">articles</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An array for storing the generated articles</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">articles</span><span class="p">:</span> <span class="p">[</span><span class="kt">Article</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth6Loader13defaultAuthorSS"></a>
+                    <a name="//apple_ref/swift/Property/defaultAuthor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth6Loader13defaultAuthorSS">defaultAuthor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The default author name</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">defaultAuthor</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth6Loader9formatterCSo15NSDateFormatter"></a>
+                    <a name="//apple_ref/swift/Property/formatter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth6Loader9formatterCSo15NSDateFormatter">formatter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A shared Date formatter</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">formatter</span> <span class="p">:</span> <span class="kt">NSDateFormatter</span> <span class="o">=</span> <span class="kt">NSDateFormatter</span><span class="p">();</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Initialisation"></a>
+                  <a name="//apple_ref/swift/Section/Initialisation" class="dashAnchor"></a>
+                  <a href="#/Initialisation">
+                    <h3 class="section-name">Initialisation</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth6LoadercFMS0_FT10folderPathSS13defaultAuthorSS9dateStyleSS_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(folderPath:defaultAuthor:dateStyle:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth6LoadercFMS0_FT10folderPathSS13defaultAuthorSS9dateStyleSS_S0_">init(folderPath:defaultAuthor:dateStyle:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialisation method for the Loader class</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">folderPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">defaultAuthor</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">dateStyle</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>folderPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the path to the folder containing the articles .md files</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>defaultAuthor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the name of he default author to use if no name is specified in an article file</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dateStyle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the style of the date as written in the article file</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Articles%20functions"></a>
+                  <a name="//apple_ref/swift/Section/Articles functions" class="dashAnchor"></a>
+                  <a href="#/Articles%20functions">
+                    <h3 class="section-name">Articles functions</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth6Loader14loadFileAtPathFS0_FSST_"></a>
+                    <a name="//apple_ref/swift/Method/loadFileAtPath(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth6Loader14loadFileAtPathFS0_FSST_">loadFileAtPath(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Loads the articles .md files in the given folder, generates Articles objects from those and store them in the <code>articles</code> array.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">loadFileAtPath</span><span class="p">(</span><span class="nv">path</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the path to the folder where the articles files are stored</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth6Loader13printArticlesFS0_FSbT_"></a>
+                    <a name="//apple_ref/swift/Method/printArticles(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth6Loader13printArticlesFS0_FSbT_">printArticles(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Displays all articles in the console, for debugging purposes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">printArticles</span><span class="p">(</span><span class="nv">showDrafts</span> <span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>showDrafts</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>if set to yes, the drafts will also be displayed</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth6Loader12sortArticlesFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/sortArticles()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth6Loader12sortArticlesFS0_FT_T_">sortArticles()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sorts the articles stored in the <code>articles</code> array by date of publication. The drafts articles are placed at the end of the array</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">sortArticles</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth6LoaderP33_5F70CFBFBFBE9E430D739049E216B32921isFirstArticleEarlierFS0_FTCS_7Article8article2S1__Sb"></a>
+                    <a name="//apple_ref/swift/Method/isFirstArticleEarlier(_:article2:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth6LoaderP33_5F70CFBFBFBE9E430D739049E216B32921isFirstArticleEarlierFS0_FTCS_7Article8article2S1__Sb">isFirstArticleEarlier(_:article2:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compare the two articles passed in arguments by their dates. By convention the drafts are considered older than any dated article.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">isFirstArticleEarlier</span><span class="p">(</span><span class="nv">article1</span> <span class="p">:</span> <span class="kt">Article</span><span class="p">,</span> <span class="nv">article2</span><span class="p">:</span> <span class="kt">Article</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>article1</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the first article to compare</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>article2</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the second article to compare</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>true is the first article has an earlier date than the first, else false</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-04-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

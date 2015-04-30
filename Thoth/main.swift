@@ -23,6 +23,7 @@ func main(args : [String] = []){
 
 
 
+
 /**
 The main loop of the program in interactive command-line mode
 */
@@ -59,9 +60,9 @@ func mainloop() {
 
 
 /**
-Called when executing thoth with launch arguments
+	Called when executing thoth with launch arguments
 
-:param: args an array of arguments
+	:param: args an array of arguments
 */
 
 func mainSwitch(var args : [String]) {
@@ -172,10 +173,11 @@ func mainSwitch(var args : [String]) {
 
 
 /**
-Detects the modulating arguments, and return a value corresponding to the right mode.
+	Detects the modulating arguments, and return a value corresponding to the right mode.
 
-:param: args an array of arguments
-:returns: an integer representing the mode
+	:param: args an array of arguments
+
+	:returns: an integer representing the mode
 */
 
 func interprateArguments(args : [String]) -> Int? {
@@ -199,14 +201,13 @@ func interprateArguments(args : [String]) -> Int? {
 }
 
 
-
 /**
-Loads a configuration file in memory
+	Loads a configuration file in memory
 
-:param: rootPath a String representing the path to the folder containing the config file
-:returns: the Config object corresponding to the config file
+	:param: rootPath rootPath a String representing the path to the folder containing the config file
+
+	:returns: the Config object corresponding to the config file
 */
-
 func loadConfigurationFromPath(rootPath : String)-> Config? {
     if NSFileManager.defaultManager().fileExistsAtPath(rootPath) {
         if NSFileManager.defaultManager().fileExistsAtPath(rootPath.stringByAppendingPathComponent("config")) {
@@ -223,9 +224,8 @@ func loadConfigurationFromPath(rootPath : String)-> Config? {
 
 
 /**
-Displays the help text
+	Displays the help text
 */
-
 func printhelp(){
     let s = "setup <path>\tCreates the configuration files and folders (articles, template, output, ressources) in the indicated directory.\n"
         + "\t\tArgument:\n"
@@ -270,7 +270,7 @@ func printhelp(){
 
 
 /**
-Displays the version number.
+	Displays the version number.
 */
 
 func printversion(){
@@ -280,7 +280,7 @@ func printversion(){
 
 
 /**
-Displays the license text.
+	Displays the license text.
 */
 
 func printlicense(){
@@ -290,7 +290,7 @@ func printlicense(){
 
 
 /**
-A mysterious function...
+	A mysterious function...
 */
 
 func printbonus(){

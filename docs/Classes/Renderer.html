@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Renderer Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Renderer" class="dashAnchor"></a>
+    <a title="Renderer Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (52% documented)</p>
+        <p class="header-right"><a href=""><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Renderer Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+          <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Article.html">Article</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConfigLoader.html">ConfigLoader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Loader.html">Loader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Manager.html">Manager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Renderer.html">Renderer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth19interprateArgumentsFGSaSS_GSqSi_">interprateArguments(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth25loadConfigurationFromPathFSSGSqVS_6Config_">loadConfigurationFromPath(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth4mainFT4argsGSaSS__T_">main(args:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth10mainSwitchFGSaSS_T_">mainSwitch(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth8mainloopFT_T_">mainloop()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth10printbonusFT_T_">printbonus()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth9printhelpFT_T_">printhelp()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth12printlicenseFT_T_">printlicense()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth12printversionFT_T_">printversion()</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Config.html">Config</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Markdown.html">Markdown</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownOptions.html">MarkdownOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownRegex.html">MarkdownRegex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownRegexMatch.html">MarkdownRegexMatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownRegexOptions.html">MarkdownRegexOptions</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Renderer</h1>
+            <ul>
+<li> This class is in charge of rendering Articles objects as HTML pages on disk, generating an index page, a feed XML file and managing pictures and additional data.</li>
+</ul>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Properties"></a>
+                  <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                  <a href="#/Properties">
+                    <h3 class="section-name">Properties</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8Renderer16articlesToRenderGSaCS_7Article_"></a>
+                    <a name="//apple_ref/swift/Property/articlesToRender" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8Renderer16articlesToRenderGSaCS_7Article_">articlesToRender</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The array of articles to render</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">articlesToRender</span> <span class="p">:</span> <span class="p">[</span><span class="kt">Article</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8Renderer10exportPathSS"></a>
+                    <a name="//apple_ref/swift/Property/exportPath" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8Renderer10exportPathSS">exportPath</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The path of the output directory</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">exportPath</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8Renderer12templatePathSS"></a>
+                    <a name="//apple_ref/swift/Property/templatePath" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8Renderer12templatePathSS">templatePath</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The path to the directory where the template files are stored</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">templatePath</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8Renderer13resourcesPathSS"></a>
+                    <a name="//apple_ref/swift/Property/resourcesPath" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8Renderer13resourcesPathSS">resourcesPath</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The path to the additional resources directory</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">resourcesPath</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8Renderer12articlesPathSS"></a>
+                    <a name="//apple_ref/swift/Property/articlesPath" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8Renderer12articlesPathSS">articlesPath</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The path to the folder containing the articles files</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">articlesPath</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8Renderer9blogTitleSS"></a>
+                    <a name="//apple_ref/swift/Property/blogTitle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8Renderer9blogTitleSS">blogTitle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The title of the blog</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">blogTitle</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8Renderer8siteRootSS"></a>
+                    <a name="//apple_ref/swift/Property/siteRoot" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8Renderer8siteRootSS">siteRoot</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The root directory of the site once uploaded to the server</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">siteRoot</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11articleHtmlCSo8NSString"></a>
+                    <a name="//apple_ref/swift/Property/articleHtml" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11articleHtmlCSo8NSString">articleHtml</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Stores the HTML content of the article being currently generated</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">articleHtml</span> <span class="p">:</span> <span class="kt">NSString</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC9indexHtmlCSo8NSString"></a>
+                    <a name="//apple_ref/swift/Property/indexHtml" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC9indexHtmlCSo8NSString">indexHtml</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Stores the HTML content of the index page</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">indexHtml</span> <span class="p">:</span> <span class="kt">NSString</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11snippetHtmlCSo8NSString"></a>
+                    <a name="//apple_ref/swift/Property/snippetHtml" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11snippetHtmlCSo8NSString">snippetHtml</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The HTML code corresponding to a given articleon the index page</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">snippetHtml</span> <span class="p">:</span> <span class="kt">NSString</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC10headerHtmlCSo8NSString"></a>
+                    <a name="//apple_ref/swift/Property/headerHtml" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC10headerHtmlCSo8NSString">headerHtml</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>HTML content of the header</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">headerHtml</span> <span class="p">:</span> <span class="kt">NSString</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC10footerHtmlCSo8NSString"></a>
+                    <a name="//apple_ref/swift/Property/footerHtml" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC10footerHtmlCSo8NSString">footerHtml</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>HTML content of the footer</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">footerHtml</span> <span class="p">:</span> <span class="kt">NSString</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11insertIndexSi"></a>
+                    <a name="//apple_ref/swift/Property/insertIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11insertIndexSi">insertIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Index of the article being currently generated</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">insertIndex</span> <span class="o">=</span> <span class="mi">0</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC8markdownVS_8Markdown"></a>
+                    <a name="//apple_ref/swift/Property/markdown" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC8markdownVS_8Markdown">markdown</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shared instance of the Markdown parser</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">markdown</span> <span class="p">:</span> <span class="kt">Markdown</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Initialisation"></a>
+                  <a name="//apple_ref/swift/Section/Initialisation" class="dashAnchor"></a>
+                  <a href="#/Initialisation">
+                    <h3 class="section-name">Initialisation</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RenderercFMS0_FT8articlesGSaCS_7Article_12articlesPathSS10exportPathSS8rootPathSS12templatePathSS12defaultWidthSS9blogTitleSS10imagesLinkSb8siteRootSS_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(articles:articlesPath:exportPath:rootPath:templatePath:defaultWidth:blogTitle:imagesLink:siteRoot:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RenderercFMS0_FT8articlesGSaCS_7Article_12articlesPathSS10exportPathSS8rootPathSS12templatePathSS12defaultWidthSS9blogTitleSS10imagesLinkSb8siteRootSS_S0_">init(articles:articlesPath:exportPath:rootPath:templatePath:defaultWidth:blogTitle:imagesLink:siteRoot:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialisation method for the Renderer</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">articles</span><span class="p">:</span> <span class="p">[</span><span class="kt">Article</span><span class="p">],</span> <span class="nv">articlesPath</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">exportPath</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">rootPath</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">templatePath</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">defaultWidth</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">blogTitle</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">imagesLink</span> <span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">siteRoot</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>articles</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>an array of articles to render</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>articlesPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the path to the articles folder on disk</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>exportPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the path of the output folder</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rootPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the path of the directory where the ressources directory is</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>templatePath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the path to the tempalte folder</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>defaultWidth</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the default width of images inserted in articles</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>blogTitle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the title of the blog</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>imagesLink</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>if true, the images in articles are linking to the full size version of themselves</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>siteRoot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the root of the site once uploaded</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Template%20management"></a>
+                  <a name="//apple_ref/swift/Section/Template management" class="dashAnchor"></a>
+                  <a href="#/Template%20management">
+                    <h3 class="section-name">Template management</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC18initializeTemplateFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/initializeTemplate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC18initializeTemplateFS0_FT_T_">initializeTemplate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Copies the template files in the output folder</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">initializeTemplate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC12loadTemplateFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/loadTemplate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC12loadTemplateFS0_FT_T_">loadTemplate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Loads the template data (HTML snippets) from the template files</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">loadTemplate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC15restoreTemplateFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/restoreTemplate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC15restoreTemplateFS0_FT_T_">restoreTemplate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Restores the template content in the output folder</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">restoreTemplate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC18extractSnippetHtmlFS0_FCSo8NSStringS1_"></a>
+                    <a name="//apple_ref/swift/Method/extractSnippetHtml(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC18extractSnippetHtmlFS0_FCSo8NSStringS1_">extractSnippetHtml(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Extracts the HTMl code corresponding to an article on the index page</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">extractSnippetHtml</span><span class="p">(</span><span class="nv">code</span> <span class="p">:</span> <span class="kt">NSString</span><span class="p">)</span><span class="o">-&gt;</span> <span class="kt">NSString</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>code</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the HTML code of the index page from the template</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the extracted HTML snippet</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Combining%20functions"></a>
+                  <a name="//apple_ref/swift/Section/Combining functions" class="dashAnchor"></a>
+                  <a href="#/Combining%20functions">
+                    <h3 class="section-name">Combining functions</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8Renderer11updateIndexFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/updateIndex()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8Renderer11updateIndexFS0_FT_T_">updateIndex()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Renders the index page, and updates the resources directory.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">updateIndex</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8Renderer13defaultExportFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/defaultExport()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8Renderer13defaultExportFS0_FT_T_">defaultExport()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Default export. Renders the new articles, clean and renders drafts again, renders the index and draft index pages, and updates the resources directory.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">defaultExport</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8Renderer12articlesOnlyFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/articlesOnly()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8Renderer12articlesOnlyFS0_FT_T_">articlesOnly()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Regenerates all published articles, renders the index page and update the resources directory.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">articlesOnly</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8Renderer17articlesForceOnlyFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/articlesForceOnly()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8Renderer17articlesForceOnlyFS0_FT_T_">articlesForceOnly()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Regenerates all published articles, update drafts, renders index and draft index pages, and updates the resources directory.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">articlesForceOnly</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8Renderer10draftsOnlyFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/draftsOnly()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8Renderer10draftsOnlyFS0_FT_T_">draftsOnly()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Regenerates all draft articles, renders the drafts index page and update the resources directory.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">draftsOnly</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8Renderer15draftsForceOnlyFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/draftsForceOnly()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8Renderer15draftsForceOnlyFS0_FT_T_">draftsForceOnly()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Regenerates all draft articles, update published articles, renders index and draft index pages, and updates the resources directory.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">draftsForceOnly</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8Renderer10fullExportFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/fullExport()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8Renderer10fullExportFS0_FT_T_">fullExport()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cleans the output directory, restores the template, generates all articles and drafts, the index and drafts index pages, and copies the resources directory.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">fullExport</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8Renderer15updateResourcesFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/updateResources()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8Renderer15updateResourcesFS0_FT_T_">updateResources()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Force-update the resources directory</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">updateResources</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC13copyResourcesFS0_FSbT_"></a>
+                    <a name="//apple_ref/swift/Method/copyResources(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC13copyResourcesFS0_FSbT_">copyResources(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Copies additional resources in the output directory.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">copyResources</span><span class="p">(</span><span class="nv">forceUpdate</span> <span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>forceUpdate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>if true, previous resources will be erased</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Rendering"></a>
+                  <a name="//apple_ref/swift/Section/Rendering" class="dashAnchor"></a>
+                  <a href="#/Rendering">
+                    <h3 class="section-name">Rendering</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC14renderArticlesFS0_FSbT_"></a>
+                    <a name="//apple_ref/swift/Method/renderArticles(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC14renderArticlesFS0_FSbT_">renderArticles(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Renders the published articles as HTML files on disk, parsing the markdown content and mananging the pictures and ressources.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">renderArticles</span><span class="p">(</span><span class="nv">forceUpdate</span> <span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>forceUpdate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>true if previously generated articles should be generated</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11renderIndexFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/renderIndex()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11renderIndexFS0_FT_T_">renderIndex()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Renders the index page listing all published articles, and the feed.xml RSS file.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">renderIndex</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC16renderDraftIndexFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/renderDraftIndex()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC16renderDraftIndexFS0_FT_T_">renderDraftIndex()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Renders the draft index page, listing only draft articles.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">renderDraftIndex</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC12renderDraftsFS0_FSbT_"></a>
+                    <a name="//apple_ref/swift/Method/renderDrafts(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC12renderDraftsFS0_FSbT_">renderDrafts(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Renders the drafts articles as HTML files on disk, parsing the markdown content and mananging the pictures and ressources.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">renderDrafts</span><span class="p">(</span><span class="nv">forceUpdate</span> <span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>forceUpdate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>true if previously generated drafts should be generated</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC13renderArticleFS0_FTCS_7Article8inFolderSS11forceUpdateSb_T_"></a>
+                    <a name="//apple_ref/swift/Method/renderArticle(_:inFolder:forceUpdate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC13renderArticleFS0_FTCS_7Article8inFolderSS11forceUpdateSb_T_">renderArticle(_:inFolder:forceUpdate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Renders a given article in the given folder, generating an HTML file and additionally copying linked images in a specific sub-folder.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">renderArticle</span><span class="p">(</span><span class="nv">article</span> <span class="p">:</span> <span class="kt">Article</span><span class="p">,</span> <span class="n">inFolder</span> <span class="nv">folder</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">forceUpdate</span> <span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>article</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the article to render</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>folder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the directory in which the generated HTML article should be exported</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>forceUpdate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>true if previous version of the article should be erased</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Additional%20processing"></a>
+                  <a name="//apple_ref/swift/Section/Additional processing" class="dashAnchor"></a>
+                  <a href="#/Additional%20processing">
+                    <h3 class="section-name">Additional processing</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC12manageImagesFS0_FTSS5linksGSaSS_4pathSS11forceUpdateSb_SS"></a>
+                    <a name="//apple_ref/swift/Method/manageImages(_:links:path:forceUpdate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC12manageImagesFS0_FTSS5linksGSaSS_4pathSS11forceUpdateSb_SS">manageImages(_:links:path:forceUpdate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Parses the article content to detect images links, copy the images files in an article-specific directory and update the links accordingly.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">manageImages</span><span class="p">(</span><span class="k">var</span> <span class="nv">content</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">links</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="n">path</span> <span class="nv">filePath</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">forceUpdate</span> <span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>content</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the content of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>links</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the list of images links present in the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filePath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the path to the folder where the images files should be copied</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>forceUpdate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>indicates whether the images files should be force-updated or not</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>return the updated HTML content of the article</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC10expandLinkFS0_FSSSS"></a>
+                    <a name="//apple_ref/swift/Method/expandLink(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC10expandLinkFS0_FSSSS">expandLink(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convenience method to expand filepaths</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">expandLink</span><span class="p">(</span><span class="k">var</span> <span class="nv">link</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>link</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the path String to expand</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the expanded path</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC12addFootnotesFS0_FSSSS"></a>
+                    <a name="//apple_ref/swift/Method/addFootnotes(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC12addFootnotesFS0_FSSSS">addFootnotes(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Parses the article content to extract and generate footnotes HTML code.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">addFootnotes</span><span class="p">(</span><span class="k">var</span> <span class="nv">content</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>content</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the content of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the HTML content of the article, with the footnotes added at the end</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Cleaning"></a>
+                  <a name="//apple_ref/swift/Section/Cleaning" class="dashAnchor"></a>
+                  <a href="#/Cleaning">
+                    <h3 class="section-name">Cleaning</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC5cleanFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/clean()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC5cleanFS0_FT_T_">clean()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes everything from the output folder before regenerating the directories</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">clean</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11cleanFolderFS0_FSST_"></a>
+                    <a name="//apple_ref/swift/Method/cleanFolder(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth8RendererP33_98DD5669A116AE2301851858048A6DAC11cleanFolderFS0_FSST_">cleanFolder(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cleans the given directory (empties it).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">cleanFolder</span><span class="p">(</span><span class="nv">folder</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>folder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the path to the folder to clean, relative to the export path</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-04-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

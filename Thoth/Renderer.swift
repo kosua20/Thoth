@@ -14,7 +14,6 @@ import Foundation
 /**
 *  This class is in charge of rendering Articles objects as HTML pages on disk, generating an index page, a feed XML file and managing pictures and additional data.
 */
-
 class Renderer {
     
     // MARK: Properties
@@ -78,7 +77,6 @@ class Renderer {
     :param: imagesLink   if true, the images in articles are linking to the full size version of themselves
     :param: siteRoot     the root of the site once uploaded
     */
-    
     init(articles: [Article], articlesPath : String, exportPath : String, rootPath : String, templatePath: String, defaultWidth : String, blogTitle : String, imagesLink : Bool, siteRoot : String){
         self.exportPath = exportPath
         self.articlesPath = articlesPath
@@ -105,7 +103,6 @@ class Renderer {
     /**
     Copies the template files in the output folder
     */
-    
     private func initializeTemplate(){
         let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as! [String]
         for path in templateFiles{
@@ -120,7 +117,6 @@ class Renderer {
     /**
     Loads the template data (HTML snippets) from the template files
     */
-    
     private func loadTemplate(){
         if let data: NSData = NSFileManager.defaultManager().contentsAtPath(templatePath.stringByAppendingPathComponent("article.html")) {
             if let str = NSString(data: data, encoding : NSUTF8StringEncoding) {
@@ -157,7 +153,6 @@ class Renderer {
     /**
     Restores the template content in the output folder
     */
-	
     private func restoreTemplate(){
         let templateFiles = NSFileManager.defaultManager().contentsOfDirectoryAtPath(templatePath, error: nil) as! [String]
         for path in templateFiles{
@@ -174,7 +169,6 @@ class Renderer {
 	
 	:returns: the extracted HTML snippet
 	*/
-	
 	private func extractSnippetHtml(code : NSString)-> NSString{
 		let scanner = NSScanner(string:  code as String)
 		var res : NSString?
@@ -194,7 +188,6 @@ class Renderer {
 	/**
 	Renders the index page, and updates the resources directory.
 	*/
-	
     func updateIndex(){
         renderIndex()
         copyResources(false)
@@ -203,7 +196,6 @@ class Renderer {
 	/**
 	Default export. Renders the new articles, clean and renders drafts again, renders the index and draft index pages, and updates the resources directory.
 	*/
-	
     func defaultExport(){
         renderArticles(false)
         renderDrafts(true)
@@ -215,7 +207,6 @@ class Renderer {
 	/**
 	Regenerates all published articles, renders the index page and update the resources directory.
 	*/
-	
     func articlesOnly(){
         renderArticles(true)
         renderIndex()
@@ -225,7 +216,6 @@ class Renderer {
 	/**
 	Regenerates all published articles, update drafts, renders index and draft index pages, and updates the resources directory.
 	*/
-	
     func articlesForceOnly() {
         renderArticles(true)
         renderDrafts(false)
@@ -237,7 +227,6 @@ class Renderer {
 	/**
 	Regenerates all draft articles, renders the drafts index page and update the resources directory.
 	*/
-	
     func draftsOnly(){
         renderDrafts(true)
         renderDraftIndex()
@@ -247,7 +236,6 @@ class Renderer {
 	/**
 	Regenerates all draft articles, update published articles, renders index and draft index pages, and updates the resources directory.
 	*/
-	
     func draftsForceOnly() {
         renderDrafts(true)
         renderArticles(false)
@@ -259,7 +247,6 @@ class Renderer {
 	/**
 	Cleans the output directory, restores the template, generates all articles and drafts, the index and drafts index pages, and copies the resources directory.
 	*/
-	
     func fullExport() {
         clean()
         restoreTemplate()
@@ -273,7 +260,6 @@ class Renderer {
 	/**
 	Force-update the resources directory
 	*/
-	
     func updateResources(){
         copyResources(true)
     }
@@ -283,7 +269,6 @@ class Renderer {
 
 	:param: forceUpdate if true, previous resources will be erased
 	*/
-	
 	private func copyResources(forceUpdate : Bool){
 		if NSFileManager.defaultManager().fileExistsAtPath(resourcesPath) {
 			let exportResourcesPath = exportPath.stringByAppendingPathComponent("resources")
@@ -309,7 +294,6 @@ class Renderer {
 	
 	:param: forceUpdate true if previously generated articles should be generated
 	*/
-	
     private func renderArticles(forceUpdate : Bool){
         if forceUpdate {
             cleanFolder("articles")
@@ -324,7 +308,6 @@ class Renderer {
 	/**
 	Renders the index page listing all published articles, and the feed.xml RSS file.
 	*/
-	
 	private func renderIndex() {
 		indexHtml = footerHtml.copy() as! NSString
 		
@@ -377,7 +360,6 @@ class Renderer {
 	/**
 	Renders the draft index page, listing only draft articles.
 	*/
-	
 	private func renderDraftIndex() {
 		indexHtml = footerHtml.copy() as! NSString
 		for article in articlesToRender {
@@ -405,7 +387,6 @@ class Renderer {
 	
 	:param: forceUpdate true if previously generated drafts should be generated
 	*/
-	
     private func renderDrafts(forceUpdate : Bool){
         if forceUpdate {
             cleanFolder("drafts")
@@ -424,7 +405,6 @@ class Renderer {
 	:param: folder      the directory in which the generated HTML article should be exported
 	:param: forceUpdate true if previous version of the article should be erased
 	*/
-	
     private func renderArticle(article : Article, inFolder folder : String, forceUpdate : Bool){
         let filePath = exportPath.stringByAppendingPathComponent(folder).stringByAppendingPathComponent(article.getUrlPathname())
         if forceUpdate || !NSFileManager.defaultManager().fileExistsAtPath(filePath){
@@ -457,7 +437,6 @@ class Renderer {
 	
 	:returns: return the updated HTML content of the article
 	*/
-	
     private func manageImages(var content : String, links : [String], path filePath : String, forceUpdate : Bool) -> String {
         if links.count > 0 {
             if !NSFileManager.defaultManager().fileExistsAtPath(filePath.stringByDeletingPathExtension) {
@@ -489,7 +468,6 @@ class Renderer {
 	
 	:returns: the expanded path
 	*/
-	
     private func expandLink(var link : String) -> String {
         if link.hasPrefix("/") {
             //Absolute path
@@ -508,7 +486,6 @@ class Renderer {
 	
 	:returns: the HTML content of the article, with the footnotes added at the end
 	*/
-	
     private func addFootnotes(var content : String) -> String{
         //TODO: gérer les footnotes référencées
         var count = 1
@@ -562,7 +539,6 @@ class Renderer {
 	/**
 	Removes everything from the output folder before regenerating the directories
 	*/
-	
 	private func clean(){
 		if NSFileManager.defaultManager().fileExistsAtPath(exportPath) {
 			NSFileManager.defaultManager().removeItemAtPath(exportPath, error: nil)
@@ -577,7 +553,6 @@ class Renderer {
 	
 	:param: folder the path to the folder to clean, relative to the export path
 	*/
-	
 	private func cleanFolder(folder : String) {
 		let folderPath = exportPath.stringByAppendingPathComponent(folder)
 		if NSFileManager.defaultManager().fileExistsAtPath(folderPath) {

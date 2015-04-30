@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Article Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Article" class="dashAnchor"></a>
+    <a title="Article Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (52% documented)</p>
+        <p class="header-right"><a href=""><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Article Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+          <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Article.html">Article</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConfigLoader.html">ConfigLoader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Loader.html">Loader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Manager.html">Manager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Renderer.html">Renderer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth19interprateArgumentsFGSaSS_GSqSi_">interprateArguments(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth25loadConfigurationFromPathFSSGSqVS_6Config_">loadConfigurationFromPath(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth4mainFT4argsGSaSS__T_">main(args:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth10mainSwitchFGSaSS_T_">mainSwitch(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth8mainloopFT_T_">mainloop()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth10printbonusFT_T_">printbonus()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth9printhelpFT_T_">printhelp()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth12printlicenseFT_T_">printlicense()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth12printversionFT_T_">printversion()</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Config.html">Config</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Markdown.html">Markdown</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownOptions.html">MarkdownOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownRegex.html">MarkdownRegex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownRegexMatch.html">MarkdownRegexMatch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkdownRegexOptions.html">MarkdownRegexOptions</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Article</h1>
+            <ul>
+<li> An Article object represents an article loaded into memory from a .md file on disk</li>
+</ul>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Properties"></a>
+                  <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                  <a href="#/Properties">
+                    <h3 class="section-name">Properties</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth7Article5titleSS"></a>
+                    <a name="//apple_ref/swift/Property/title" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth7Article5titleSS">title</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The title of the article</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">title</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth7Article7contentSS"></a>
+                    <a name="//apple_ref/swift/Property/content" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth7Article7contentSS">content</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The content of the article, formatted in Markdown</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">content</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth7Article4dateGSqCSo6NSDate_"></a>
+                    <a name="//apple_ref/swift/Property/date" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth7Article4dateGSqCSo6NSDate_">date</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The date of publication of the article (if it is not a draft)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">date</span><span class="p">:</span><span class="kt">NSDate</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth7Article6authorSS"></a>
+                    <a name="//apple_ref/swift/Property/author" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth7Article6authorSS">author</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The author of the article</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">author</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth7Article7isDraftSb"></a>
+                    <a name="//apple_ref/swift/Property/isDraft" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth7Article7isDraftSb">isDraft</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Denotes if the article is a draft or a published article</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">isDraft</span><span class="p">:</span><span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth7Article10dateStringSS"></a>
+                    <a name="//apple_ref/swift/Property/dateString" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth7Article10dateStringSS">dateString</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The string in the article file representing the date and the status of the article</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">dateString</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC5Thoth7ArticleP33_5F70CFBFBFBE9E430D739049E216B3297summaryCSo8NSString"></a>
+                    <a name="//apple_ref/swift/Property/summary" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC5Thoth7ArticleP33_5F70CFBFBFBE9E430D739049E216B3297summaryCSo8NSString">summary</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A short summary composed of the beginning of the article text, stripped of its HTML components</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">summary</span> <span class="p">:</span> <span class="kt">NSString</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Initialisation"></a>
+                  <a name="//apple_ref/swift/Section/Initialisation" class="dashAnchor"></a>
+                  <a href="#/Initialisation">
+                    <h3 class="section-name">Initialisation</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth7ArticlecFMS0_FT5titleSS4dateGSqCSo6NSDate_6authorSS7contentSS7isDraftSb10dateStringSS_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(title:date:author:content:isDraft:dateString:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth7ArticlecFMS0_FT5titleSS4dateGSqCSo6NSDate_6authorSS7contentSS7isDraftSb10dateStringSS_S0_">init(title:date:author:content:isDraft:dateString:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialisation method</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">date</span><span class="p">:</span> <span class="kt">NSDate</span><span class="p">?,</span> <span class="nv">author</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">content</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">isDraft</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">dateString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>title</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the title of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>date</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the date of the article (optional)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>author</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the author of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>content</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the content of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isDraft</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>denotes if the article is a draft or a published article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dateString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a string representing the date and status of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth7ArticlecFMS0_FT5titleSS4dateGSqCSo6NSDate_6authorSS7contentSS10dateStringSS_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(title:date:author:content:dateString:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth7ArticlecFMS0_FT5titleSS4dateGSqCSo6NSDate_6authorSS7contentSS10dateStringSS_S0_">init(title:date:author:content:dateString:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A secondary initialisation method to handle drafts more easily</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">date</span><span class="p">:</span> <span class="kt">NSDate</span><span class="p">?,</span> <span class="nv">author</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">content</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">dateString</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>title</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the title of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>date</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the date of the article (optional)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>author</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the author of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>content</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the content of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dateString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a string representing the date and state of the article</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Getters"></a>
+                  <a name="//apple_ref/swift/Section/Getters" class="dashAnchor"></a>
+                  <a href="#/Getters">
+                    <h3 class="section-name">Getters</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC5Thoth7Article12getSetToKeepFMS0_FT_CSo21NSMutableCharacterSet"></a>
+                    <a name="//apple_ref/swift/Method/getSetToKeep()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC5Thoth7Article12getSetToKeepFMS0_FT_CSo21NSMutableCharacterSet">getSetToKeep()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the set of characters to keep for the summary generation. <em>This is a substitute for a class property</em>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">getSetToKeep</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSMutableCharacterSet</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the set of characters to keep for the URL pathname generation.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth7Article10getSummaryFS0_FT_CSo8NSString"></a>
+                    <a name="//apple_ref/swift/Method/getSummary()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth7Article10getSummaryFS0_FT_CSo8NSString">getSummary()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a summary of the beginning of the article, stripped from its non-textual elements</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">getSummary</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSString</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A NSString containing the summary.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth7Article14getUrlPathnameFS0_FT_SS"></a>
+                    <a name="//apple_ref/swift/Method/getUrlPathname()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth7Article14getUrlPathnameFS0_FT_SS">getUrlPathname()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the URL path name associated with the article and its title, conforms to the URL characters set.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">getUrlPathname</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A String representing the URL path name of the article.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-04-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
