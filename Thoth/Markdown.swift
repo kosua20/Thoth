@@ -377,6 +377,7 @@ public struct Markdown {
         
         // Images must come first, because ![foo][f] looks like an anchor.
         text = doImages(text)
+        ///HERE
         text = doAnchors(text)
         
         // Must come after DoAnchors(), because you can use < and >
