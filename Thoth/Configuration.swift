@@ -92,8 +92,6 @@ class ConfigLoader {
                                     ftpAdress = value
                                 case "ftpUsername":
                                     ftpUsername = value
-                                case "ftpPassword":
-                                    ftpPassword = value
                                 case "ftpPort":
                                     if let intvalue = value.toInt() {
                                         ftpPort = intvalue
@@ -110,6 +108,8 @@ class ConfigLoader {
                 }
             }
         }
+        
+        ftpPassword = retrievePasswordForUser(ftpUsername, andServer: ftpAdress.pathComponents.first)
         
         return  Config(selfPath: path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks, ftpAdress: ftpAdress, ftpUsername: ftpUsername, ftpPassword: ftpPassword,ftpPort: ftpPort, siteRoot: siteRoot)
     }
@@ -133,7 +133,6 @@ class ConfigLoader {
             "imagesLinks":"# Set to true if you want each image of an article to link directly to the corresponding file\n#\t(defaults to false)\n",
             "ftpAdress":"# The ftp address pointing to the exact folder where the output should be uploaded\n",
             "ftpUsername":"# The ftp username\n",
-            "ftpPassword":"# The ftp password (the best way is to create a specific user/password with restricted rights to access your FTP)\n",
             "ftpPort":"# The ftp port to use\n#\t(defaults to 22)\n",
             "siteRoot":"The online URL of the blog, without http:// (for RSS generation)",
         ]
@@ -143,7 +142,7 @@ class ConfigLoader {
         for i in 0..<ref.count {
             let tr = "\(ref[i].1.value)"
             let key = ref[i].0
-            if key != "selfPath"{
+            if key != "selfPath" && key != "ftpPassword"{
                 if let exp = dict[key] {
                     s = s + exp
                 }

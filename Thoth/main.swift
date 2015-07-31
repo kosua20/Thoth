@@ -65,6 +65,8 @@ func mainloop() {
 	:param: args an array of arguments
 */
 
+
+
 func mainSwitch(var args : [String]) {
     if args.count > 1 {
         switch args[0] {
@@ -79,11 +81,37 @@ func mainSwitch(var args : [String]) {
                     NSFileManager.defaultManager().createDirectoryAtPath(args[1].stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil, error: nil)
                 }
             }
+            println("The blog is now set up\nUse the command\nthoth password /path/to/blog/folder -set \"YourPassw0rd\"\nto register it.")
         case "check":
             if let config = loadConfigurationFromPath(args[1]) {
                 println("The config file seems ok")
                 let man = Manager(rootPath: args[1], configuration: config)
                 man.runTest()
+            }
+            
+        case "password":
+            if let config = loadConfigurationFromPath(args[1]){
+                if args.count > 2 {
+                    switch args[2]{
+                        case "-remove", "-r", "--r":
+                            removeUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first)
+                        case "-update", "-u", "--u":
+                            if args.count > 3 {
+                                updateUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, args[3])
+                            } else {
+                                println("No password specified")
+                            }
+                        case "-set", "-s", "--s":
+                            if args.count > 3 {
+                                registerUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, args[3])
+                            } else {
+                                println("No password specified")
+                            }
+                       
+                    default:
+                        println("Unknow option")
+                    }
+                }
             }
         case "index","resources","first","upload","scribe","generate":
             if let config = loadConfigurationFromPath(args[1]) {
@@ -212,6 +240,7 @@ func loadConfigurationFromPath(rootPath : String)-> Config? {
     if NSFileManager.defaultManager().fileExistsAtPath(rootPath) {
         if NSFileManager.defaultManager().fileExistsAtPath(rootPath.stringByAppendingPathComponent("config")) {
             return ConfigLoader.loadConfigFileAtPath(rootPath.stringByAppendingPathComponent("config"))
+            
         } else {
             println("No config file found in the designated directory.")
         }
@@ -251,6 +280,13 @@ func printhelp(){
         + "scribe <path> [-a|-d|-f]  Combines \"generate\" and \"upload\" with the corresponding path and option\n"
         + "\t\tArgument:\n"
         + "\t\t<path> points to the directory containing the config file of the site to generate and upload\n\n"
+        + "password <path> (-set|-update|-remove) \"password\"  Manage the password of the SFTP account, stored in the OSX user Keychain\n"
+        + "\t\tArguments:\n"
+        + "\t\t<path> points to the directory containing the config file of the site to manage\n"
+        + "\t\t-set: creates a keychain entry to store the password associated with the configured SFTP account\n"
+        + "\t\t-update: updates the keychain entry with the new password value\n"
+        + "\t\t-remove: deletes the keychain entry associated with the configured SFTP account\n"
+        + "\t\t\"password\" value of the password, needed when using the -set and -update options\n\n"
         + "index <path>\tRegenerates the index.html file.\n"
         + "\t\tArgument:\n"
         + "\t\t<path> points to the directory containing the config file\n\n"
@@ -274,7 +310,7 @@ func printhelp(){
 */
 
 func printversion(){
-    println("{#Thoth} version 1.1")
+    println("{#Thoth} version 1.3.0")
 }
 
 
@@ -284,7 +320,7 @@ func printversion(){
 */
 
 func printlicense(){
-    println("===============================================================\n{#Thoth}\n===============================================================\nCopyright (c) 2015, Simon Rodriguez\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n- Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n- Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\nContact : contact@simonrodriguez.fr - simonrodriguez.fr\n\n===============================================================\n{#Thoth} uses some third-party components and libraries.\nTheir licenses and copyright notices are displayed here.\n\n===============================================================\nMarkingbird - Markdown.swift\n===============================================================\nCopyright (c) 2014 Kristopher Johnson\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nMarkdown.swift is based on MarkdownSharp, which is based on earlier\nMarkdown implementations.\n\n===============================================================\nswift-libedit\n===============================================================\nCopyright (c) 2014, Neil Pankey\nhttps://github.com/neilpa/swift-libedit\n\n===============================================================\nNMSSH\n===============================================================\nCopyright (c) 2013 Nine Muses AB\nAll rights reserved.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nhttps://github.com/Lejdborg/NMSSH\n")
+    println("===============================================================\n{#Thoth}\n===============================================================\nCopyright (c) 2015, Simon Rodriguez\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n- Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n- Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\nContact : contact@simonrodriguez.fr - simonrodriguez.fr\n\n===============================================================\n{#Thoth} uses some third-party components and libraries.\nTheir licenses and copyright notices are displayed here.\n\n===============================================================\nMarkingbird - Markdown.swift\n===============================================================\nCopyright (c) 2014 Kristopher Johnson\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nMarkdown.swift is based on MarkdownSharp, which is based on earlier\nMarkdown implementations.\n\n===============================================================\nswift-libedit\n===============================================================\nCopyright (c) 2014, Neil Pankey\nhttps://github.com/neilpa/swift-libedit\n\n===============================================================\nNMSSH\n===============================================================\nCopyright (c) 2013 Nine Muses AB\nAll rights reserved.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nhttps://github.com/Lejdborg/NMSSH\n\n===============================================================\nKeychainAccess\n===============================================================\nCopyright (c) 2014 kishikawa katsumi\n\nThe MIT License (MIT) - Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: \nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nhttps://github.com/kishikawakatsumi/KeychainAccess\n")
 }
 
 

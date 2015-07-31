@@ -51,6 +51,9 @@ class Renderer {
     /// HTML content of the header
     private var headerHtml : NSString = ""
     
+    /// HTML content for code syntax highlighting
+    private var syntaxHtml : NSString = ""
+    
     /// HTML content of the footer
     private var footerHtml : NSString = ""
     
@@ -128,6 +131,17 @@ class Renderer {
             println("Unable to load the article.html template.")
         }
         
+        if let data: NSData = NSFileManager.defaultManager().contentsAtPath(templatePath.stringByAppendingPathComponent("syntax.html")) {
+            if let str = NSString(data: data, encoding : NSUTF8StringEncoding) {
+                syntaxHtml = str
+            } else {
+                println("Unable to load the syntax highlighting header template, default to \"\".")
+                syntaxHtml = ""
+            }
+        } else {
+            
+        }
+        
         if let data: NSData = NSFileManager.defaultManager().contentsAtPath(templatePath.stringByAppendingPathComponent("index.html")) {
             if let str = NSString(data: data, encoding : NSUTF8StringEncoding) {
                 indexHtml = str
@@ -202,6 +216,7 @@ class Renderer {
         renderIndex()
         renderDraftIndex()
         copyResources(false)
+        println("Index written at path " + exportPath.stringByAppendingPathComponent("index.html"))
     }
 	
 	/**
@@ -211,6 +226,7 @@ class Renderer {
         renderArticles(true)
         renderIndex()
         copyResources(false)
+        println("Index written at path " + exportPath.stringByAppendingPathComponent("index.html"))
     }
 	
 	/**
@@ -222,6 +238,7 @@ class Renderer {
         renderIndex()
         renderDraftIndex()
         copyResources(false)
+        println("Index written at path " + exportPath.stringByAppendingPathComponent("index.html"))
     }
 	
 	/**
@@ -231,6 +248,7 @@ class Renderer {
         renderDrafts(true)
         renderDraftIndex()
         copyResources(false)
+        println("Drafts index written at path " + exportPath.stringByAppendingPathComponent("index-drafts.html"))
     }
 	
 	/**
@@ -242,6 +260,7 @@ class Renderer {
         renderDraftIndex()
         renderIndex()
         copyResources(false)
+        println("Drafts index written at path " + exportPath.stringByAppendingPathComponent("index-drafts.html"))
     }
 	
 	/**
@@ -255,6 +274,7 @@ class Renderer {
         renderIndex()
         renderDraftIndex()
         copyResources(true)
+        println("Index written at path " + exportPath.stringByAppendingPathComponent("index.html"))
     }
 	
 	/**
@@ -415,10 +435,15 @@ class Renderer {
             html = html.stringByReplacingOccurrencesOfString("{#BLOG_TITLE}", withString: blogTitle)
             html = html.stringByReplacingOccurrencesOfString("{#LINK}", withString: article.getUrlPathname())
             html = html.stringByReplacingOccurrencesOfString("{#SUMMARY}", withString: article.getSummary() as String)
+            
             var contentHtml = markdown.transform(article.content)
             contentHtml = addFootnotes(contentHtml)
             contentHtml = manageImages(contentHtml,links: markdown.imagesUrl, path: filePath, forceUpdate : forceUpdate)
+            if (contentHtml.rangeOfString("<pre><code>")?.startIndex != nil ){
+                html = html.stringByReplacingOccurrencesOfString("</head>", withString: "\n" + (syntaxHtml as String) + "\n</head>")
+            }
             html = html.stringByReplacingOccurrencesOfString("{#CONTENT}", withString: contentHtml)
+            
             NSFileManager.defaultManager().createFileAtPath(filePath, contents: html.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
         }
     }

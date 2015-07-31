@@ -377,7 +377,7 @@ public struct Markdown {
         
         // Images must come first, because ![foo][f] looks like an anchor.
         text = doImages(text)
-        ///HERE
+        text = doVideos(text)
         text = doAnchors(text)
         
         // Must come after DoAnchors(), because you can use < and >
@@ -1050,6 +1050,159 @@ public struct Markdown {
         }
         return result
     }
+    ///------------------
+    private static let _videosRef = Regex("\n".join([
+        "(               # wrap whole match in $1",
+        "\\?\\[",
+        "    (.*?)       # alt text = $2",
+        "\\]",
+        "",
+        "\\p{Z}?            # one optional space",
+        "(?:\\n\\p{Z}*)?    # one optional newline followed by spaces",
+        "",
+        "\\[",
+        "    (.*?)       # id = $3",
+        "\\]",
+        "",
+        ")"
+        ]),
+        options: RegexOptions.IgnorePatternWhitespace | RegexOptions.Singleline)
+    
+    private static let _videosInline = Regex("\n".join([
+        "(                     # wrap whole match in $1",
+        "  \\?\\[",
+        "      (.*?)           # alt text = $2",
+        "  \\]",
+        "  \\s?                # one optional whitespace character",
+        "  \\(                 # literal paren",
+        "      \\p{Z}*",
+        "      (\(Markdown.getNestedParensPattern()))    # href = $3",
+        "      \\p{Z}*",
+        "      (               # $4",
+        "      (['\"])       # quote char = $5",
+        "      (.*?)           # title = $6",
+        "      \\5             # matching quote",
+        "      \\p{Z}*",
+        "      )?              # title is optional",
+        "  \\)",
+        ")"
+        ]),
+        options: RegexOptions.IgnorePatternWhitespace | RegexOptions.Singleline)
+    
+    /// Turn Markdown image shortcuts into HTML img tags.
+    ///
+    /// - ?[alt text][id]
+    /// - ?[alt text](url "optional title")
+    private mutating func doVideos(var text: String) -> String {
+        // First, handle reference-style labeled images: ![alt text][id]
+        text = Markdown._videosRef.replace(text) { self.videoReferenceEvaluator($0) }
+        
+        // Next, handle inline images:  ![alt text](url "optional title")
+        // Don't forget: encode * and _
+        text = Markdown._videosInline.replace(text) { self.videoInlineEvaluator($0) }
+        
+        return text
+    }
+    
+    // This prevents the creation of horribly broken HTML when some syntax ambiguities
+    // collide. It likely still doesn't do what the user meant, but at least we're not
+    // outputting garbage.
+    private func escapeVideoAltText(var s: String) -> String {
+        s = escapeBoldItalic(s)
+        s = Regex.replace(s, pattern: "[\\[\\]()]") { Markdown._escapeTable[$0.value as String ]! }
+        return s
+    }
+    
+    private mutating func videoReferenceEvaluator(match: Match) -> String {
+        let wholeMatch = match.valueOfGroupAtIndex(1)
+        let altText = match.valueOfGroupAtIndex(2)
+        var linkID = match.valueOfGroupAtIndex(3).lowercaseString
+        
+        // for shortcut links like ![this][].
+        if linkID.isEmpty {
+            linkID = altText.lowercaseString
+        }
+        
+        if let url = _urls[linkID] {
+            var title: String? = nil
+            
+            if let t = _titles[linkID] {
+                title = t
+            }
+            return videoTag(url, altText: altText as String, title: title)
+        }
+        else{
+            // If there's no such link ID, leave intact:
+            return wholeMatch as String
+        }
+    }
+    
+    private mutating func videoInlineEvaluator(match: Match) -> String {
+        let alt = match.valueOfGroupAtIndex(2)
+        var url = match.valueOfGroupAtIndex(3)
+        let title = match.valueOfGroupAtIndex(6)
+        
+        if url.hasPrefix("<") && url.hasSuffix(">") {
+            url = url.substringWithRange(NSMakeRange(1, url.length - 2))    // Remove <>'s surrounding URL, if present
+        }
+        return videoTag(url as String, altText: alt as String, title: title as String)
+    }
+    
+    mutating func videoTag(var url: String, var altText: String, var title: String?) -> String {
+        altText = escapeVideoAltText(Markdown.attributeEncode(altText))
+        
+        url = encodeProblemUrlChars(url)
+        url = escapeBoldItalic(url)
+        var result = ""
+        
+        
+        //Simon's modifications
+        //We are using the title element to allow for custom width/height
+        var width = ""
+        if !defaultWidth.isEmpty {
+            width = " width=\"\(_defaultWidth)\""
+        }
+        var height = ""
+        var properTitle = ""
+        if var title = title {
+            if !title.isEmpty {
+                var titleComponents = title.componentsSeparatedByString(",")
+                
+                if titleComponents.count > 0 {
+                    if matchRegex(titleComponents[0],pattern: "\\d+") {
+                        let component1 = titleComponents[0].stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil)
+                        width = " width=\"\(component1)\""
+                        titleComponents.removeAtIndex(0)
+                        if titleComponents.count > 0 {
+                            if matchRegex(titleComponents[0],pattern: "\\d+") {
+                                let component2 = titleComponents[0].stringByReplacingOccurrencesOfString(" ", withString: "", options: nil, range: nil)
+                                height = " height=\"\(component2)\""
+                                titleComponents.removeAtIndex(0)
+                            }
+                        }
+                    }
+                    title = ",".join(titleComponents)
+                    if title.hasPrefix(" ") {
+                        title = title.substringFromIndex(title.startIndex.successor())
+                    }
+                }
+                properTitle = Markdown.attributeEncode(escapeBoldItalic(title))
+            }
+        }
+        result = "<video\(width)\(height) autoplay loop><source src=\"\(url)\" type=\"video/mp4\">\(properTitle)</video>"
+        
+        return result
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ///-----------------
     
     private func matchRegex(text : String, pattern : String) -> Bool{
         var options: NSRegularExpressionOptions = NSRegularExpressionOptions.DotMatchesLineSeparators

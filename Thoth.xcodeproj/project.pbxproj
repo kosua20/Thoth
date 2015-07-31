@@ -11,6 +11,8 @@
 		F408063D1AEED36E00FBE37A /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F408063C1AEED36E00FBE37A /* libssl.dylib */; };
 		F408063F1AEED37600FBE37A /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F408063E1AEED37600FBE37A /* libcrypto.dylib */; };
 		F40806411AEED37B00FBE37A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F40806401AEED37B00FBE37A /* libz.dylib */; };
+		F49DEC251B6A70E900F2D59E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49DEC231B6A70E900F2D59E /* Keychain.swift */; };
+		F49DEC271B6A713A00F2D59E /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49DEC261B6A713A00F2D59E /* Security.swift */; };
 		F4A26CDA1AD5654600B48627 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A26CD91AD5654600B48627 /* Foundation.framework */; };
 		F4A26CDC1AD5654C00B48627 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A26CDB1AD5654C00B48627 /* CFNetwork.framework */; };
 		F4FBC9FE1A89163C00E1B6A0 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */; };
@@ -25,9 +27,9 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		F45010B41AE7E31C0021F863 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 1;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,6 +43,9 @@
 		F40806401AEED37B00FBE37A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		F44B72631A7584A900C92E3E /* Thoth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Thoth; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45BD9A41A99126800FA82EF /* Thoth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thoth-Bridging-Header.h"; sourceTree = "<group>"; };
+		F49DEC231B6A70E900F2D59E /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = "keychain-access/Keychain.swift"; sourceTree = "<group>"; };
+		F49DEC241B6A70E900F2D59E /* KeychainAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainAccess.h; path = "keychain-access/KeychainAccess.h"; sourceTree = "<group>"; };
+		F49DEC261B6A713A00F2D59E /* Security.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
 		F4A26CD91AD5654600B48627 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4A26CDB1AD5654C00B48627 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
@@ -87,6 +92,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F49DEC221B6A70DE00F2D59E /* KeychainAccess */ = {
+			isa = PBXGroup;
+			children = (
+				F49DEC231B6A70E900F2D59E /* Keychain.swift */,
+				F49DEC241B6A70E900F2D59E /* KeychainAccess.h */,
+			);
+			name = KeychainAccess;
+			sourceTree = "<group>";
+		};
 		F4A26CDD1AD5668000B48627 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				F4FBC9F61A89163C00E1B6A0 /* main.swift */,
+				F49DEC261B6A713A00F2D59E /* Security.swift */,
 				F4FBC9F71A89163C00E1B6A0 /* Manager.swift */,
 				F4FBC9F41A89163C00E1B6A0 /* Configuration.swift */,
 				F4FBC9F51A89163C00E1B6A0 /* Loader.swift */,
@@ -125,6 +140,7 @@
 		F4FBCA051A8921BC00E1B6A0 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F49DEC221B6A70DE00F2D59E /* KeychainAccess */,
 				F45BD9A41A99126800FA82EF /* Thoth-Bridging-Header.h */,
 				F4FBC9F81A89163C00E1B6A0 /* Markdown.swift */,
 				F4FBC9FA1A89163C00E1B6A0 /* swift-libedit */,
@@ -193,6 +209,8 @@
 				F4FBCA031A89163C00E1B6A0 /* Renderer.swift in Sources */,
 				F4FBCA001A89163C00E1B6A0 /* main.swift in Sources */,
 				F4FBC9FE1A89163C00E1B6A0 /* Configuration.swift in Sources */,
+				F49DEC271B6A713A00F2D59E /* Security.swift in Sources */,
+				F49DEC251B6A70E900F2D59E /* Keychain.swift in Sources */,
 				F4FBCA011A89163C00E1B6A0 /* Manager.swift in Sources */,
 				F4FBC9FF1A89163C00E1B6A0 /* Loader.swift in Sources */,
 			);
@@ -293,6 +311,8 @@
 					"$(PROJECT_DIR)/Thoth",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Thoth.xcodeproj",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Thoth-hghgrlwhdekkwyemqfgyvrxwrwsf/Build/Products/Release",
+					/Developer/Xcode/Siblog/Libraries,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -325,6 +345,8 @@
 					"$(PROJECT_DIR)/Thoth",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Thoth.xcodeproj",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Thoth-hghgrlwhdekkwyemqfgyvrxwrwsf/Build/Products/Release",
+					/Developer/Xcode/Siblog/Libraries,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
