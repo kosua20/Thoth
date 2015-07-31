@@ -27,9 +27,9 @@ or launch it as an application which will display its own prompt :
 You can either download the installer package from the [download folder](http://github.com/kosua20/Thoth/tree/master/download/) and execute it : Thoth will be installed in `/usr/local/bin`, or you can download the sources and compile it using Xcode.
 
 ###Setup
-You can ask Thoth to create a folder containing a config file and all the needed directories by running the command `setup /path/to/the/future/blog/directory`.  
+You can ask Thoth to create a folder containing a config file and all the needed directories by running the command `setup /path/to/the/future/blog/directory`. Then, fill the config file with the corresponding information, and register your SFTP password in the OS X keychain using the `password /path/to/blog/directory -set "yourPassw0rd"`.
 
-The config file is a plain text file, so you can create it yourself if you prefer (see the **Config file** section). In all cases, you must fill it before running other Thoth commands.  
+The config file is a plain text file, so you can create it yourself if you prefer (see the **Config file** section). In all cases, you must fill it before running other Thoth commands.
 
 Don't forget to add a template in the corresponding folder. You can use the default template, stored in the [download folder](http://github.com/kosua20/Thoth/tree/master/download/) of this repository.
 
@@ -79,11 +79,21 @@ Once you have finished writing your article, run the `scribe /path/to/blog/folde
 	- `-d` uploads drafts only  
 	- `-f` uploads everything (Warning: the content of the ftp directory where the site content is put will be deleted)  
 	
-
 - `scribe <path> [-a|-d|-f]`  
 	Combines generate and upload with the corresponding path and option  
 	**Argument:**  
 	`<path>` points to the directory containing the config file of the site to generate and upload
+	
+- `password <path> (-set|-update|-remove) "password"`  
+	Manage the password of the SFTP account, stored in the OSX user Keychain  
+   **Arguments:**  
+   `<path>` points to the directory containing the config file of the site to manage  
+   One of the three following operations:
+    -	`-set` creates a keychain entry to store the password associated with the configured SFTP account  
+    -	`-update` updates the keychain entry with the new password value  
+    -	`-remove` deletes the keychain entry associated with the configured SFTP account  
+      
+    `"password"` value of the password, needed when using the -set and -update options
 
 - `index <path>	`  
 	Regenerates the index.html file.  
@@ -126,6 +136,8 @@ Create your own HTML templates : Thoth expects at least two files in the templat
 - `{#SUMMARY}` to insert a shortened version of an article (200-300 characters max.)
 - `{#ARTICLE_BEGIN}` and `{#ARTICLE_END}` in the index.html template to delimitate the HTML corresponding to an article item in the list.
 
+You can also provide a `syntax.html` file containing code for syntax highlighting. It will be inserted in the `<head>` section of each article that contains at least a block of code (`<pre><code>...</code></pre>`).
+
 ### Config file
 A simple, human-readable config file. No XML, JSON or YAML. Just a simple flat text file, nothing more. It should be put at the root of your blog folder, along with `articles`, `template`, `output` folders. The current settings are :
 
@@ -153,14 +165,11 @@ A simple, human-readable config file. No XML, JSON or YAML. Just a simple flat t
 - set to true if you want each image of an article to link directly to the corresponding file (defaults to `false`)  
 `imagesLinks:		true`
 
-- the ftp address pointing to the exact folder where the output should be uploaded  
+- the sftp address pointing to the exact folder where the output should be uploaded  
 `ftpAdress:		domain-sftp.com/folder/for/blog`
 
-- the ftp username  
+- the sftp username  
 `ftpUsername:	`	
-
-- the sftp password (the best way is to create a specific user/password with restricted rights to access your SFTP)  
-`ftpPassword:	`	
 
 - the sftp port to use (defaults to 22)  
 `ftpPort:		22`
@@ -168,7 +177,7 @@ A simple, human-readable config file. No XML, JSON or YAML. Just a simple flat t
 - the online URL of the blog, without "http://"  
 `siteRoot:	blog.mysite.com`
 
-
+The password for the SFTP access is now stored in the OS X user keychain. See the `password` command for more details.
 
 
 ### Extended markdown parsing
@@ -189,6 +198,13 @@ or just
 to automatically set the height according to the picture ratio.
 Pictures from your articles which are stored on your computer are also retrieved by Thoth and copied in article-specific folders, for an easier management.
 
+You can also integrate HTML5 videos in your articles using the following syntax:
+
+	?[alt text](http://url/to/video.mp4 "800,600")
+	
+(There is not automatic copy of local videos yet.)
+	
+	
 ### Comments and ignored files
 In the config file, lines beginning with a `#` or a `_` will be ignored.  
 During articles processing and copy, files beginning with `_` or `#` won't be processed or copied.
@@ -197,9 +213,8 @@ During articles processing and copy, files beginning with `_` or `#` won't be pr
 
 - adding support for referenced footnotes
 - adding the generation of sitemap.xml ~and feed.xml~ files
-- more keywords and templates options
-- non synchronized logs when uploading
-- Apple Doc
+- fix unsynchronized logs when uploading
+
 
 ## Authors and Contributors
 Created in Swift using Xcode by [Simon Rodriguez](http://simonrodriguez.fr).  
