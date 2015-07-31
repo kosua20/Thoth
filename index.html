@@ -1,41 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
+    <meta charset="UTF-8">
     <title>Thoth by kosua20</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>Thoth</h1>
-        <h2>A simple static blog generator</h2>
-        <a href="https://github.com/kosua20/Thoth" class="button"><small>View project on</small> GitHub</a>
-      </div>
-    </header>
+    <section class="page-header">
+      <h1 class="project-name">Thoth</h1>
+      <h2 class="project-tagline">A simple static blog generator</h2>
+      <a href="https://github.com/kosua20/Thoth" class="btn">View on GitHub</a>
+      <a href="https://github.com/kosua20/Thoth/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/kosua20/Thoth/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <p><img src="thoth_circle.png" alt="{#Thoth}"></p>
+    <section class="main-content">
+      <h1>
+<a id="thoth-a-simple-static-blog-generator" class="anchor" href="#thoth-a-simple-static-blog-generator" aria-hidden="true"><span class="octicon octicon-link"></span></a>{#Thoth}, a simple static blog generator.</h1>
+
+<p><img src="thoth_circle.png" alt="{#Thoth}"></p>
 
 <h2>
 <a id="meet-thoth" class="anchor" href="#meet-thoth" aria-hidden="true"><span class="octicon octicon-link"></span></a>Meet Thoth</h2>
 
 <p>{#Thoth} (or more commonly Thoth) is a new, simple static blog generator written in Swift.<br>
-Just write your articles in Markdown, put them in a directory, point Thoth to this directory, add a template, FTP settings and an output directory, and <em>voilà</em> !
-Thoth will generate HTML pages for all articles, drafts, and index, and upload the output to your FTP. </p>
+Just write your articles in Markdown, put them in a directory, point Thoth to this directory, add a template, SFTP settings and an output directory, and <em>voilà</em> !
+Thoth will generate HTML pages for all articles, drafts, and index, and upload the output to your SFTP. </p>
 
 <p>You can use it as a command-line tool :</p>
 
@@ -63,9 +57,9 @@ Uploading to FTP... Upload done !
 <h3>
 <a id="setup" class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h3>
 
-<p>You can ask Thoth to create a folder containing a config file and all the needed directories by running the command <code>setup /path/to/the/future/blog/directory</code>.  </p>
+<p>You can ask Thoth to create a folder containing a config file and all the needed directories by running the command <code>setup /path/to/the/future/blog/directory</code>. Then, fill the config file with the corresponding information, and register your SFTP password in the OS X keychain using the <code>password /path/to/blog/directory -set "yourPassw0rd"</code>.</p>
 
-<p>The config file is a plain text file, so you can create it yourself if you prefer (see the <strong>Config file</strong> section). In all cases, you must fill it before running other Thoth commands.  </p>
+<p>The config file is a plain text file, so you can create it yourself if you prefer (see the <strong>Config file</strong> section). In all cases, you must fill it before running other Thoth commands.</p>
 
 <p>Don't forget to add a template in the corresponding folder. You can use the default template, stored in the <a href="http://github.com/kosua20/Thoth/tree/master/download/">download folder</a> of this repository.</p>
 
@@ -142,6 +136,24 @@ Upload the content of the site to the FTP set in the config file<br>
 Combines generate and upload with the corresponding path and option<br>
 <strong>Argument:</strong><br>
 <code>&lt;path&gt;</code> points to the directory containing the config file of the site to generate and upload</p></li>
+<li>
+<p><code>password &lt;path&gt; (-set|-update|-remove) "password"</code><br>
+Manage the password of the SFTP account, stored in the OSX user Keychain<br>
+<strong>Arguments:</strong><br>
+<code>&lt;path&gt;</code> points to the directory containing the config file of the site to manage<br>
+One of the three following operations:</p>
+
+<ul>
+<li>  <code>-set</code> creates a keychain entry to store the password associated with the configured SFTP account<br>
+</li>
+<li>  <code>-update</code> updates the keychain entry with the new password value<br>
+</li>
+<li>  <code>-remove</code> deletes the keychain entry associated with the configured SFTP account<br>
+</li>
+</ul>
+
+<p><code>"password"</code> value of the password, needed when using the -set and -update options</p>
+</li>
 <li><p><code>index &lt;path&gt;</code><br>
 Regenerates the index.html file.<br>
 <strong>Argument:</strong><br>
@@ -191,6 +203,8 @@ Quits the program</p></li>
 <code>{#ARTICLE_BEGIN}</code> and <code>{#ARTICLE_END}</code> in the index.html template to delimitate the HTML corresponding to an article item in the list.</li>
 </ul>
 
+<p>You can also provide a <code>syntax.html</code> file containing code for syntax highlighting. It will be inserted in the <code>&lt;head&gt;</code> section of each article that contains at least a block of code (<code>&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>).</p>
+
 <h3>
 <a id="config-file" class="anchor" href="#config-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Config file</h3>
 
@@ -213,15 +227,17 @@ Quits the program</p></li>
 <code>imageWidth:        640</code></p></li>
 <li><p>set to true if you want each image of an article to link directly to the corresponding file (defaults to <code>false</code>)<br>
 <code>imagesLinks:       true</code></p></li>
-<li><p>the ftp address pointing to the exact folder where the output should be uploaded<br>
-<code>ftpAdress:     domain-ftp.com/folder/for/blog</code></p></li>
-<li><p>the ftp username<br>
+<li><p>the sftp address pointing to the exact folder where the output should be uploaded<br>
+<code>ftpAdress:     domain-sftp.com/folder/for/blog</code></p></li>
+<li><p>the sftp username<br>
 <code>ftpUsername:</code>   </p></li>
-<li><p>the ftp password (the best way is to create a specific user/password with restricted rights to access your FTP)<br>
-<code>ftpPassword:</code>   </p></li>
-<li><p>the ftp port to use (defaults to 21)<br>
-<code>ftpPort:       21</code></p></li>
+<li><p>the sftp port to use (defaults to 22)<br>
+<code>ftpPort:       22</code></p></li>
+<li><p>the online URL of the blog, without "http://"<br>
+<code>siteRoot:  blog.mysite.com</code></p></li>
 </ul>
+
+<p>The password for the SFTP access is now stored in the OS X user keychain. See the <code>password</code> command for more details.</p>
 
 <h3>
 <a id="extended-markdown-parsing" class="anchor" href="#extended-markdown-parsing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extended markdown parsing</h3>
@@ -246,6 +262,13 @@ Quits the program</p></li>
 <p>to automatically set the height according to the picture ratio.
 Pictures from your articles which are stored on your computer are also retrieved by Thoth and copied in article-specific folders, for an easier management.</p>
 
+<p>You can also integrate HTML5 videos in your articles using the following syntax:</p>
+
+<pre><code>?[alt text](http://url/to/video.mp4 "800,600")
+</code></pre>
+
+<p>(There is not automatic copy of local videos yet.)</p>
+
 <h3>
 <a id="comments-and-ignored-files" class="anchor" href="#comments-and-ignored-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Comments and ignored files</h3>
 
@@ -257,9 +280,8 @@ During articles processing and copy, files beginning with <code>_</code> or <cod
 
 <ul>
 <li>adding support for referenced footnotes</li>
-<li>adding the generation of sitemap.xml and feed.xml files</li>
-<li>more keywords and templates options</li>
-<li>better reliability of the <code>upload &lt;path&gt; -f</code> command</li>
+<li>adding the generation of sitemap.xml ~and feed.xml~ files</li>
+<li>fix unsynchronized logs when uploading</li>
 </ul>
 
 <h2>
@@ -272,25 +294,16 @@ See the license file for the licenses of third-party components and libraries.</
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h2>
 
 <p>Having trouble with Thoth? Contact me at contact[...]simonrodriguez[...]fr and I'll try to help you.</p>
-        </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/kosua20/Thoth/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/kosua20/Thoth/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/kosua20/Thoth">Thoth</a> is maintained by <a href="https://github.com/kosua20">kosua20</a>.</span>
 
-          <p class="repo-owner"><a href="https://github.com/kosua20/Thoth"></a> is maintained by <a href="https://github.com/kosua20">kosua20</a>.</p>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
 
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
+    </section>
 
   
   </body>
 </html>
+
