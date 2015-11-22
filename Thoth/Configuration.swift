@@ -38,9 +38,9 @@ class ConfigLoader {
     /**
     lLads into memory a configuration file on the disk
     
-    :param: path the path to the configuration file
+    - parameter path: the path to the configuration file
     
-    :returns: a Config element initialised with the content of the file
+    - returns: a Config element initialised with the content of the file
     */
     
     class func loadConfigFileAtPath(path: String) -> Config{
@@ -66,10 +66,10 @@ class ConfigLoader {
                 for line in lines {
                     if !(line.hasPrefix("_") || line.hasPrefix("#")) {
                         //Ignoring the comments
-                        let newLines = line.componentsSeparatedByString(":") as! [String]
+                        let newLines = line.componentsSeparatedByString(":") 
                         if newLines.count > 1 {
                             //var value = newLines[1].stringByReplacingOccurrencesOfString("\\ ", withString: "{#PL@CEHO£D&R$}", options: nil, range: nil)
-                            var value = newLines[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                            let value = newLines[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
                             if value != "" {
                                 switch newLines[0] as String {
                                 case "templatePath":
@@ -93,7 +93,7 @@ class ConfigLoader {
                                 case "ftpUsername":
                                     ftpUsername = value
                                 case "ftpPort":
-                                    if let intvalue = value.toInt() {
+                                    if let intvalue = Int(value) {
                                         ftpPort = intvalue
                                     }
                                 case "siteRoot":
@@ -118,7 +118,7 @@ class ConfigLoader {
     /**
     Saves a Config object to disk
     
-    :param: configuration The Config object to write on disk
+    - parameter configuration: The Config object to write on disk
     */
     
     class func saveConfigFile(configuration : Config){
@@ -138,10 +138,10 @@ class ConfigLoader {
         ]
         
         var s = "#{#Thoth} config file\n#The root path is deduced from the position of this config file\n\n"
-        let ref = reflect(configuration)
-        for i in 0..<ref.count {
-            let tr = "\(ref[i].1.value)"
-            let key = ref[i].0
+        let ref = Mirror(reflecting:configuration)
+        for child in ref.children {
+            let tr = "\(child.value)"
+            let key = child.label!
             if key != "selfPath" && key != "ftpPassword"{
                 if let exp = dict[key] {
                     s = s + exp
@@ -150,7 +150,7 @@ class ConfigLoader {
             }
         }
         if !NSFileManager.defaultManager().createFileAtPath(configuration.selfPath, contents: s.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false), attributes: nil) {
-            println("Unable to save the config")
+            print("Unable to save the config")
         }
     }
     
@@ -158,12 +158,12 @@ class ConfigLoader {
     /**
     Generates a default configuration file at the given path.
     
-    :param: path The path of the directory where the configuration file should be generated
+    - parameter path: The path of the directory where the configuration file should be generated
     
-    :returns: the Config struct corresponding to the generated configuration file
+    - returns: the Config struct corresponding to the generated configuration file
     */
     class func generateConfigFileAtPath(path : String)-> Config {
-        var configuration = Config(selfPath: path.stringByAppendingPathComponent("config") as String, templatePath: path.stringByAppendingPathComponent("template") as String, articlesPath: path.stringByAppendingPathComponent("articles") as String, outputPath: path.stringByAppendingPathComponent("output") as String, defaultAuthor: NSFullUserName(), dateStyle: "MM/dd/YYYY", blogTitle: "A new blog", imageWidth: "640", imagesLinks: false, ftpAdress: "", ftpUsername: "", ftpPassword: "", ftpPort: 21, siteRoot:"")
+        let configuration = Config(selfPath: path.stringByAppendingPathComponent("config") as String, templatePath: path.stringByAppendingPathComponent("template") as String, articlesPath: path.stringByAppendingPathComponent("articles") as String, outputPath: path.stringByAppendingPathComponent("output") as String, defaultAuthor: NSFullUserName(), dateStyle: "MM/dd/YYYY", blogTitle: "A new blog", imageWidth: "640", imagesLinks: false, ftpAdress: "", ftpUsername: "", ftpPassword: "", ftpPort: 21, siteRoot:"")
         
         saveConfigFile(configuration)
         return configuration

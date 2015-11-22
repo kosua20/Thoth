@@ -174,7 +174,9 @@
 		F44B725B1A7584A900C92E3E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Simon Rodriguez";
 				TargetAttributes = {
 					F44B72621A7584A900C92E3E = {
@@ -238,6 +240,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -252,6 +255,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = Thoth/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -292,6 +296,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = Thoth/include;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
@@ -312,8 +317,6 @@
 					"$(PROJECT_DIR)/Thoth",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Thoth.xcodeproj",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Thoth-hghgrlwhdekkwyemqfgyvrxwrwsf/Build/Products/Release",
-					/Developer/Xcode/Siblog/Libraries,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -347,8 +350,6 @@
 					"$(PROJECT_DIR)/Thoth",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Thoth.xcodeproj",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Thoth-hghgrlwhdekkwyemqfgyvrxwrwsf/Build/Products/Release",
-					/Developer/Xcode/Siblog/Libraries,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

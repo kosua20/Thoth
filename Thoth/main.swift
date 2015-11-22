@@ -29,12 +29,12 @@ The main loop of the program in interactive command-line mode
 */
 
 func mainloop() {
-    println("Welcome in {#Thoth}, a static blog generator.")
+    print("Welcome in {#Thoth}, a static blog generator.")
     let prompt: Prompt = Prompt(argv0: Process.unsafeArgv[0])
     while true {
         if let input1 = prompt.gets() {
             var input2 = input1.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            input2 = input2.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: nil, range: nil)
+            input2 = input2.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: [], range: nil)
             var args = input2.componentsSeparatedByString(" ")
             /*
             arg[0] : command
@@ -47,12 +47,12 @@ func mainloop() {
             })
             args = args.map({
                 (x : String) -> String in
-                x.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: nil, range: nil)
+                x.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: [], range: nil)
             })
             
             mainSwitch(args)
         } else {
-            println("Error : Null input")
+            print("Error : Null input")
         }
     }
 }
@@ -62,7 +62,7 @@ func mainloop() {
 /**
 	Called when executing thoth with launch arguments
 
-	:param: args an array of arguments
+	- parameter args: an array of arguments
 */
 
 
@@ -72,23 +72,42 @@ func mainSwitch(var args : [String]) {
         switch args[0] {
         case "setup":
             if !NSFileManager.defaultManager().fileExistsAtPath(args[1]) {
-                NSFileManager.defaultManager().createDirectoryAtPath(args[1], withIntermediateDirectories: true, attributes: nil, error: nil)
+                do {
+                    try NSFileManager.defaultManager().createDirectoryAtPath(args[1], withIntermediateDirectories: true, attributes: nil)
+                } catch _ {
+                }
             }
             ConfigLoader.generateConfigFileAtPath(args[1])
             let folders = ["articles","template","output","resources"] as [String]
             for folder in folders {
                 if !NSFileManager.defaultManager().fileExistsAtPath(args[1].stringByAppendingPathComponent(folder)){
-                    NSFileManager.defaultManager().createDirectoryAtPath(args[1].stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil, error: nil)
+                    do {
+                        try NSFileManager.defaultManager().createDirectoryAtPath(args[1].stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil)
+                    } catch _ {
+                    }
                 }
             }
-            println("The blog is now set up\nUse the command\nthoth password /path/to/blog/folder -set \"YourPassw0rd\"\nto register it.")
+            print("The blog is now set up\nUse the command\nthoth password /path/to/blog/folder -set \"YourPassw0rd\"\nto register it.")
         case "check":
             if let config = loadConfigurationFromPath(args[1]) {
-                println("The config file seems ok")
+                print("The config file seems ok")
                 let man = Manager(rootPath: args[1], configuration: config)
                 man.runTest()
             }
-            
+        case "draft":
+            if let config = loadConfigurationFromPath(args[1]) {
+                let man = Manager(rootPath: args[1], configuration: config)
+                if(args.count > 2){
+                    let subArgs = args[2..<args.count]
+                    let fullTitle = subArgs.joinWithSeparator(" ")
+                    man.createDraft(fullTitle)
+                } else {
+                    let dateF = NSDateFormatter()
+                    dateF.dateFormat = config.dateStyle
+                    man.createDraft("Draft_\(dateF.stringFromDate(NSDate()))")
+                }
+                
+            }
         case "password":
             if let config = loadConfigurationFromPath(args[1]){
                 if args.count > 2 {
@@ -97,19 +116,19 @@ func mainSwitch(var args : [String]) {
                             removeUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first)
                         case "-update", "-u", "--u":
                             if args.count > 3 {
-                                updateUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, args[3])
+                                updateUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, password: args[3])
                             } else {
-                                println("No password specified")
+                                print("No password specified")
                             }
                         case "-set", "-s", "--s":
                             if args.count > 3 {
-                                registerUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, args[3])
+                                registerUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, password: args[3])
                             } else {
-                                println("No password specified")
+                                print("No password specified")
                             }
                        
                     default:
-                        println("Unknow option")
+                        print("Unknow option")
                     }
                 }
             }
@@ -123,7 +142,7 @@ func mainSwitch(var args : [String]) {
                     man.resources()
                 case "first":
                     man.generate(3)
-                    man.upload(option: 3)
+                    man.upload(3)
                 case "generate":
                     args.removeRange(Range(start: 0, end: 2))
                     if let option = interprateArguments(args) {
@@ -132,13 +151,13 @@ func mainSwitch(var args : [String]) {
                 case "upload":
                     args.removeRange(Range(start: 0,end: 2))
                     if let option = interprateArguments(args) {
-                        man.upload(option: option)
+                        man.upload(option)
                     }
                 case "scribe":
                     args.removeRange(Range(start: 0, end: 2))
                     if let option = interprateArguments(args) {
                         man.generate(option)
-                        man.upload(option: option)
+                        man.upload(option)
                     }
                 default:
                     break
@@ -154,11 +173,11 @@ func mainSwitch(var args : [String]) {
                     if let option = interprateArguments(args){
                         let man = Manager(rootPath: potentialPath, configuration: config)
                         man.generate(option)
-                        man.upload(option: option)
+                        man.upload(option)
                     }
                 }
             } else {
-                println("Unknown command. Type \"help\" to get a list of available commands.")
+                print("Unknown command. Type \"help\" to get a list of available commands.")
             }
             break
         }
@@ -176,7 +195,7 @@ func mainSwitch(var args : [String]) {
         case "license","licenses","licence","licences":
             printlicense()
         case "setup","chech","index","resources","first","upload","scribe","generate":
-            println("Missing argument. Type \"help\" to get a list of available commands.")
+            print("Missing argument. Type \"help\" to get a list of available commands.")
         default:
             //Case where the only argument is the path to a config file.
             if NSFileManager.defaultManager().fileExistsAtPath(args[0]) {
@@ -186,15 +205,15 @@ func mainSwitch(var args : [String]) {
                     if let option = interprateArguments(args){
                         let man = Manager(rootPath: potentialPath, configuration: config)
                         man.generate(option)
-                        man.upload(option: option)
+                        man.upload(option)
                     }
                 }
             } else {
-                println("Unknown command. Type \"help\" to get a list of available commands.")
+                print("Unknown command. Type \"help\" to get a list of available commands.")
             }
         }
     } else {
-        println("Empty command. Type \"help\" to get a list of available commands.")
+        print("Empty command. Type \"help\" to get a list of available commands.")
     }
 }
 
@@ -203,9 +222,9 @@ func mainSwitch(var args : [String]) {
 /**
 	Detects the modulating arguments, and return a value corresponding to the right mode.
 
-	:param: args an array of arguments
+	- parameter args: an array of arguments
 
-	:returns: an integer representing the mode
+	- returns: an integer representing the mode
 */
 
 func interprateArguments(args : [String]) -> Int? {
@@ -221,7 +240,7 @@ func interprateArguments(args : [String]) -> Int? {
         case "-f","--f","--full":
             option = 3
         default:
-            println("Unknown argument: \(args[i])")
+            print("Unknown argument: \(args[i])")
             return nil
         }
     }
@@ -232,9 +251,9 @@ func interprateArguments(args : [String]) -> Int? {
 /**
 	Loads a configuration file in memory
 
-	:param: rootPath rootPath a String representing the path to the folder containing the config file
+	- parameter rootPath: rootPath a String representing the path to the folder containing the config file
 
-	:returns: the Config object corresponding to the config file
+	- returns: the Config object corresponding to the config file
 */
 func loadConfigurationFromPath(rootPath : String)-> Config? {
     if NSFileManager.defaultManager().fileExistsAtPath(rootPath) {
@@ -242,10 +261,10 @@ func loadConfigurationFromPath(rootPath : String)-> Config? {
             return ConfigLoader.loadConfigFileAtPath(rootPath.stringByAppendingPathComponent("config"))
             
         } else {
-            println("No config file found in the designated directory.")
+            print("No config file found in the designated directory.")
         }
     } else {
-        println("The folder at path \(rootPath) doesn't exist.")
+        print("The folder at path \(rootPath) doesn't exist.")
     }
     return nil
 }
@@ -293,6 +312,10 @@ func printhelp(){
         + "resources <path>  Rebuilds the resources directory.\n"
         + "\t\tArgument:\n"
         + "\t\t<path> points to the directory containing the config file\n\n"
+        + "draft <path> (title)\tGenerate a draft markdown file in the 'articles' directory of the given blog.\n"
+        + "\t\tArguments:\n"
+        + "\t\t<path> points to the directory containing the config file\n"
+        + "\t\ttitle the title of the draft file. Spaces are allowed. (optional, by default uses the current date.)\n\n"
         + "check <path>\tChecks the configuration file.\n"
         + "\t\tArgument:\n"
         + "\t\t<path> points to the directory containing the config file\n\n"
@@ -300,7 +323,7 @@ func printhelp(){
         + "--version\t\tDisplays the current Thoth version\n\n"
         + "license\t\tDisplays the license text\n\n"
         + "exit\t\tQuits the program"
-    println(s)
+    print(s)
 }
 
 
@@ -310,7 +333,7 @@ func printhelp(){
 */
 
 func printversion(){
-    println("{#Thoth} version 1.3.0")
+    print("{#Thoth} version 1.3.2")
 }
 
 
@@ -320,7 +343,7 @@ func printversion(){
 */
 
 func printlicense(){
-    println("===============================================================\n{#Thoth}\n===============================================================\nCopyright (c) 2015, Simon Rodriguez\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n- Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n- Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\nContact : contact@simonrodriguez.fr - simonrodriguez.fr\n\n===============================================================\n{#Thoth} uses some third-party components and libraries.\nTheir licenses and copyright notices are displayed here.\n\n===============================================================\nMarkingbird - Markdown.swift\n===============================================================\nCopyright (c) 2014 Kristopher Johnson\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nMarkdown.swift is based on MarkdownSharp, which is based on earlier\nMarkdown implementations.\n\n===============================================================\nswift-libedit\n===============================================================\nCopyright (c) 2014, Neil Pankey\nhttps://github.com/neilpa/swift-libedit\n\n===============================================================\nNMSSH\n===============================================================\nCopyright (c) 2013 Nine Muses AB\nAll rights reserved.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nhttps://github.com/Lejdborg/NMSSH\n\n===============================================================\nKeychainAccess\n===============================================================\nCopyright (c) 2014 kishikawa katsumi\n\nThe MIT License (MIT) - Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: \nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nhttps://github.com/kishikawakatsumi/KeychainAccess\n")
+    print("===============================================================\n{#Thoth}\n===============================================================\nCopyright (c) 2015, Simon Rodriguez\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n- Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n- Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\nContact : contact@simonrodriguez.fr - simonrodriguez.fr\n\n===============================================================\n{#Thoth} uses some third-party components and libraries.\nTheir licenses and copyright notices are displayed here.\n\n===============================================================\nMarkingbird - Markdown.swift\n===============================================================\nCopyright (c) 2014 Kristopher Johnson\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nMarkdown.swift is based on MarkdownSharp, which is based on earlier\nMarkdown implementations.\n\n===============================================================\nswift-libedit\n===============================================================\nCopyright (c) 2014, Neil Pankey\nhttps://github.com/neilpa/swift-libedit\n\n===============================================================\nNMSSH\n===============================================================\nCopyright (c) 2013 Nine Muses AB\nAll rights reserved.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nhttps://github.com/Lejdborg/NMSSH\n\n===============================================================\nKeychainAccess\n===============================================================\nCopyright (c) 2014 kishikawa katsumi\n\nThe MIT License (MIT) - Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: \nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\nhttps://github.com/kishikawakatsumi/KeychainAccess\n")
 }
 
 
@@ -330,10 +353,54 @@ func printlicense(){
 */
 
 func printbonus(){
-    println("                                                         \n                                                         \n                        ,,,,,,,,,,                       \n                  ,yQQQQQQQQQQQQQQQQQQyQ                 \n               yQQQQRR^ ..       .``RWQQQQQ,             \n            ,QQQ#R    ,yyy,             \"WQQQQ           \n          ,QQQR^  ,,@R` , 7Q               \"@QQQ         \n         QQQR,y#RR`,,      @Q                `QQQQ       \n       ,QQQR@QyQRR^`7RQQ   ]Q                  YQQQ      \n     ,#RQgRRT.        ]#  ,Qh                   1QQQ     \n   ,#QQQQ~           ,#. y#^                     @QQQ    \n  ]Q#@QQL           y#  #R                        QQQ    \n   . QQQ           @R yR`                         @QQm   \n     QQQ         ,QL @R                           ]QQQ   \n     QQQ        ,Q` @L                            @QQM   \n     ]QQQ       Q. ]Q           ,,yyyyyy,,        QQQ    \n      QQQ       Q   QQ    ,yQQQRRRRRRRW@QQQRRQ,  {QQR    \n      4QQQ       @Q  ^RRR`@R^.           '7R@yQRQQQ#     \n       1QQQ       ?Q,     @y,                .`@QQ#      \n        \"QQQy       ?WRRQy,.`RWRQQyy,,,      ,QQQR       \n          KQQQy           `RQQ     ..^QQRRRQQQQE         \n            KQQQQQ           `RQy,,,,  KQgQQQRV          \n              `RQQQQQQ,           `]Q@QQQQRT             \n                  \"WQQQQQQQQQQQQQQQQQQRR^                \n                        `\"RRRRRRRR^.                     \n                                                         \n                                                         \n                                                         \n")
+    print("                                                         \n                                                         \n                        ,,,,,,,,,,                       \n                  ,yQQQQQQQQQQQQQQQQQQyQ                 \n               yQQQQRR^ ..       .``RWQQQQQ,             \n            ,QQQ#R    ,yyy,             \"WQQQQ           \n          ,QQQR^  ,,@R` , 7Q               \"@QQQ         \n         QQQR,y#RR`,,      @Q                `QQQQ       \n       ,QQQR@QyQRR^`7RQQ   ]Q                  YQQQ      \n     ,#RQgRRT.        ]#  ,Qh                   1QQQ     \n   ,#QQQQ~           ,#. y#^                     @QQQ    \n  ]Q#@QQL           y#  #R                        QQQ    \n   . QQQ           @R yR`                         @QQm   \n     QQQ         ,QL @R                           ]QQQ   \n     QQQ        ,Q` @L                            @QQM   \n     ]QQQ       Q. ]Q           ,,yyyyyy,,        QQQ    \n      QQQ       Q   QQ    ,yQQQRRRRRRRW@QQQRRQ,  {QQR    \n      4QQQ       @Q  ^RRR`@R^.           '7R@yQRQQQ#     \n       1QQQ       ?Q,     @y,                .`@QQ#      \n        \"QQQy       ?WRRQy,.`RWRQQyy,,,      ,QQQR       \n          KQQQy           `RQQ     ..^QQRRRQQQQE         \n            KQQQQQ           `RQy,,,,  KQgQQQRV          \n              `RQQQQQQ,           `]Q@QQQQRT             \n                  \"WQQQQQQQQQQQQQQQQQQRR^                \n                        `\"RRRRRRRR^.                     \n                                                         \n                                                         \n                                                         \n")
 }
 
+// MARK: - Extension of String
+extension String {
+    
+    var lastPathComponent: String {
+         get {
+            return (self as NSString).lastPathComponent
+        }
+    }
+    
+    var pathExtension: String {
+        get {
+            return (self as NSString).pathExtension
+        }
+    }
+    
+    var stringByDeletingLastPathComponent: String {
+        
+        get {
+            
+            return (self as NSString).stringByDeletingLastPathComponent
+        }
+    }
+    var stringByDeletingPathExtension: String {
+        
+        get {
+            
+            return (self as NSString).stringByDeletingPathExtension
+        }
+    }
+    var pathComponents: [String] {
+        
+        get {
+            
+            return (self as NSString).pathComponents
+        }
+    }
+    
+    func stringByAppendingPathComponent(path: String) -> String {
+        
+        let nsSt = self as NSString
+        
+        return nsSt.stringByAppendingPathComponent(path)
+    }
 
+}
 main()
 
 

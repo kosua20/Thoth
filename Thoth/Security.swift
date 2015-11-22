@@ -19,17 +19,18 @@ func openKeychain(server: String?) -> Keychain? {
         
         return keychain
     } else {
-         println("Error : unknown server adress")
+         print("Error : unknown server adress")
     }
     return nil
 }
 
 func registerUser( _name: String, forServer server: String?, password: String)-> Bool{
     if let keychain = openKeychain(server) {
-        if let error = keychain.set(password, key: _name){
-          //  println("error: \(error.localizedDescription)")
-        } else {
+        do {
+            try keychain.set(password, key: _name)
             return true
+        } catch _ {
+             //  println("error: \(error.localizedDescription)")
         }
     }
     return false
@@ -38,10 +39,11 @@ func registerUser( _name: String, forServer server: String?, password: String)->
 func updateUser( _name: String, forServer server: String?, password: String)-> Bool{
     
     if let keychain = openKeychain(server) {
-        if let error = keychain.set(password, key: _name){
-          //  println("error: \(error.localizedDescription)")
-        } else {
+        do {
+            try keychain.set(password, key: _name)
             return true
+        } catch _ {
+             //  println("error: \(error.localizedDescription)")
         }
     }
     return false
@@ -49,18 +51,21 @@ func updateUser( _name: String, forServer server: String?, password: String)-> B
 
 func removeUser( _name: String, forServer server: String?)-> Bool{
     if let keychain = openKeychain(server) {
-        if let error = keychain.remove(_name){
-         //   println("error: \(error.localizedDescription)")
-        } else {
+        do {
+            try keychain.remove(_name)
             return true
+        } catch _ {
+            //   println("error: \(error.localizedDescription)")
         }
     }
     return false
 }
 
 func retrievePasswordForUser( _name: String, andServer server: String?)-> String{
-    if let keychain = openKeychain(server), key = keychain.getString(_name){
-       return key
+    if let keychain = openKeychain(server), key = try? keychain.getString(_name){
+        if let key = key {
+            return key
+        }
     }
     return ""
 }
