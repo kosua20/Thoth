@@ -13,8 +13,7 @@
     <a title="Manager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (52% documented)</p>
-        <p class="header-right"><a href=""><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p><a href="../index.html"> Docs</a> (100% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -28,7 +27,7 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
-          <a href="../Classes.html">Classes</a>
+            <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Classes/Article.html">Article</a>
@@ -45,10 +44,21 @@
               <li class="nav-group-task">
                 <a href="../Classes/Renderer.html">Renderer</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Security.html">Security</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="../Functions.html">Functions</a>
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:F5Thoth19interprateArgumentsFGSaSS_GSqSi_">interprateArguments(_:)</a>
@@ -57,48 +67,33 @@
                 <a href="../Functions.html#/s:F5Thoth25loadConfigurationFromPathFSSGSqVS_6Config_">loadConfigurationFromPath(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth4mainFT4argsGSaSS__T_">main(args:)</a>
+                <a href="../Functions.html#/s:F5Thoth4mainFTGSaSS__T_">main(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth8mainLoopFT_T_">mainLoop()</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:F5Thoth10mainSwitchFGSaSS_T_">mainSwitch(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth8mainloopFT_T_">mainloop()</a>
+                <a href="../Functions.html#/s:F5Thoth10printBonusFT_T_">printBonus()</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth10printbonusFT_T_">printbonus()</a>
+                <a href="../Functions.html#/s:F5Thoth9printHelpFT_T_">printHelp()</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth9printhelpFT_T_">printhelp()</a>
+                <a href="../Functions.html#/s:F5Thoth12printLicenseFT_T_">printLicense()</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth12printlicenseFT_T_">printlicense()</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth12printversionFT_T_">printversion()</a>
+                <a href="../Functions.html#/s:F5Thoth12printVersionFT_T_">printVersion()</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="../Structs.html">Structs</a>
+            <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/Config.html">Config</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/Markdown.html">Markdown</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownOptions.html">MarkdownOptions</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownRegex.html">MarkdownRegex</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownRegexMatch.html">MarkdownRegexMatch</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownRegexOptions.html">MarkdownRegexOptions</a>
               </li>
             </ul>
           </li>
@@ -108,18 +103,24 @@
         <section>
           <section class="section">
             <h1>Manager</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">class</span> <span class="kt">Manager</span></code></pre>
+
+                </div>
+              </div>
             <p>This class manages the upload functionnalities of the program and the initialisation of more specialised classes for loading and rendering the articles.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Properties"></a>
-                  <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
-                  <a href="#/Properties">
-                    <h3 class="section-name">Properties</h3>
-                  </a>
-                </div>
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -139,7 +140,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="k">let</span> <span class="nv">rootPath</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
 
@@ -161,12 +162,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The configuration object for the current Manager instance</p>
+                        <p>The configuration object for the current <a href="../Classes/Manager.html">Manager</a> instance</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="k">let</span> <span class="nv">config</span> <span class="p">:</span> <span class="kt">Config</span></code></pre>
 
@@ -188,12 +189,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The Loader object for the current instance, will load the articles from disk.</p>
+                        <p>The <a href="../Classes/Loader.html">Loader</a> object for the current instance, will load the articles from disk.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="k">var</span> <span class="nv">loader</span> <span class="p">:</span> <span class="kt">Loader</span><span class="p">?</span></code></pre>
 
@@ -215,12 +216,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The Renderer for the current instance, will render the articles to disk.</p>
+                        <p>The <a href="../Classes/Renderer.html">Renderer</a> for the current instance, will render the articles to disk.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="k">var</span> <span class="nv">renderer</span> <span class="p">:</span> <span class="kt">Renderer</span><span class="p">?</span></code></pre>
 
@@ -247,7 +248,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="k">var</span> <span class="nv">ftpServer</span> <span class="p">:</span> <span class="kt">NMSFTP</span><span class="p">?</span></code></pre>
 
@@ -274,7 +275,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="k">let</span> <span class="nv">ftpAdress</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
 
@@ -301,7 +302,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="k">let</span> <span class="nv">ftpPath</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
 
@@ -313,13 +314,13 @@
               </ul>
             </div>
             <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Initialisation%20methods"></a>
-                  <a name="//apple_ref/swift/Section/Initialisation methods" class="dashAnchor"></a>
-                  <a href="#/Initialisation%20methods">
-                    <h3 class="section-name">Initialisation methods</h3>
-                  </a>
-                </div>
+              <div class="task-name-container">
+                <a name="/Initialisation%20methods"></a>
+                <a name="//apple_ref/swift/Section/Initialisation methods" class="dashAnchor"></a>
+                <a href="#/Initialisation%20methods">
+                  <h3 class="section-name">Initialisation methods</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -339,7 +340,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">rootPath</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">configuration</span> <span class="p">:</span> <span class="kt">Config</span><span class="p">)</span></code></pre>
 
@@ -394,12 +395,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initialises the Renderer for the current configuration and rootpath</p>
+                        <p>Initialises the <a href="../Classes/Renderer.html">Renderer</a> for the current configuration and rootpath</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">initRenderer</span><span class="p">()</span></code></pre>
 
@@ -426,7 +427,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">initSession</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
@@ -443,13 +444,13 @@
               </ul>
             </div>
             <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Rendering"></a>
-                  <a name="//apple_ref/swift/Section/Rendering" class="dashAnchor"></a>
-                  <a href="#/Rendering">
-                    <h3 class="section-name">Rendering</h3>
-                  </a>
-                </div>
+              <div class="task-name-container">
+                <a name="/Rendering"></a>
+                <a name="//apple_ref/swift/Section/Rendering" class="dashAnchor"></a>
+                <a href="#/Rendering">
+                  <h3 class="section-name">Rendering</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -464,12 +465,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Calls the Renderer with the correct settings</p>
+                        <p>Calls the <a href="../Classes/Renderer.html">Renderer</a> with the correct settings</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">generate</span><span class="p">(</span><span class="nv">option</span> <span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
@@ -516,7 +517,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">index</span><span class="p">()</span></code></pre>
 
@@ -543,7 +544,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">resources</span><span class="p">()</span></code></pre>
 
@@ -555,20 +556,20 @@
               </ul>
             </div>
             <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Uploading"></a>
-                  <a name="//apple_ref/swift/Section/Uploading" class="dashAnchor"></a>
-                  <a href="#/Uploading">
-                    <h3 class="section-name">Uploading</h3>
-                  </a>
-                </div>
+              <div class="task-name-container">
+                <a name="/Uploading"></a>
+                <a name="//apple_ref/swift/Section/Uploading" class="dashAnchor"></a>
+                <a href="#/Uploading">
+                  <h3 class="section-name">Uploading</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC5Thoth7Manager6uploadFS0_FT6optionSi_T_"></a>
-                    <a name="//apple_ref/swift/Method/upload(option:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC5Thoth7Manager6uploadFS0_FT6optionSi_T_">upload(option:)</a>
+                    <a name="/s:FC5Thoth7Manager6uploadFS0_FTSi_T_"></a>
+                    <a name="//apple_ref/swift/Method/upload(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth7Manager6uploadFS0_FTSi_T_">upload(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -581,7 +582,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="nv">option</span> <span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre>
 
@@ -628,7 +629,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">cleanElementAtPath</span><span class="p">(</span><span class="nv">distantPath</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
@@ -675,7 +676,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">uploadElementAtPath</span><span class="p">(</span><span class="nv">path</span> <span class="p">:</span>  <span class="kt">String</span><span class="p">,</span> <span class="nv">force</span> <span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
@@ -725,13 +726,13 @@
               </ul>
             </div>
             <div class="task-group">
-                <div class="task-name-container">
-                  <a name="/Misc."></a>
-                  <a name="//apple_ref/swift/Section/Misc." class="dashAnchor"></a>
-                  <a href="#/Misc.">
-                    <h3 class="section-name">Misc.</h3>
-                  </a>
-                </div>
+              <div class="task-name-container">
+                <a name="/Misc."></a>
+                <a name="//apple_ref/swift/Section/Misc." class="dashAnchor"></a>
+                <a href="#/Misc.">
+                  <h3 class="section-name">Misc.</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -751,11 +752,58 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">runTest</span><span class="p">()</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC5Thoth7Manager11createDraftFS0_FSST_"></a>
+                    <a name="//apple_ref/swift/Method/createDraft(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC5Thoth7Manager11createDraftFS0_FSST_">createDraft(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a draft .md file</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">createDraft</span><span class="p">(</span><span class="nv">title</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>title</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the title of the draft file to create</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -765,8 +813,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-04-29)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-11-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

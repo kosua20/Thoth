@@ -13,8 +13,7 @@
     <a title="Config Struct Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (52% documented)</p>
-        <p class="header-right"><a href=""><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p><a href="../index.html"> Docs</a> (100% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -28,7 +27,7 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
-          <a href="../Classes.html">Classes</a>
+            <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Classes/Article.html">Article</a>
@@ -45,10 +44,21 @@
               <li class="nav-group-task">
                 <a href="../Classes/Renderer.html">Renderer</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Security.html">Security</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="../Functions.html">Functions</a>
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:F5Thoth19interprateArgumentsFGSaSS_GSqSi_">interprateArguments(_:)</a>
@@ -57,48 +67,33 @@
                 <a href="../Functions.html#/s:F5Thoth25loadConfigurationFromPathFSSGSqVS_6Config_">loadConfigurationFromPath(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth4mainFT4argsGSaSS__T_">main(args:)</a>
+                <a href="../Functions.html#/s:F5Thoth4mainFTGSaSS__T_">main(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth8mainLoopFT_T_">mainLoop()</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:F5Thoth10mainSwitchFGSaSS_T_">mainSwitch(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth8mainloopFT_T_">mainloop()</a>
+                <a href="../Functions.html#/s:F5Thoth10printBonusFT_T_">printBonus()</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth10printbonusFT_T_">printbonus()</a>
+                <a href="../Functions.html#/s:F5Thoth9printHelpFT_T_">printHelp()</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth9printhelpFT_T_">printhelp()</a>
+                <a href="../Functions.html#/s:F5Thoth12printLicenseFT_T_">printLicense()</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth12printlicenseFT_T_">printlicense()</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth12printversionFT_T_">printversion()</a>
+                <a href="../Functions.html#/s:F5Thoth12printVersionFT_T_">printVersion()</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="../Structs.html">Structs</a>
+            <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/Config.html">Config</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/Markdown.html">Markdown</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownOptions.html">MarkdownOptions</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownRegex.html">MarkdownRegex</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownRegexMatch.html">MarkdownRegexMatch</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownRegexOptions.html">MarkdownRegexOptions</a>
               </li>
             </ul>
           </li>
@@ -108,8 +103,14 @@
         <section>
           <section class="section">
             <h1>Config</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">Config</span></code></pre>
+
+                </div>
+              </div>
             <ul>
-<li> A Config struct stores all elements of the configuration file in memory</li>
+<li>A Config struct stores all elements of the configuration file in memory</li>
 </ul>
 
           </section>
@@ -129,8 +130,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The path to the config file from which this <a href="../Structs/Config.html">Config</a> struct was loaded.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">selfPath</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -148,8 +157,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The path to the template directory.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">templatePath</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -167,8 +184,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The path to the articles directory.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">articlesPath</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -186,8 +211,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The path to the output directory.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">outputPath</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -205,8 +238,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The default author name to use when generating articles.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">defaultAuthor</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"John Appleseed"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -224,8 +265,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The format of the date used in the articles header.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">dateStyle</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"MM/dd/yyyy"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -243,8 +292,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The title of the blog.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">blogTitle</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"A new blog"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -262,8 +319,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The default image width to use.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">imageWidth</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"640"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -281,8 +346,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Denotes if images in the generated HTML files should link to the raw image file.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">imagesLinks</span> <span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -300,8 +373,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The string URL of the SFTP server to use for upload.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">ftpAdress</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -319,8 +400,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The username to use to connect to the SFTP server.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">ftpUsername</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -338,8 +427,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The password to use to connect to the SFTP server (read from the OS X keychain at initialization).</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">ftpPassword</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -357,8 +454,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The port to use to connect to the SFTP server.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">ftpPort</span> <span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">22</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -376,8 +481,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The root of the site on the SFTP server.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">siteRoot</span> <span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -387,8 +500,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-04-29)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-11-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -134,7 +134,7 @@ class Article {
 
 
 /**
-*  The laoder is responsible for loading the articles from files on the disk and generate the corresponding Articles objects
+*  The loader is responsible for loading the articles from files on the disk and generate the corresponding Articles objects
 */
 class Loader {
     

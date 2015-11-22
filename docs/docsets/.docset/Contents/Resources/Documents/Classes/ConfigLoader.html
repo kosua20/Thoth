@@ -13,8 +13,7 @@
     <a title="ConfigLoader Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html"> Docs</a> (52% documented)</p>
-        <p class="header-right"><a href=""><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p><a href="../index.html"> Docs</a> (100% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -28,7 +27,7 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
-          <a href="../Classes.html">Classes</a>
+            <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Classes/Article.html">Article</a>
@@ -45,10 +44,21 @@
               <li class="nav-group-task">
                 <a href="../Classes/Renderer.html">Renderer</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Security.html">Security</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="../Functions.html">Functions</a>
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:F5Thoth19interprateArgumentsFGSaSS_GSqSi_">interprateArguments(_:)</a>
@@ -57,48 +67,33 @@
                 <a href="../Functions.html#/s:F5Thoth25loadConfigurationFromPathFSSGSqVS_6Config_">loadConfigurationFromPath(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth4mainFT4argsGSaSS__T_">main(args:)</a>
+                <a href="../Functions.html#/s:F5Thoth4mainFTGSaSS__T_">main(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F5Thoth8mainLoopFT_T_">mainLoop()</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Functions.html#/s:F5Thoth10mainSwitchFGSaSS_T_">mainSwitch(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth8mainloopFT_T_">mainloop()</a>
+                <a href="../Functions.html#/s:F5Thoth10printBonusFT_T_">printBonus()</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth10printbonusFT_T_">printbonus()</a>
+                <a href="../Functions.html#/s:F5Thoth9printHelpFT_T_">printHelp()</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth9printhelpFT_T_">printhelp()</a>
+                <a href="../Functions.html#/s:F5Thoth12printLicenseFT_T_">printLicense()</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth12printlicenseFT_T_">printlicense()</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Functions.html#/s:F5Thoth12printversionFT_T_">printversion()</a>
+                <a href="../Functions.html#/s:F5Thoth12printVersionFT_T_">printVersion()</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="../Structs.html">Structs</a>
+            <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Structs/Config.html">Config</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/Markdown.html">Markdown</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownOptions.html">MarkdownOptions</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownRegex.html">MarkdownRegex</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownRegexMatch.html">MarkdownRegexMatch</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkdownRegexOptions.html">MarkdownRegexOptions</a>
               </li>
             </ul>
           </li>
@@ -108,8 +103,14 @@
         <section>
           <section class="section">
             <h1>ConfigLoader</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ConfigLoader</span></code></pre>
+
+                </div>
+              </div>
             <ul>
-<li> The ConfigLoader class is responsible for loading, generating and saving configurations files.</li>
+<li>The ConfigLoader class is responsible for loading, generating and saving configurations files.</li>
 </ul>
 
           </section>
@@ -129,12 +130,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>lLads into memory a configuration file on the disk</p>
+                        <p>Loads into memory a configuration file on the disk</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">loadConfigFileAtPath</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Config</span></code></pre>
 
@@ -162,7 +163,7 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>a Config element initialised with the content of the file</p>
+                        <p>a <a href="../Structs/Config.html">Config</a> element initialised with the content of the file</p>
 
                       </div>
                     </section>
@@ -181,12 +182,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Saves a Config object to disk</p>
+                        <p>Saves a <a href="../Structs/Config.html">Config</a> object to disk</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">saveConfigFile</span><span class="p">(</span><span class="nv">configuration</span> <span class="p">:</span> <span class="kt">Config</span><span class="p">)</span></code></pre>
 
@@ -233,7 +234,7 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">generateConfigFileAtPath</span><span class="p">(</span><span class="nv">path</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span><span class="o">-&gt;</span> <span class="kt">Config</span></code></pre>
 
@@ -261,7 +262,7 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>the Config struct corresponding to the generated configuration file</p>
+                        <p>the <a href="../Structs/Config.html">Config</a> struct corresponding to the generated configuration file</p>
 
                       </div>
                     </section>
@@ -272,8 +273,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-04-29)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-11-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

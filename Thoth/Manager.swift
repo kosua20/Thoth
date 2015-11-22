@@ -320,6 +320,8 @@ class Manager {
     
     /**
      Creates a draft .md file
+     
+     - parameter title: the title of the draft file to create
      */
     func createDraft(title : String){
         let destinationPath = config.articlesPath.stringByAppendingPathComponent(title.stringByReplacingOccurrencesOfString("/", withString: "_").stringByReplacingOccurrencesOfString(":", withString: "_").stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "\"'")) + ".md")

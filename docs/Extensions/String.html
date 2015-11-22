@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ConfigLoader Class Reference</title>
+    <title>String Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -9,8 +9,8 @@
     <script src="../js/jazzy.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/ConfigLoader" class="dashAnchor"></a>
-    <a title="ConfigLoader Class Reference"></a>
+    <a name="//apple_ref/swift/Extension/String" class="dashAnchor"></a>
+    <a title="String Extension Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html"> Docs</a> (100% documented)</p>
@@ -20,7 +20,7 @@
       <p id="breadcrumbs">
         <a href="../index.html"> Reference</a>
         <img id="carat" src="../img/carat.png" />
-        ConfigLoader Class Reference
+        String Extension Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -102,17 +102,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ConfigLoader</h1>
+            <h1>String</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">class</span> <span class="kt">ConfigLoader</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">String</span></code></pre>
 
                 </div>
               </div>
-            <ul>
-<li>The ConfigLoader class is responsible for loading, generating and saving configurations files.</li>
-</ul>
-
+            
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -120,9 +117,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFC5Thoth12ConfigLoader20loadConfigFileAtPathFMS0_FSSVS_6Config"></a>
-                    <a name="//apple_ref/swift/Method/loadConfigFileAtPath(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC5Thoth12ConfigLoader20loadConfigFileAtPathFMS0_FSSVS_6Config">loadConfigFileAtPath(_:)</a>
+                    <a name="/s:vE5ThothSS17lastPathComponentSS"></a>
+                    <a name="//apple_ref/swift/Property/lastPathComponent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vE5ThothSS17lastPathComponentSS">lastPathComponent</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -130,14 +127,149 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Loads into memory a configuration file on the disk</p>
+                        <p>Returns the last path component of the string</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">loadConfigFileAtPath</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Config</span></code></pre>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">lastPathComponent</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vE5ThothSS13pathExtensionSS"></a>
+                    <a name="//apple_ref/swift/Property/pathExtension" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vE5ThothSS13pathExtensionSS">pathExtension</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the file extension component of the string</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">pathExtension</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vE5ThothSS33stringByDeletingLastPathComponentSS"></a>
+                    <a name="//apple_ref/swift/Property/stringByDeletingLastPathComponent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vE5ThothSS33stringByDeletingLastPathComponentSS">stringByDeletingLastPathComponent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a copy of the string where the last path component has been deleted</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">stringByDeletingLastPathComponent</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vE5ThothSS29stringByDeletingPathExtensionSS"></a>
+                    <a name="//apple_ref/swift/Property/stringByDeletingPathExtension" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vE5ThothSS29stringByDeletingPathExtensionSS">stringByDeletingPathExtension</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a copy of the string where the file extension component has been deleted</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">stringByDeletingPathExtension</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vE5ThothSS14pathComponentsGSaSS_"></a>
+                    <a name="//apple_ref/swift/Property/pathComponents" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vE5ThothSS14pathComponentsGSaSS_">pathComponents</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an array containing the path components of the string</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">pathComponents</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FE5ThothSS30stringByAppendingPathComponentFSSFSSSS"></a>
+                    <a name="//apple_ref/swift/Method/stringByAppendingPathComponent(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE5ThothSS30stringByAppendingPathComponentFSSFSSSS">stringByAppendingPathComponent(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Appends the argument to the current string to generate a new string path.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">stringByAppendingPathComponent</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -153,7 +285,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>the path to the configuration file</p>
+                                  <p>the path component to append</p>
 
                                 </div>
                               </td>
@@ -163,106 +295,7 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>a <a href="../Structs/Config.html">Config</a> element initialised with the content of the file</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:ZFC5Thoth12ConfigLoader14saveConfigFileFMS0_FVS_6ConfigT_"></a>
-                    <a name="//apple_ref/swift/Method/saveConfigFile(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC5Thoth12ConfigLoader14saveConfigFileFMS0_FVS_6ConfigT_">saveConfigFile(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Saves a <a href="../Structs/Config.html">Config</a> object to disk</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">saveConfigFile</span><span class="p">(</span><span class="nv">configuration</span> <span class="p">:</span> <span class="kt">Config</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>configuration</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The Config object to write on disk</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:ZFC5Thoth12ConfigLoader24generateConfigFileAtPathFMS0_FSSVS_6Config"></a>
-                    <a name="//apple_ref/swift/Method/generateConfigFileAtPath(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC5Thoth12ConfigLoader24generateConfigFileAtPathFMS0_FSSVS_6Config">generateConfigFileAtPath(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Generates a default configuration file at the given path.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">generateConfigFileAtPath</span><span class="p">(</span><span class="nv">path</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span><span class="o">-&gt;</span> <span class="kt">Config</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>path</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The path of the directory where the configuration file should be generated</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>the <a href="../Structs/Config.html">Config</a> struct corresponding to the generated configuration file</p>
+                        <p>a copy of the string where the new path component has been appended</p>
 
                       </div>
                     </section>

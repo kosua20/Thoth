@@ -12,8 +12,7 @@
     <a title="  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html"> Docs</a> (52% documented)</p>
-        <p class="header-right"><a href=""><img src="img/gh.png"/>View on GitHub</a></p>
+        <p><a href="index.html"> Docs</a> (100% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -27,7 +26,7 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
-          <a href="Classes.html">Classes</a>
+            <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Classes/Article.html">Article</a>
@@ -44,10 +43,21 @@
               <li class="nav-group-task">
                 <a href="Classes/Renderer.html">Renderer</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Classes/Security.html">Security</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="Functions.html">Functions</a>
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Functions.html#/s:F5Thoth19interprateArgumentsFGSaSS_GSqSi_">interprateArguments(_:)</a>
@@ -56,48 +66,33 @@
                 <a href="Functions.html#/s:F5Thoth25loadConfigurationFromPathFSSGSqVS_6Config_">loadConfigurationFromPath(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth4mainFT4argsGSaSS__T_">main(args:)</a>
+                <a href="Functions.html#/s:F5Thoth4mainFTGSaSS__T_">main(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F5Thoth8mainLoopFT_T_">mainLoop()</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/s:F5Thoth10mainSwitchFGSaSS_T_">mainSwitch(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth8mainloopFT_T_">mainloop()</a>
+                <a href="Functions.html#/s:F5Thoth10printBonusFT_T_">printBonus()</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth10printbonusFT_T_">printbonus()</a>
+                <a href="Functions.html#/s:F5Thoth9printHelpFT_T_">printHelp()</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth9printhelpFT_T_">printhelp()</a>
+                <a href="Functions.html#/s:F5Thoth12printLicenseFT_T_">printLicense()</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth12printlicenseFT_T_">printlicense()</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth12printversionFT_T_">printversion()</a>
+                <a href="Functions.html#/s:F5Thoth12printVersionFT_T_">printVersion()</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="Structs.html">Structs</a>
+            <a href="Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Structs/Config.html">Config</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Markdown.html">Markdown</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/MarkdownOptions.html">MarkdownOptions</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/MarkdownRegex.html">MarkdownRegex</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/MarkdownRegexMatch.html">MarkdownRegexMatch</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/MarkdownRegexOptions.html">MarkdownRegexOptions</a>
               </li>
             </ul>
           </li>
@@ -134,9 +129,9 @@ Uploading to FTP... Upload done !
 <p>You can either download the installer package from the <a href="http://github.com/kosua20/Thoth/tree/master/download/">download folder</a> and execute it : Thoth will be installed in <code>/usr/local/bin</code>, or you can download the sources and compile it using Xcode.</p>
 <a href='#setup' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='setup'>Setup</h3>
 
-<p>You can ask Thoth to create a folder containing a config file and all the needed directories by running the command <code>setup /path/to/the/future/blog/directory</code>.  </p>
+<p>You can ask Thoth to create a folder containing a config file and all the needed directories by running the command <code>setup /path/to/the/future/blog/directory</code>. Then, fill the config file with the corresponding information, and register your SFTP password in the OS X keychain using the <code>password /path/to/blog/directory -set &quot;yourPassw0rd&quot;</code>.</p>
 
-<p>The config file is a plain text file, so you can create it yourself if you prefer (see the <strong>Config file</strong> section). In all cases, you must fill it before running other Thoth commands.  </p>
+<p>The config file is a plain text file, so you can create it yourself if you prefer (see the <strong>Config file</strong> section). In all cases, you must fill it before running other Thoth commands.</p>
 
 <p>Don&rsquo;t forget to add a template in the corresponding folder. You can use the default template, stored in the <a href="http://github.com/kosua20/Thoth/tree/master/download/">download folder</a> of this repository.</p>
 
@@ -192,6 +187,19 @@ Upload the content of the site to the FTP set in the config file<br>
 Combines generate and upload with the corresponding path and option<br>
 <strong>Argument:</strong><br>
 <code>&lt;path&gt;</code> points to the directory containing the config file of the site to generate and upload</p></li>
+<li><p><code>password &lt;path&gt; (-set|-update|-remove) &quot;password&quot;</code><br>
+Manage the password of the SFTP account, stored in the OSX user Keychain<br>
+<strong>Arguments:</strong><br>
+<code>&lt;path&gt;</code> points to the directory containing the config file of the site to manage<br>
+One of the three following operations:</p>
+
+<ul>
+<li><code>-set</code> creates a keychain entry to store the password associated with the configured SFTP account<br></li>
+<li><code>-update</code> updates the keychain entry with the new password value<br></li>
+<li><code>-remove</code> deletes the keychain entry associated with the configured SFTP account<br></li>
+</ul>
+
+<p><code>&quot;password&quot;</code> value of the password, needed when using the -set and -update options</p></li>
 <li><p><code>index &lt;path&gt;</code><br>
 Regenerates the index.html file.<br>
 <strong>Argument:</strong><br>
@@ -228,6 +236,8 @@ Quits the program</p></li>
 <li><code>{#SUMMARY}</code> to insert a shortened version of an article (200-300 characters max.)</li>
 <li><code>{#ARTICLE_BEGIN}</code> and <code>{#ARTICLE_END}</code> in the index.html template to delimitate the HTML corresponding to an article item in the list.</li>
 </ul>
+
+<p>You can also provide a <code>syntax.html</code> file containing code for syntax highlighting. It will be inserted in the <code>&lt;head&gt;</code> section of each article that contains at least a block of code (<code>&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>).</p>
 <a href='#config_file' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='config_file'>Config file</h3>
 
 <p>A simple, human-readable config file. No XML, JSON or YAML. Just a simple flat text file, nothing more. It should be put at the root of your blog folder, along with <code>articles</code>, <code>template</code>, <code>output</code> folders. The current settings are :</p>
@@ -249,17 +259,17 @@ Quits the program</p></li>
 <code>imageWidth:        640</code></p></li>
 <li><p>set to true if you want each image of an article to link directly to the corresponding file (defaults to <code>false</code>)<br>
 <code>imagesLinks:       true</code></p></li>
-<li><p>the ftp address pointing to the exact folder where the output should be uploaded<br>
+<li><p>the sftp address pointing to the exact folder where the output should be uploaded<br>
 <code>ftpAdress:     domain-sftp.com/folder/for/blog</code></p></li>
-<li><p>the ftp username<br>
+<li><p>the sftp username<br>
 <code>ftpUsername:</code>   </p></li>
-<li><p>the sftp password (the best way is to create a specific user/password with restricted rights to access your SFTP)<br>
-<code>ftpPassword:</code>   </p></li>
 <li><p>the sftp port to use (defaults to 22)<br>
 <code>ftpPort:       22</code></p></li>
 <li><p>the online URL of the blog, without <q>http://</q><br>
 <code>siteRoot:  blog.mysite.com</code></p></li>
 </ul>
+
+<p>The password for the SFTP access is now stored in the OS X user keychain. See the <code>password</code> command for more details.</p>
 <a href='#extended_markdown_parsing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='extended_markdown_parsing'>Extended markdown parsing</h3>
 
 <p>You can create inline footnotes using the common format :</p>
@@ -278,6 +288,12 @@ Quits the program</p></li>
 
 <p>to automatically set the height according to the picture ratio.
 Pictures from your articles which are stored on your computer are also retrieved by Thoth and copied in article-specific folders, for an easier management.</p>
+
+<p>You can also integrate HTML5 videos in your articles using the following syntax:</p>
+<pre class="highlight plaintext"><code>?[alt text](http://url/to/video.mp4 "800,600")
+</code></pre>
+
+<p>(There is not automatic copy of local videos yet.)</p>
 <a href='#comments_and_ignored_files' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='comments_and_ignored_files'>Comments and ignored files</h3>
 
 <p>In the config file, lines beginning with a <code>#</code> or a <code>_</code> will be ignored.<br>
@@ -287,9 +303,7 @@ During articles processing and copy, files beginning with <code>_</code> or <cod
 <ul>
 <li>adding support for referenced footnotes</li>
 <li>adding the generation of sitemap.xml ~and feed.xml~ files</li>
-<li>more keywords and templates options</li>
-<li>non synchronized logs when uploading</li>
-<li>Apple Doc</li>
+<li>fix unsynchronized logs when uploading</li>
 </ul>
 <a href='#authors_and_contributors' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='authors_and_contributors'>Authors and Contributors</h2>
 
@@ -302,8 +316,8 @@ See the license file for the licenses of third-party components and libraries.</
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-04-29)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-11-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

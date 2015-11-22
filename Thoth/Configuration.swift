@@ -13,19 +13,33 @@ import Foundation
 *  A Config struct stores all elements of the configuration file in memory
 */
 struct Config {
+    /// The path to the config file from which this Config struct was loaded.
     var selfPath : String = ""
+    /// The path to the template directory.
     var templatePath : String = ""
+    /// The path to the articles directory.
     var articlesPath : String = ""
+    /// The path to the output directory.
     var outputPath : String = ""
+    /// The default author name to use when generating articles.
     var defaultAuthor : String = "John Appleseed"
+    /// The format of the date used in the articles header.
     var dateStyle : String = "MM/dd/yyyy"
+    /// The title of the blog.
     var blogTitle : String = "A new blog"
+    /// The default image width to use.
     var imageWidth : String = "640"
+    /// Denotes if images in the generated HTML files should link to the raw image file.
     var imagesLinks : Bool = false
+    /// The string URL of the SFTP server to use for upload.
     var ftpAdress : String = ""
+    /// The username to use to connect to the SFTP server.
     var ftpUsername : String = ""
+    /// The password to use to connect to the SFTP server (read from the OS X keychain at initialization).
     var ftpPassword : String = ""
+    /// The port to use to connect to the SFTP server.
     var ftpPort : Int = 22
+    /// The root of the site on the SFTP server.
     var siteRoot : String = ""
 }
 
@@ -36,7 +50,7 @@ struct Config {
 class ConfigLoader {
     
     /**
-    lLads into memory a configuration file on the disk
+    Loads into memory a configuration file on the disk
     
     - parameter path: the path to the configuration file
     
@@ -109,7 +123,7 @@ class ConfigLoader {
             }
         }
         
-        ftpPassword = retrievePasswordForUser(ftpUsername, andServer: ftpAdress.pathComponents.first)
+        ftpPassword = Security.retrievePasswordForUser(ftpUsername, andServer: ftpAdress.pathComponents.first)
         
         return  Config(selfPath: path,templatePath: templatePath, articlesPath: articlesPath, outputPath: outputPath, defaultAuthor: defaultAuthor, dateStyle: dateStyle, blogTitle: blogTitle, imageWidth: imageWidth, imagesLinks: imagesLinks, ftpAdress: ftpAdress, ftpUsername: ftpUsername, ftpPassword: ftpPassword,ftpPort: ftpPort, siteRoot: siteRoot)
     }

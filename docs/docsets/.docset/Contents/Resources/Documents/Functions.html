@@ -12,8 +12,7 @@
     <a title="Functions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html"> Docs</a> (52% documented)</p>
-        <p class="header-right"><a href=""><img src="img/gh.png"/>View on GitHub</a></p>
+        <p><a href="index.html"> Docs</a> (100% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -27,7 +26,7 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
-          <a href="Classes.html">Classes</a>
+            <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Classes/Article.html">Article</a>
@@ -44,10 +43,21 @@
               <li class="nav-group-task">
                 <a href="Classes/Renderer.html">Renderer</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Classes/Security.html">Security</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="Functions.html">Functions</a>
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Functions.html#/s:F5Thoth19interprateArgumentsFGSaSS_GSqSi_">interprateArguments(_:)</a>
@@ -56,48 +66,33 @@
                 <a href="Functions.html#/s:F5Thoth25loadConfigurationFromPathFSSGSqVS_6Config_">loadConfigurationFromPath(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth4mainFT4argsGSaSS__T_">main(args:)</a>
+                <a href="Functions.html#/s:F5Thoth4mainFTGSaSS__T_">main(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F5Thoth8mainLoopFT_T_">mainLoop()</a>
               </li>
               <li class="nav-group-task">
                 <a href="Functions.html#/s:F5Thoth10mainSwitchFGSaSS_T_">mainSwitch(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth8mainloopFT_T_">mainloop()</a>
+                <a href="Functions.html#/s:F5Thoth10printBonusFT_T_">printBonus()</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth10printbonusFT_T_">printbonus()</a>
+                <a href="Functions.html#/s:F5Thoth9printHelpFT_T_">printHelp()</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth9printhelpFT_T_">printhelp()</a>
+                <a href="Functions.html#/s:F5Thoth12printLicenseFT_T_">printLicense()</a>
               </li>
               <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth12printlicenseFT_T_">printlicense()</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Functions.html#/s:F5Thoth12printversionFT_T_">printversion()</a>
+                <a href="Functions.html#/s:F5Thoth12printVersionFT_T_">printVersion()</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-          <a href="Structs.html">Structs</a>
+            <a href="Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Structs/Config.html">Config</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Markdown.html">Markdown</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/MarkdownOptions.html">MarkdownOptions</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/MarkdownRegex.html">MarkdownRegex</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/MarkdownRegexMatch.html">MarkdownRegexMatch</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/MarkdownRegexOptions.html">MarkdownRegexOptions</a>
               </li>
             </ul>
           </li>
@@ -116,9 +111,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:F5Thoth4mainFT4argsGSaSS__T_"></a>
-                    <a name="//apple_ref/swift/Function/main(args:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:F5Thoth4mainFT4argsGSaSS__T_">main(args:)</a>
+                    <a name="/s:F5Thoth4mainFTGSaSS__T_"></a>
+                    <a name="//apple_ref/swift/Function/main(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F5Thoth4mainFTGSaSS__T_">main(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -126,8 +121,36 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The general main loop of Thoth</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="nv">args</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>args</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the arguments passed at launch</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -135,9 +158,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:F5Thoth8mainloopFT_T_"></a>
-                    <a name="//apple_ref/swift/Function/mainloop()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:F5Thoth8mainloopFT_T_">mainloop()</a>
+                    <a name="/s:F5Thoth8mainLoopFT_T_"></a>
+                    <a name="//apple_ref/swift/Function/mainLoop()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F5Thoth8mainLoopFT_T_">mainLoop()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -150,9 +173,9 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">mainloop</span><span class="p">()</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">mainLoop</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -177,31 +200,11 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">mainSwitch</span><span class="p">(</span><span class="k">var</span> <span class="nv">args</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>args</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>an array of arguments</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -224,36 +227,11 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">interprateArguments</span><span class="p">(</span><span class="nv">args</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>args</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>an array of arguments</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>an integer representing the mode</p>
-
                       </div>
                     </section>
                   </div>
@@ -276,36 +254,11 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">loadConfigurationFromPath</span><span class="p">(</span><span class="nv">rootPath</span> <span class="p">:</span> <span class="kt">String</span><span class="p">)</span><span class="o">-&gt;</span> <span class="kt">Config</span><span class="p">?</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>rootPath</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>rootPath a String representing the path to the folder containing the config file</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>the Config object corresponding to the config file</p>
-
                       </div>
                     </section>
                   </div>
@@ -313,9 +266,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:F5Thoth9printhelpFT_T_"></a>
-                    <a name="//apple_ref/swift/Function/printhelp()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:F5Thoth9printhelpFT_T_">printhelp()</a>
+                    <a name="/s:F5Thoth9printHelpFT_T_"></a>
+                    <a name="//apple_ref/swift/Function/printHelp()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F5Thoth9printHelpFT_T_">printHelp()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -328,9 +281,9 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">printhelp</span><span class="p">()</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">printHelp</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -340,9 +293,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:F5Thoth12printversionFT_T_"></a>
-                    <a name="//apple_ref/swift/Function/printversion()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:F5Thoth12printversionFT_T_">printversion()</a>
+                    <a name="/s:F5Thoth12printVersionFT_T_"></a>
+                    <a name="//apple_ref/swift/Function/printVersion()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F5Thoth12printVersionFT_T_">printVersion()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -355,9 +308,9 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">printversion</span><span class="p">()</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">printVersion</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -367,9 +320,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:F5Thoth12printlicenseFT_T_"></a>
-                    <a name="//apple_ref/swift/Function/printlicense()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:F5Thoth12printlicenseFT_T_">printlicense()</a>
+                    <a name="/s:F5Thoth12printLicenseFT_T_"></a>
+                    <a name="//apple_ref/swift/Function/printLicense()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F5Thoth12printLicenseFT_T_">printLicense()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -382,9 +335,9 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">printlicense</span><span class="p">()</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">printLicense</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -394,9 +347,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:F5Thoth10printbonusFT_T_"></a>
-                    <a name="//apple_ref/swift/Function/printbonus()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:F5Thoth10printbonusFT_T_">printbonus()</a>
+                    <a name="/s:F5Thoth10printBonusFT_T_"></a>
+                    <a name="//apple_ref/swift/Function/printBonus()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F5Thoth10printBonusFT_T_">printBonus()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -409,9 +362,9 @@
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
-                        <div class="Swift">
+                        <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">printbonus</span><span class="p">()</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">printBonus</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -423,8 +376,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-04-29)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.2.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-11-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
