@@ -103,12 +103,13 @@ class Article {
             let regex1 = try? NSRegularExpression(pattern: "<(?!\\/*sup)[^>]+>", options: NSRegularExpressionOptions.CaseInsensitive)
             regex1?.replaceMatchesInString(contentHtml, options: NSMatchingOptions.ReportProgress, range: NSMakeRange(0, contentHtml.length), withTemplate: "")
 
-           let summaryNew = contentHtml.substringToIndex(min(400, contentHtml.length))
+			let summaryNew : NSString = contentHtml.stringByReplacingOccurrencesOfString("\n", withString: "").stringByReplacingOccurrencesOfString("\r", withString: "")
+			let summaryFinal = summaryNew.substringToIndex(min(400, summaryNew.length)).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
            // let range : NSRange = content2.rangeOfString("---")
             //if range.length > 0 {
               //  summaryNew = content2.substringToIndex(min(400,range.location))
             //}
-            summary = summaryNew + "...";
+            summary = summaryFinal + "...";
         }
         
         return summary
@@ -200,7 +201,7 @@ class Loader {
                     //Treating the title (possible markdown on the beginning)
                     var title = arrayHeader[0]
                     title = title.stringByReplacingOccurrencesOfString("##", withString: "");
-                    title = title.stringByReplacingOccurrencesOfString("#", withString: "", range: Range(start: title.startIndex, end: title.startIndex.advancedBy(1,limit: title.endIndex)))
+                    title = title.stringByReplacingOccurrencesOfString("#", withString: "", range: title.startIndex ..< title.startIndex.advancedBy(1,limit: title.endIndex))
                     //Treating the date
                     var date = "draft"
                     var trueDate : NSDate? = nil;

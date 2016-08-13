@@ -181,6 +181,7 @@
 				TargetAttributes = {
 					F44B72621A7584A900C92E3E = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = MM696H2U5V;
 					};
 				};
 			};
@@ -311,7 +312,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Thoth",
@@ -335,6 +337,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Thoth;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Thoth/Thoth-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -344,7 +347,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Thoth",
@@ -368,6 +372,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Thoth;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Thoth/Thoth-Bridging-Header.h";
 			};
 			name = Release;

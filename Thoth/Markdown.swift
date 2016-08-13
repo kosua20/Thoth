@@ -425,7 +425,7 @@ public struct Markdown {
                             }
                             return graf
                         }
-                        sanityCheck--
+                        sanityCheck -= 1
                     }
                     /* if (keepGoing)
                     {
@@ -1377,7 +1377,7 @@ public struct Markdown {
         // change the syntax rules such that sub-lists must start with a
         // starting cardinal number; e.g. "1." or "a.".
         
-        ++_listLevel
+        _listLevel += 1
         
         // Trim trailing blank lines:
         list = Regex.replace(list, pattern: "\\n{2,}\\z", replacement: "\n")
@@ -1421,7 +1421,7 @@ public struct Markdown {
             evaluator: listItemEvaluator,
             options: RegexOptions.IgnorePatternWhitespace.union(RegexOptions.Multiline))
         
-        --_listLevel
+        _listLevel -= 1
         return list
     }
     
@@ -1622,11 +1622,11 @@ public struct Markdown {
                     level = 1
                 }
                 else {
-                    level++
+                    level += 1
                 }
             }
             else {
-                level--
+                level -= 1
             }
         }
         var tail: NSString = ""

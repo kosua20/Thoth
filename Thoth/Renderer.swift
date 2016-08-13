@@ -221,6 +221,13 @@ class Renderer {
 	Renders the index page, and updates the resources directory.
 	*/
     func updateIndex(){
+		for article in articlesToRender {
+			if !article.isDraft {
+				var contentHtml = markdown.transform(article.content)
+				contentHtml = addFootnotes(contentHtml)
+				article.content = contentHtml
+			}
+		}
         renderIndex()
         copyResources(false)
     }
@@ -393,8 +400,8 @@ class Renderer {
 		feedXml = feedXml + "</channel>\n</rss>"
 		indexHtml = headerHtml.stringByAppendingString(indexHtml as String)
 		indexHtml = indexHtml.stringByReplacingOccurrencesOfString("{#BLOG_TITLE}", withString: blogTitle)
-		NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
-		NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("feed.xml"), contents: feedXml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
+	NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("index.html"), contents: indexHtml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
+	NSFileManager.defaultManager().createFileAtPath(exportPath.stringByAppendingPathComponent("feed.xml"), contents: feedXml.dataUsingEncoding(NSUTF8StringEncoding), attributes: nil)
 		
 	}
 	
@@ -570,7 +577,7 @@ class Renderer {
                 footNote = footNote.substringFromIndex(2)
                 newContent = newContent.stringByAppendingString("<sup id=\"ref\(count)\"><a class=\"footnote-link\" href=\"#fn\(count)\" title=\"\" rel=\"footnote\">[\(count)]</a></sup>")
                 endContent = endContent + "<li id=\"fn\(count)\" class=\"footnote\"><p>\(footNote) <a class=\"footnote-link\" href=\"#ref\(count)\" title=\"Return to footnote in the text.\" >&#8617;</a></p></li>\n"
-                count++
+                count+=1
             }
             scanner1.scanUpToString("[^", intoString: &tempContent)
         }

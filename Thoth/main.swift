@@ -148,17 +148,17 @@ func mainSwitch(var args : [String]) {
                     man.generate(3)
                     man.upload(3)
                 case "generate":
-                    args.removeRange(Range(start: 0, end: 2))
+                    args.removeRange(0..<2)
                     if let option = interprateArguments(args) {
                         man.generate(option)
                     }
                 case "upload":
-                    args.removeRange(Range(start: 0,end: 2))
+                    args.removeRange(0..<2)
                     if let option = interprateArguments(args) {
                         man.upload(option)
                     }
                 case "scribe":
-                    args.removeRange(Range(start: 0, end: 2))
+                    args.removeRange(0..<2)
                     if let option = interprateArguments(args) {
                         man.generate(option)
                         man.upload(option)
@@ -337,7 +337,7 @@ func printHelp(){
 */
 
 func printVersion(){
-    print("{#Thoth} version 1.3.2")
+    print("{#Thoth} version 1.3.3")
 }
 
 
