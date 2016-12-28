@@ -1,4 +1,4 @@
-#import <Cocoa/Cocoa.h>
+#import "NMSSH.h"
 
 typedef NS_OPTIONS(NSUInteger, NMSSHLogLevel) {
     NMSSHLogLevelVerbose = (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3),

@@ -338,7 +338,7 @@ func printHelp(){
 */
 
 func printVersion(){
-    print("{#Thoth} version 1.3.3")
+    print("{#Thoth} version 1.4")
 }
 
 
@@ -417,6 +417,7 @@ extension String {
     }
 
 }
+
 main()
 
 

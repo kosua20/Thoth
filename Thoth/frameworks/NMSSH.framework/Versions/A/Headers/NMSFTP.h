@@ -1,5 +1,7 @@
 #import "NMSSH.h"
 
+@class NMSSHSession, NMSFTPFile;
+
 /**
  NMSFTP provides functionality for working with SFTP servers.
  */
@@ -10,6 +12,9 @@
 
 /** Property that keeps track of connection status to the server */
 @property (nonatomic, readonly, getter = isConnected) BOOL connected;
+
+/** Property that set/get read buffer size */
+@property (nonatomic) NSUInteger bufferSize;
 
 ///-----------------------------------------------------------------------------
 /// @name Initializer
@@ -229,6 +234,36 @@
  @returns Write success
  */
 - (BOOL)writeStream:(NSInputStream *)inputStream toFileAtPath:(NSString *)path progress:(BOOL (^)(NSUInteger sent))progress;
+
+/**
+ Start or resume writing the contents of a file
+
+ If no file exists, one is created.
+ If the file already exists the size of the output file will be used as offset
+ and the input file will be appended to the output file, starting at that offset.
+
+ @param localPath File path to read bytes at
+ @param path File path to write bytes at
+ @param progress Method called periodically with number of bytes appended and total bytes.
+        Returns NO to abort.
+ @returns Write success
+ */
+- (BOOL)resumeFileAtPath:(NSString *)localPath toFileAtPath:(NSString *)path progress:(BOOL (^)(NSUInteger delta, NSUInteger totalBytes))progress;
+
+/**
+ Start or resume writing the contents of a file
+
+ If no file exists, one is created.
+ If the file already exists the size of the output file will be used as offset
+ and the inputstream will be appended to the output file, starting at that offset.
+
+ @param inputStream Stream to read bytes from
+ @param path File path to write bytes at
+ @param progress Method called periodically with number of bytes appended and total bytes.
+        Returns NO to abort.
+ @returns Write success
+ */
+- (BOOL)resumeStream:(NSInputStream *)inputStream toFileAtPath:(NSString *)path progress:(BOOL (^)(NSUInteger delta, NSUInteger totalBytes))progress;
 
 /**
  Append contents to the end of a file

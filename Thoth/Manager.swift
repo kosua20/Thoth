@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+import NMSSH
 
   ///This class manages the upload functionnalities of the program and the initialisation of more specialised classes for loading and rendering the articles.
 
@@ -88,7 +88,7 @@ class Manager {
     */
     
     func initSession() -> Bool{
-        print("Connecting to the server...\t", terminator: "")
+        print("SFTP:\tConnecting to the server...\t")
         NMSSHLogger.shared().isEnabled = false
         let session = NMSSHSession.connect(toHost: self.ftpAdress, port: config.ftpPort, withUsername: config.ftpUsername)
         if (session?.isConnected)! {
@@ -183,7 +183,7 @@ class Manager {
         }
         //From here, we can force unwrap ftpServer without risk
         
-        print("Beginning upload to \(ftpAdress)...\t", terminator: "")
+        print("\tBeginning upload to \(ftpAdress)...\t")
         var succeeded = true
         switch option {
         case 1:
@@ -209,9 +209,9 @@ class Manager {
         }
         
         if !succeeded {
-            print("An error occured during the upload")
+            print("\tAn error occured during the upload")
         } else {
-            print("Upload successful !")
+            print("\tUpload successful !")
         }
         
         ftpServer!.disconnect()

@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F408063B1AEED2F800FBE37A /* libNMSSH-Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F408063A1AEED2F800FBE37A /* libNMSSH-Static.a */; };
-		F48C975B1C026FC7003B17A6 /* libcrypto.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F48C975A1C026FC7003B17A6 /* libcrypto.tbd */; };
-		F48C975D1C026FDB003B17A6 /* libssl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F48C975C1C026FDB003B17A6 /* libssl.tbd */; };
-		F48C975F1C026FF9003B17A6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F48C975E1C026FF9003B17A6 /* libz.tbd */; };
 		F49DEC251B6A70E900F2D59E /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49DEC231B6A70E900F2D59E /* Keychain.swift */; };
 		F49DEC271B6A713A00F2D59E /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49DEC261B6A713A00F2D59E /* Security.swift */; };
 		F4A26CDA1AD5654600B48627 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A26CD91AD5654600B48627 /* Foundation.framework */; };
@@ -22,6 +18,8 @@
 		F4FBCA021A89163C00E1B6A0 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F81A89163C00E1B6A0 /* Markdown.swift */; };
 		F4FBCA031A89163C00E1B6A0 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9F91A89163C00E1B6A0 /* Renderer.swift */; };
 		F4FBCA041A89163C00E1B6A0 /* Prompt.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FBC9FC1A89163C00E1B6A0 /* Prompt.m */; };
+		F4FC57421E143FEF002C9DD8 /* NMSSH.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4FC57411E143FEF002C9DD8 /* NMSSH.framework */; };
+		F4FC57431E144001002C9DD8 /* NMSSH.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F4FC57411E143FEF002C9DD8 /* NMSSH.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,20 +27,17 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
-			dstSubfolderSpec = 1;
+			dstSubfolderSpec = 10;
 			files = (
+				F4FC57431E144001002C9DD8 /* NMSSH.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F408063A1AEED2F800FBE37A /* libNMSSH-Static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libNMSSH-Static.a"; path = "Thoth/lib/libNMSSH-Static.a"; sourceTree = "<group>"; };
 		F44B72631A7584A900C92E3E /* Thoth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Thoth; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45BD9A41A99126800FA82EF /* Thoth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thoth-Bridging-Header.h"; sourceTree = "<group>"; };
-		F48C975A1C026FC7003B17A6 /* libcrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcrypto.tbd; path = usr/lib/libcrypto.tbd; sourceTree = SDKROOT; };
-		F48C975C1C026FDB003B17A6 /* libssl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libssl.tbd; path = usr/lib/libssl.tbd; sourceTree = SDKROOT; };
-		F48C975E1C026FF9003B17A6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		F49DEC231B6A70E900F2D59E /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = "keychain-access/Keychain.swift"; sourceTree = "<group>"; };
 		F49DEC241B6A70E900F2D59E /* KeychainAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainAccess.h; path = "keychain-access/KeychainAccess.h"; sourceTree = "<group>"; };
 		F49DEC261B6A713A00F2D59E /* Security.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
@@ -56,6 +51,7 @@
 		F4FBC9F91A89163C00E1B6A0 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		F4FBC9FB1A89163C00E1B6A0 /* Prompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prompt.h; sourceTree = "<group>"; };
 		F4FBC9FC1A89163C00E1B6A0 /* Prompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Prompt.m; sourceTree = "<group>"; };
+		F4FC57411E143FEF002C9DD8 /* NMSSH.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NMSSH.framework; path = Thoth/frameworks/NMSSH.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +59,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F48C975F1C026FF9003B17A6 /* libz.tbd in Frameworks */,
-				F48C975D1C026FDB003B17A6 /* libssl.tbd in Frameworks */,
-				F48C975B1C026FC7003B17A6 /* libcrypto.tbd in Frameworks */,
+				F4FC57421E143FEF002C9DD8 /* NMSSH.framework in Frameworks */,
 				F4A26CDA1AD5654600B48627 /* Foundation.framework in Frameworks */,
 				F4A26CDC1AD5654C00B48627 /* CFNetwork.framework in Frameworks */,
-				F408063B1AEED2F800FBE37A /* libNMSSH-Static.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,10 +97,7 @@
 		F4A26CDD1AD5668000B48627 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F48C975E1C026FF9003B17A6 /* libz.tbd */,
-				F48C975C1C026FDB003B17A6 /* libssl.tbd */,
-				F48C975A1C026FC7003B17A6 /* libcrypto.tbd */,
-				F408063A1AEED2F800FBE37A /* libNMSSH-Static.a */,
+				F4FC57411E143FEF002C9DD8 /* NMSSH.framework */,
 				F4A26CDB1AD5654C00B48627 /* CFNetwork.framework */,
 				F4A26CD91AD5654600B48627 /* Foundation.framework */,
 			);
@@ -243,6 +233,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -260,7 +251,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = Thoth/include;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -294,6 +285,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -304,7 +296,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = Thoth/include;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
@@ -324,22 +316,14 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Thoth",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Thoth.xcodeproj",
+					"$(PROJECT_DIR)/Thoth/frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Developer/XCode/Siblog/Siblog/Thoth/NMSSH.framework/Headers,
-					/Developer/XCode/Siblog/Siblog/Thoth/include,
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Thoth/lib",
-					/usr/local/opt/openssl/lib,
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ltermcap",
 					"-ledit",
@@ -361,22 +345,14 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Thoth",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Thoth.xcodeproj",
+					"$(PROJECT_DIR)/Thoth/frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Developer/XCode/Siblog/Siblog/Thoth/NMSSH.framework/Headers,
-					/Developer/XCode/Siblog/Siblog/Thoth/include,
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Thoth/lib",
-					/usr/local/opt/openssl/lib,
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ltermcap",
 					"-ledit",
