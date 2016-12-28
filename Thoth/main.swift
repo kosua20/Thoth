@@ -13,11 +13,11 @@ import Foundation
  
  - parameter args: the arguments passed at launch
  */
-func main(args : [String] = []){
+func main(_ args : [String] = []){
     //println(Process.arguments)
-    var args = Process.arguments
+    var args = CommandLine.arguments
     if args.count > 1 {
-        args.removeAtIndex(0)
+        args.remove(at: 0)
         mainSwitch(args)
         exit(0)
     } else {
@@ -34,12 +34,12 @@ The main loop of the program in interactive command-line mode
 
 func mainLoop() {
     print("Welcome in {#Thoth}, a static blog generator.")
-    let prompt: Prompt = Prompt(argv0: Process.unsafeArgv[0])
+    let prompt: Prompt = Prompt(argv0: CommandLine.unsafeArgv[0])
     while true {
         if let input1 = prompt.gets() {
-            var input2 = input1.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            input2 = input2.stringByReplacingOccurrencesOfString("\\ ", withString: "{#PLAC3HO£D€R$}", options: [], range: nil)
-            var args = input2.componentsSeparatedByString(" ")
+            var input2 = input1.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            input2 = input2.replacingOccurrences(of: "\\ ", with: "{#PLAC3HO£D€R$}", options: [], range: nil)
+            var args = input2.components(separatedBy: " ")
             /*
             arg[0] : command
             arg[1] : path
@@ -51,7 +51,7 @@ func mainLoop() {
             })
             args = args.map({
                 (x : String) -> String in
-                x.stringByReplacingOccurrencesOfString("{#PLAC3HO£D€R$}", withString: "\\ ", options: [], range: nil)
+                x.replacingOccurrences(of: "{#PLAC3HO£D€R$}", with: "\\ ", options: [], range: nil)
             })
             
             mainSwitch(args)
@@ -71,22 +71,23 @@ func mainLoop() {
 
 
 
-func mainSwitch(var args : [String]) {
+func mainSwitch(_ args : [String]) {
+    var args = args
     if args.count > 1 {
         switch args[0] {
         case "setup":
-            if !NSFileManager.defaultManager().fileExistsAtPath(args[1]) {
+            if !FileManager.default.fileExists(atPath: args[1]) {
                 do {
-                    try NSFileManager.defaultManager().createDirectoryAtPath(args[1], withIntermediateDirectories: true, attributes: nil)
+                    try FileManager.default.createDirectory(atPath: args[1], withIntermediateDirectories: true, attributes: nil)
                 } catch _ {
                 }
             }
-            ConfigLoader.generateConfigFileAtPath(args[1])
+            let _ = ConfigLoader.generateConfigFileAtPath(args[1])
             let folders = ["articles","template","output","resources"] as [String]
             for folder in folders {
-                if !NSFileManager.defaultManager().fileExistsAtPath(args[1].stringByAppendingPathComponent(folder)){
+                if !FileManager.default.fileExists(atPath: args[1].stringByAppendingPathComponent(folder)){
                     do {
-                        try NSFileManager.defaultManager().createDirectoryAtPath(args[1].stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil)
+                        try FileManager.default.createDirectory(atPath: args[1].stringByAppendingPathComponent(folder), withIntermediateDirectories: true, attributes: nil)
                     } catch _ {
                     }
                 }
@@ -103,12 +104,12 @@ func mainSwitch(var args : [String]) {
                 let man = Manager(rootPath: args[1], configuration: config)
                 if(args.count > 2){
                     let subArgs = args[2..<args.count]
-                    let fullTitle = subArgs.joinWithSeparator(" ")
+                    let fullTitle = subArgs.joined(separator: " ")
                     man.createDraft(fullTitle)
                 } else {
-                    let dateF = NSDateFormatter()
+                    let dateF = DateFormatter()
                     dateF.dateFormat = config.dateStyle
-                    man.createDraft("Draft_\(dateF.stringFromDate(NSDate()))")
+                    man.createDraft("Draft_\(dateF.string(from: Date()))")
                 }
                 
             }
@@ -117,16 +118,16 @@ func mainSwitch(var args : [String]) {
                 if args.count > 2 {
                     switch args[2]{
                         case "-remove", "-r", "--r":
-                            Security.removeUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first)
+                            let _ = Security.removeUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first)
                         case "-update", "-u", "--u":
                             if args.count > 3 {
-                                Security.updateUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, password: args[3])
+                                let _ = Security.updateUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, password: args[3])
                             } else {
                                 print("No password specified")
                             }
                         case "-set", "-s", "--s":
                             if args.count > 3 {
-                                Security.registerUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, password: args[3])
+                               let _ =  Security.registerUser(config.ftpUsername, forServer: config.ftpAdress.pathComponents.first, password: args[3])
                             } else {
                                 print("No password specified")
                             }
@@ -148,17 +149,17 @@ func mainSwitch(var args : [String]) {
                     man.generate(3)
                     man.upload(3)
                 case "generate":
-                    args.removeRange(0..<2)
+                    args.removeSubrange(0..<2)
                     if let option = interprateArguments(args) {
                         man.generate(option)
                     }
                 case "upload":
-                    args.removeRange(0..<2)
+                    args.removeSubrange(0..<2)
                     if let option = interprateArguments(args) {
                         man.upload(option)
                     }
                 case "scribe":
-                    args.removeRange(0..<2)
+                    args.removeSubrange(0..<2)
                     if let option = interprateArguments(args) {
                         man.generate(option)
                         man.upload(option)
@@ -170,10 +171,10 @@ func mainSwitch(var args : [String]) {
             
         default:
             //Case where the only arguments are the path to a config file and a modulator.
-            if NSFileManager.defaultManager().fileExistsAtPath(args[0]) {
+            if FileManager.default.fileExists(atPath: args[0]) {
                 let potentialPath = args[0]
                 if let config = loadConfigurationFromPath(potentialPath) {
-                    args.removeAtIndex(0)
+                    args.remove(at: 0)
                     if let option = interprateArguments(args){
                         let man = Manager(rootPath: potentialPath, configuration: config)
                         man.generate(option)
@@ -202,10 +203,10 @@ func mainSwitch(var args : [String]) {
             print("Missing argument. Type \"help\" to get a list of available commands.")
         default:
             //Case where the only argument is the path to a config file.
-            if NSFileManager.defaultManager().fileExistsAtPath(args[0]) {
+            if FileManager.default.fileExists(atPath: args[0]) {
                 let potentialPath = args[0]
                 if let config = loadConfigurationFromPath(potentialPath) {
-                    args.removeAtIndex(0)
+                    args.remove(at: 0)
                     if let option = interprateArguments(args){
                         let man = Manager(rootPath: potentialPath, configuration: config)
                         man.generate(option)
@@ -231,7 +232,7 @@ func mainSwitch(var args : [String]) {
 	- returns: an integer representing the mode
 */
 
-func interprateArguments(args : [String]) -> Int? {
+func interprateArguments(_ args : [String]) -> Int? {
     //No arguments provided -> default : 0
     if args.count == 0 { return 0 }
     var option = 0
@@ -259,9 +260,9 @@ func interprateArguments(args : [String]) -> Int? {
 
 	- returns: the Config object corresponding to the config file
 */
-func loadConfigurationFromPath(rootPath : String)-> Config? {
-    if NSFileManager.defaultManager().fileExistsAtPath(rootPath) {
-        if NSFileManager.defaultManager().fileExistsAtPath(rootPath.stringByAppendingPathComponent("config")) {
+func loadConfigurationFromPath(_ rootPath : String)-> Config? {
+    if FileManager.default.fileExists(atPath: rootPath) {
+        if FileManager.default.fileExists(atPath: rootPath.stringByAppendingPathComponent("config")) {
             return ConfigLoader.loadConfigFileAtPath(rootPath.stringByAppendingPathComponent("config"))
             
         } else {
@@ -382,7 +383,7 @@ extension String {
         
         get {
             
-            return (self as NSString).stringByDeletingLastPathComponent
+            return (self as NSString).deletingLastPathComponent
         }
     }
     /// Returns a copy of the string where the file extension component has been deleted
@@ -390,7 +391,7 @@ extension String {
         
         get {
             
-            return (self as NSString).stringByDeletingPathExtension
+            return (self as NSString).deletingPathExtension
         }
     }
     /// Returns an array containing the path components of the string
@@ -408,11 +409,11 @@ extension String {
      
      - returns: a copy of the string where the new path component has been appended
      */
-    func stringByAppendingPathComponent(path: String) -> String {
+    func stringByAppendingPathComponent(_ path: String) -> String {
         
         let nsSt = self as NSString
         
-        return nsSt.stringByAppendingPathComponent(path)
+        return nsSt.appendingPathComponent(path)
     }
 
 }

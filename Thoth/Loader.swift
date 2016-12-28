@@ -24,7 +24,7 @@ class Article {
     var content:String
     
     /// The date of publication of the article (if it is not a draft)
-    var date:NSDate?
+    var date:Date?
     
     /// The author of the article
     var author:String
@@ -36,7 +36,7 @@ class Article {
     var dateString : String
     
     /// A short summary composed of the beginning of the article text, stripped of its HTML components
-    private var summary : NSString
+    fileprivate var summary : NSString
     
     
     
@@ -53,7 +53,7 @@ class Article {
     - parameter dateString: a string representing the date and status of the article
     */
     
-    init(title: String, date: NSDate?, author: String, content:String, isDraft: Bool, dateString: String){
+    init(title: String, date: Date?, author: String, content:String, isDraft: Bool, dateString: String){
         self.title = title
         self.date = date
         self.author = author
@@ -74,7 +74,7 @@ class Article {
     - parameter dateString: a string representing the date and state of the article
     */
     
-    convenience init(title: String, date: NSDate?, author: String, content:String, dateString : String){
+    convenience init(title: String, date: Date?, author: String, content:String, dateString : String){
         self.init(title: title,date: date,author: author,content: content,isDraft: date==nil, dateString: date==nil ? "DRAFT" : dateString)
     }
     
@@ -88,7 +88,7 @@ class Article {
     - returns:   the set of characters to keep for the URL pathname generation.
     */
     class func getSetToKeep() -> NSMutableCharacterSet {
-        return NSMutableCharacterSet(charactersInString: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_")
+        return NSMutableCharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_")
     }
     
     
@@ -100,16 +100,16 @@ class Article {
     func getSummary() -> NSString {
         if summary.length == 0 {
             let contentHtml = content.mutableCopy() as! NSMutableString
-            let regex1 = try? NSRegularExpression(pattern: "<(?!\\/*sup)[^>]+>", options: NSRegularExpressionOptions.CaseInsensitive)
-            regex1?.replaceMatchesInString(contentHtml, options: NSMatchingOptions.ReportProgress, range: NSMakeRange(0, contentHtml.length), withTemplate: "")
+            let regex1 = try? NSRegularExpression(pattern: "<(?!\\/*sup)[^>]+>", options: NSRegularExpression.Options.caseInsensitive)
+            regex1?.replaceMatches(in: contentHtml, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSMakeRange(0, contentHtml.length), withTemplate: "")
 
-			let summaryNew : NSString = contentHtml.stringByReplacingOccurrencesOfString("\n", withString: "").stringByReplacingOccurrencesOfString("\r", withString: "")
-			let summaryFinal = summaryNew.substringToIndex(min(400, summaryNew.length)).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+			let summaryNew : NSString = contentHtml.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "") as NSString
+			let summaryFinal = summaryNew.substring(to: min(400, summaryNew.length)).trimmingCharacters(in: CharacterSet.whitespaces)
            // let range : NSRange = content2.rangeOfString("---")
             //if range.length > 0 {
               //  summaryNew = content2.substringToIndex(min(400,range.location))
             //}
-            summary = summaryFinal + "...";
+			summary = NSString(string: summaryFinal + "...");
         }
         
         return summary
@@ -123,12 +123,12 @@ class Article {
     */
     
     func getUrlPathname() -> String {
-        var a = dateString.stringByAppendingString("_").stringByAppendingString(title)
-        a = a.lowercaseString.decomposedStringWithCanonicalMapping
-        a = a.stringByReplacingOccurrencesOfString("/", withString: "-")
-        a = a.stringByReplacingOccurrencesOfString(" ", withString: "_")
-        a = a.componentsSeparatedByCharactersInSet(Article.getSetToKeep().invertedSet).joinWithSeparator("")
-        a = a.stringByAppendingString(".html")
+        var a = (dateString + "_") + title
+        a = a.lowercased().decomposedStringWithCanonicalMapping
+        a = a.replacingOccurrences(of: "/", with: "-")
+        a = a.replacingOccurrences(of: " ", with: "_")
+        a = a.components(separatedBy: Article.getSetToKeep().inverted).joined(separator: "")
+        a = a + ".html"
         return a
     }
 }
@@ -148,7 +148,7 @@ class Loader {
     /// The default author name
     var defaultAuthor: String
     /// A shared Date formatter
-    let formatter : NSDateFormatter = NSDateFormatter();
+    let formatter : DateFormatter = DateFormatter();
     
     
     
@@ -171,9 +171,9 @@ class Loader {
         self.formatter.dateFormat = dateStyle //+ " HH:mm"
         //self.formatter.timeStyle = NSDateFormatterStyle.NoStyle
         //Reading files
-        let fileManager = NSFileManager.defaultManager()
-        let directoryEnum = fileManager.enumeratorAtPath(folderPath)
-        while let file: AnyObject = directoryEnum?.nextObject() {
+        let fileManager = FileManager.default
+        let directoryEnum = fileManager.enumerator(atPath: folderPath)
+        while let file: AnyObject = directoryEnum?.nextObject() as AnyObject? {
             if (file as! String).pathExtension == "md" && !((file as! String).lastPathComponent.hasPrefix("_") || (file as! String).lastPathComponent.hasPrefix("#")) {
                 // process the document
                 self.loadFileAtPath(file as! String)
@@ -191,26 +191,26 @@ class Loader {
     - parameter path: the path to the folder where the articles files are stored
     */
     
-    func loadFileAtPath(path : String){
-        if let data: NSData = NSFileManager.defaultManager().contentsAtPath(folderPath.stringByAppendingPathComponent(path)) {
-            if let str = NSString(data: data, encoding : NSUTF8StringEncoding) {
-                var arrayFull = str.componentsSeparatedByString("\n\n") 
+    func loadFileAtPath(_ path : String){
+        if let data: Data = FileManager.default.contents(atPath: folderPath.stringByAppendingPathComponent(path)) {
+            if let str = NSString(data: data, encoding : String.Encoding.utf8.rawValue) {
+                var arrayFull = str.components(separatedBy: "\n\n") 
                 if arrayFull.count > 1 {
                     //Splitting the header
-                    let arrayHeader = arrayFull[0].componentsSeparatedByString("\n") as [String]
+                    let arrayHeader = arrayFull[0].components(separatedBy: "\n") as [String]
                     //Treating the title (possible markdown on the beginning)
                     var title = arrayHeader[0]
-                    title = title.stringByReplacingOccurrencesOfString("##", withString: "");
-                    title = title.stringByReplacingOccurrencesOfString("#", withString: "", range: title.startIndex ..< title.startIndex.advancedBy(1,limit: title.endIndex))
+                    title = title.replacingOccurrences(of: "##", with: "");
+                    title = title.replacingOccurrences(of: "#", with: "", range: title.startIndex ..< title.characters.index(title.startIndex, offsetBy: 1, limitedBy: title.endIndex)!)
                     //Treating the date
                     var date = "draft"
-                    var trueDate : NSDate? = nil;
+                    var trueDate : Date? = nil;
                     if arrayHeader.count > 1{
                         date = arrayHeader[1]
                     }
-                    if date.lowercaseString != "draft" {
+                    if date.lowercased() != "draft" {
                         //date = date + "00:00"
-                        trueDate = formatter.dateFromString(date)
+                        trueDate = formatter.date(from: date)
                        
                     }
                     //Treating the author
@@ -219,8 +219,8 @@ class Loader {
                         author = arrayHeader[2]
                     }
                     //Recreating the content of the article
-                    arrayFull.removeRange(0..<1)
-                    let articleContent = arrayFull.joinWithSeparator("\n\n")
+                    arrayFull.removeSubrange(0..<1)
+                    let articleContent = arrayFull.joined(separator: "\n\n")
                     //Creating the article
                     let art = Article(title: title, date: trueDate, author: author, content: articleContent, dateString:date)
                     articles.append(art)
@@ -240,10 +240,10 @@ class Loader {
     - parameter showDrafts: if set to yes, the drafts will also be displayed
     */
 
-    func printArticles(showDrafts : Bool){
+    func printArticles(_ showDrafts : Bool){
         for article in articles {
             if !article.isDraft {
-                print(article.title + " - " + formatter.stringFromDate(article.date!) + " - " + article.author)
+                print(article.title + " - " + formatter.string(from: article.date!) + " - " + article.author)
                 //println("\t\t" + article.content.substringToIndex(advance(article.content.startIndex,30)))
             } else if showDrafts {
                 print(article.title + " - DRAFT - " + article.author)
@@ -258,7 +258,7 @@ class Loader {
     */
     
     func sortArticles(){
-        articles.sortInPlace(isFirstArticleEarlier)
+        articles.sort(by: isFirstArticleEarlier)
     }
     
     
@@ -271,10 +271,10 @@ class Loader {
     - returns: true is the first article has an earlier date than the first, else false
     */
     
-    private func isFirstArticleEarlier(article1 : Article, article2: Article) -> Bool {
+    fileprivate func isFirstArticleEarlier(_ article1 : Article, article2: Article) -> Bool {
         if let article1Date = article1.date {
             if let article2Date = article2.date {
-                return article1Date.timeIntervalSinceDate(article2Date) <= 0
+                return article1Date.timeIntervalSince(article2Date) <= 0
             } else {
                 return true;
             }

@@ -57,7 +57,7 @@ class ConfigLoader {
     - returns: a Config element initialised with the content of the file
     */
     
-    class func loadConfigFileAtPath(path: String) -> Config{
+    class func loadConfigFileAtPath(_ path: String) -> Config{
         //Defaults
         var templatePath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("template")
         var articlesPath = path.stringByDeletingLastPathComponent.stringByAppendingPathComponent("articles")
@@ -74,16 +74,16 @@ class ConfigLoader {
         var siteRoot = ""
         
         
-        if let data = NSFileManager.defaultManager().contentsAtPath(path) {
-            if let contentOfConfigFile = NSString(data: data, encoding: NSUTF8StringEncoding) {
-                let lines = contentOfConfigFile.componentsSeparatedByString("\n")
+        if let data = FileManager.default.contents(atPath: path) {
+            if let contentOfConfigFile = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                let lines = contentOfConfigFile.components(separatedBy: "\n")
                 for line in lines {
                     if !(line.hasPrefix("_") || line.hasPrefix("#")) {
                         //Ignoring the comments
-                        let newLines = line.componentsSeparatedByString(":") 
+                        let newLines = line.components(separatedBy: ":") 
                         if newLines.count > 1 {
                             //var value = newLines[1].stringByReplacingOccurrencesOfString("\\ ", withString: "{#PL@CEHO£D&R$}", options: nil, range: nil)
-                            let value = newLines[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                            let value = newLines[1].trimmingCharacters(in: CharacterSet.whitespaces)
                             if value != "" {
                                 switch newLines[0] as String {
                                 case "templatePath":
@@ -135,7 +135,7 @@ class ConfigLoader {
     - parameter configuration: The Config object to write on disk
     */
     
-    class func saveConfigFile(configuration : Config){
+    class func saveConfigFile(_ configuration : Config){
         let dict = [
             "templatePath":"# The path to the template folder\n#\t(defaults to rootPath/template)\n",
             "articlesPath":"# The path to the articles folder containing the .md files\n#\t(defaults to rootPath/articles)\n",
@@ -163,7 +163,7 @@ class ConfigLoader {
                 s = s + key + ":" + "\t\t" + tr + "\n\n"
             }
         }
-        if !NSFileManager.defaultManager().createFileAtPath(configuration.selfPath, contents: s.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false), attributes: nil) {
+        if !FileManager.default.createFile(atPath: configuration.selfPath, contents: s.data(using: String.Encoding.utf8, allowLossyConversion: false), attributes: nil) {
             print("Unable to save the config")
         }
     }
@@ -176,7 +176,7 @@ class ConfigLoader {
     
     - returns: the Config struct corresponding to the generated configuration file
     */
-    class func generateConfigFileAtPath(path : String)-> Config {
+    class func generateConfigFileAtPath(_ path : String)-> Config {
         let configuration = Config(selfPath: path.stringByAppendingPathComponent("config") as String, templatePath: path.stringByAppendingPathComponent("template") as String, articlesPath: path.stringByAppendingPathComponent("articles") as String, outputPath: path.stringByAppendingPathComponent("output") as String, defaultAuthor: NSFullUserName(), dateStyle: "MM/dd/YYYY", blogTitle: "A new blog", imageWidth: "640", imagesLinks: false, ftpAdress: "", ftpUsername: "", ftpPassword: "", ftpPort: 21, siteRoot:"")
         
         saveConfigFile(configuration)

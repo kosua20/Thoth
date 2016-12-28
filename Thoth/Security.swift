@@ -17,10 +17,10 @@ class Security {
      
      - returns: an opened Keychain if the operation is successful, nil else
      */
-    class func openKeychain(server: String?) -> Keychain? {
+    class func openKeychain(_ server: String?) -> Keychain? {
         if let server = server {
-            let URL = NSURL(string: "sftp://" + server)!
-            var keychain = Keychain(server: URL, protocolType: .SSH)
+            let URL = Foundation.URL(string: "sftp://" + server)!
+            var keychain = Keychain(server: URL, protocolType: .ssh)
             //keychain = keychain.service(server)
             keychain = keychain.label("Thoth")
             
@@ -40,7 +40,7 @@ class Security {
      
      - returns: a boolean denoting the success of the operation
      */
-    class func registerUser( _name: String, forServer server: String?, password: String)-> Bool{
+    class func registerUser( _ _name: String, forServer server: String?, password: String)-> Bool{
         if let keychain = Security.openKeychain(server) {
             do {
                 try keychain.set(password, key: _name)
@@ -61,7 +61,7 @@ class Security {
      
      - returns: a boolean denoting the success of the operation
      */
-    class func updateUser( _name: String, forServer server: String?, password: String)-> Bool{
+    class func updateUser( _ _name: String, forServer server: String?, password: String)-> Bool{
         
         if let keychain = Security.openKeychain(server) {
             do {
@@ -82,7 +82,7 @@ class Security {
      
      - returns: a boolean denoting the success of the operation
      */
-    class func removeUser( _name: String, forServer server: String?)-> Bool{
+    class func removeUser( _ _name: String, forServer server: String?)-> Bool{
         if let keychain = Security.openKeychain(server) {
             do {
                 try keychain.remove(_name)
@@ -102,8 +102,8 @@ class Security {
      
      - returns: the password for the given server and username
      */
-    class func retrievePasswordForUser( _name: String, andServer server: String?)-> String{
-        if let keychain = Security.openKeychain(server), key = try? keychain.getString(_name){
+    class func retrievePasswordForUser( _ _name: String, andServer server: String?)-> String{
+        if let keychain = Security.openKeychain(server), let key = try? keychain.getString(_name){
             if let key = key {
                 return key
             }

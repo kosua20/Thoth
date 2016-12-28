@@ -60,8 +60,8 @@ class Manager {
         
         //Bit of string refactoring for simpler access with NMSSH
         var pathscomp = config.ftpAdress.pathComponents
-        self.ftpAdress = pathscomp.removeAtIndex(0)
-        self.ftpPath = pathscomp.joinWithSeparator("/").stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "/"))
+        self.ftpAdress = pathscomp.remove(at: 0)
+        self.ftpPath = pathscomp.joined(separator: "/").trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         self.ftpServer = nil;
     }
     
@@ -89,14 +89,14 @@ class Manager {
     
     func initSession() -> Bool{
         print("Connecting to the server...\t", terminator: "")
-        NMSSHLogger.sharedLogger().enabled = false
-        let session = NMSSHSession.connectToHost(self.ftpAdress, port: config.ftpPort, withUsername: config.ftpUsername)
-        if session.connected {
-            session.authenticateByPassword(config.ftpPassword)
+        NMSSHLogger.shared().isEnabled = false
+        let session = NMSSHSession.connect(toHost: self.ftpAdress, port: config.ftpPort, withUsername: config.ftpUsername)
+        if (session?.isConnected)! {
+            session?.authenticate(byPassword: config.ftpPassword)
             
         }
-        if session.connected && session.authorized {
-            ftpServer = NMSFTP.connectWithSession(session)
+        if (session?.isConnected)! && (session?.isAuthorized)! {
+            ftpServer = NMSFTP.connect(with: session)
             return true
         } else {
             print("Error when connecting to SFTP server")
@@ -115,7 +115,7 @@ class Manager {
     - parameter option: the mode in which the Renderer should run
     */
     
-    func generate(option : Int) {
+    func generate(_ option : Int) {
         if renderer == nil {
             initRenderer()
         }
@@ -175,7 +175,7 @@ class Manager {
     - parameter option: the mode in which the upload should happen
     */
     
-    func upload(option : Int = 0){
+    func upload(_ option : Int = 0){
         if (ftpServer == nil){
             if !initSession(){
                 return
@@ -196,7 +196,7 @@ class Manager {
             succeeded = succeeded && uploadElementAtPath("index-drafts.html", force: true)
             succeeded = succeeded && uploadElementAtPath("resources", force: false)
         case 3:
-            for element in (try! NSFileManager.defaultManager().contentsOfDirectoryAtPath(config.outputPath)) {
+            for element in (try! FileManager.default.contentsOfDirectory(atPath: config.outputPath)) {
                 succeeded = succeeded && uploadElementAtPath(element, force: true)
             }
         default:
@@ -223,15 +223,15 @@ class Manager {
     
     - parameter distantPath: The path of the element to delete on the server
     */
-    private func cleanElementAtPath(distantPath : String) {
+    fileprivate func cleanElementAtPath(_ distantPath : String) {
         //println("DB: " + distantPath)
-        if ftpServer!.fileExistsAtPath(distantPath) {
+        if ftpServer!.fileExists(atPath: distantPath) {
             //println("File exists")
-            ftpServer!.removeFileAtPath(distantPath)
+            ftpServer!.removeFile(atPath: distantPath)
         }
-        if ftpServer!.directoryExistsAtPath(distantPath){
+        if ftpServer!.directoryExists(atPath: distantPath){
           //  println("Folder exists")
-            ftpServer!.removeDirectoryAtPath(distantPath)
+            ftpServer!.removeDirectory(atPath: distantPath)
         }
         //println("Done cleaning")
     }
@@ -246,7 +246,7 @@ class Manager {
     - returns: a boolean denoting the success of the whole operation
     */
     
-    private func uploadElementAtPath(path :  String, force : Bool) -> Bool {
+    fileprivate func uploadElementAtPath(_ path :  String, force : Bool) -> Bool {
         
        //hack for hidden files
         if path.lastPathComponent.hasPrefix("."){
@@ -257,7 +257,7 @@ class Manager {
         
         //Checking if the file exists locally (else we don't do anything)
         var isDir : ObjCBool = false
-        if NSFileManager.defaultManager().fileExistsAtPath(config.outputPath.stringByAppendingPathComponent(path), isDirectory: &isDir){
+        if FileManager.default.fileExists(atPath: config.outputPath.stringByAppendingPathComponent(path), isDirectory: &isDir){
             
             let distantPath = ftpPath.stringByAppendingPathComponent(path)
             
@@ -268,22 +268,22 @@ class Manager {
                 cleanElementAtPath(distantPath)
             }
             
-            if isDir { //This is a folder
+            if isDir.boolValue { //This is a folder
                 //Creating the folder if it doesn't already exist
                 //println("Creating directory")
-                if !ftpServer!.directoryExistsAtPath(distantPath) {
-                    ftpServer!.createDirectoryAtPath(distantPath)
+                if !ftpServer!.directoryExists(atPath: distantPath) {
+                    ftpServer!.createDirectory(atPath: distantPath)
                 }
                 
-                for file in (try! NSFileManager.defaultManager().contentsOfDirectoryAtPath(config.outputPath.stringByAppendingPathComponent(path))) {
+                for file in (try! FileManager.default.contentsOfDirectory(atPath: config.outputPath.stringByAppendingPathComponent(path))) {
                     succeeded = succeeded && uploadElementAtPath(path.stringByAppendingPathComponent(file), force : false)
                 }
                 
             } else { //This is a file
                 //If the file doesn't exists, or if we force (normally it has been cleaned, but let's be careful
-                 if !ftpServer!.fileExistsAtPath(distantPath) || force {
+                 if !ftpServer!.fileExists(atPath: distantPath) || force {
                    // println("Uplaoding file...")
-                    succeeded = succeeded && ftpServer!.writeFileAtPath(config.outputPath.stringByAppendingPathComponent(path), toFileAtPath: distantPath)
+                    succeeded = succeeded && ftpServer!.writeFile(atPath: config.outputPath.stringByAppendingPathComponent(path), toFileAtPath: distantPath)
                     
                 }
             }
@@ -309,7 +309,7 @@ class Manager {
             }
         }
         if let ftpServer = ftpServer {
-            if ftpServer.connected {
+            if ftpServer.isConnected {
                 print("Connection to the server is valid.")
                 ftpServer.disconnect()
                 return
@@ -323,18 +323,18 @@ class Manager {
      
      - parameter title: the title of the draft file to create
      */
-    func createDraft(title : String){
-        let destinationPath = config.articlesPath.stringByAppendingPathComponent(title.stringByReplacingOccurrencesOfString("/", withString: "_").stringByReplacingOccurrencesOfString(":", withString: "_").stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "\"'")) + ".md")
-        if  NSFileManager.defaultManager().fileExistsAtPath(destinationPath){
+    func createDraft(_ title : String){
+        let destinationPath = config.articlesPath.stringByAppendingPathComponent(title.replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: ":", with: "_").trimmingCharacters(in: CharacterSet(charactersIn: "\"'")) + ".md")
+        if  FileManager.default.fileExists(atPath: destinationPath){
             print("Error : file at path \(destinationPath) already exists.")
             return
         }
         do {
-            if NSFileManager.defaultManager().fileExistsAtPath(config.articlesPath.stringByAppendingPathComponent("#draft.md")){
-                try NSFileManager.defaultManager().copyItemAtPath(config.articlesPath.stringByAppendingPathComponent("#draft.md"), toPath: destinationPath)
+            if FileManager.default.fileExists(atPath: config.articlesPath.stringByAppendingPathComponent("#draft.md")){
+                try FileManager.default.copyItem(atPath: config.articlesPath.stringByAppendingPathComponent("#draft.md"), toPath: destinationPath)
             } else {
                 let content = "#Draft\ndraft\n\(config.defaultAuthor)\n\nThis is a draft.\n"
-                NSFileManager.defaultManager().createFileAtPath(destinationPath, contents: content.dataUsingEncoding(NSUTF8StringEncoding) , attributes: nil)
+                FileManager.default.createFile(atPath: destinationPath, contents: content.data(using: String.Encoding.utf8) , attributes: nil)
             }
         } catch _ {
             print("Error when trying to create a draft file in directory \(config.articlesPath) with title \(title).")
