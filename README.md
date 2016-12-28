@@ -24,7 +24,7 @@ or launch it as an application which will display its own prompt :
 
 ##Install and setup
 ###Install
-You can download the executable and related framework from the [download folder](http://github.com/kosua20/Thoth/tree/master/download/),install Thoth in `/usr/local/bin` and the framework in `/usr/local/Frameworks`, or you can download the sources and compile it using Xcode.
+You can download the executable and related framework from the release page or the [download folder](http://github.com/kosua20/Thoth/tree/master/download/), and install Thoth in `/usr/local/bin` and the framework in `/usr/local/Frameworks`, or you can download the sources and compile it using Xcode.
 
 ###Setup
 You can ask Thoth to create a folder containing a config file and all the needed directories by running the command `setup /path/to/the/future/blog/directory`. Then, fill the config file with the corresponding information, and register your SFTP password in the OS X keychain using the `password /path/to/blog/directory -set "yourPassw0rd"`.
