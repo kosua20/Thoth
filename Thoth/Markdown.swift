@@ -248,9 +248,6 @@ public struct Markdown {
 	}
 	fileprivate var _imagesAsLinks = false
 	
-	//An array to store the img URLs
-	public var imagesUrl : [String] = []
-	
 	
     fileprivate enum TokenType {
         case text
@@ -336,7 +333,7 @@ public struct Markdown {
         // and img tags get encoded.
 
         if text.isEmpty { return "" }
-		imagesUrl = []
+
         setup()
 
         var text = normalize(text)
@@ -950,8 +947,9 @@ public struct Markdown {
     /// - ![alt text](url "optional title")
     fileprivate mutating func doImages(_ text: String) -> String {
         // First, handle reference-style labeled images: ![alt text][id]
+		
         var text = Markdown._imagesRef.replace(text) { self.imageReferenceEvaluator($0) }
-
+	
         // Next, handle inline images:  ![alt text](url "optional title")
         // Don't forget: encode * and _
         text = Markdown._imagesInline.replace(text) { self.imageInlineEvaluator($0) }
@@ -1004,8 +1002,9 @@ public struct Markdown {
     }
 
     fileprivate mutating func imageTag(_ url: String, altText: String, title: String?) -> String {
-        let altText = escapeImageAltText(Markdown.attributeEncode(altText))
-		imagesUrl.append(url)
+		
+		let altText = escapeImageAltText(Markdown.attributeEncode(altText))
+		
         var url = encodeProblemUrlChars(url)
         url = escapeBoldItalic(url)
         var result = "<img src=\"\(url)\" alt=\"\(altText)\""
@@ -1050,6 +1049,7 @@ public struct Markdown {
 		if _imagesAsLinks {
 			result = "<a href=\"\(url)\""+properTitle+">"+result+"</a>"
 		}
+		
         return result
     }
 

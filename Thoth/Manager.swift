@@ -174,7 +174,6 @@ class Manager {
     
     - parameter option: the mode in which the upload should happen
     */
-    
     func upload(_ option : Int = 0){
         if (ftpServer == nil){
             if !initSession(){
@@ -190,11 +189,11 @@ class Manager {
             succeeded = succeeded && uploadElementAtPath("articles", force: true)
             succeeded = succeeded && uploadElementAtPath("index.html", force: true)
             succeeded = succeeded && uploadElementAtPath("feed.xml", force: true)
-            succeeded = succeeded && uploadElementAtPath("resources", force: false)
+            succeeded = succeeded && uploadResources()
         case 2:
             succeeded = succeeded && uploadElementAtPath("drafts", force: true)
             succeeded = succeeded && uploadElementAtPath("index-drafts.html", force: true)
-            succeeded = succeeded && uploadElementAtPath("resources", force: false)
+            succeeded = succeeded && uploadResources()
         case 3:
             for element in (try! FileManager.default.contentsOfDirectory(atPath: config.outputPath)) {
                 succeeded = succeeded && uploadElementAtPath(element, force: true)
@@ -205,7 +204,7 @@ class Manager {
             succeeded = succeeded && uploadElementAtPath("index.html", force: true)
             succeeded = succeeded && uploadElementAtPath("feed.xml", force: true)
             succeeded = succeeded && uploadElementAtPath("index-drafts.html",force: true)
-            succeeded = succeeded && uploadElementAtPath("resources", force: false)
+            succeeded = succeeded && uploadResources()
         }
         
         if !succeeded {
@@ -216,11 +215,24 @@ class Manager {
         
         ftpServer!.disconnect()
     }
-    
-    
+	
+	/**
+	Upload all elements at the output root that are not articles/drafts/feed/index pages. Relies on the renderer to know if some of these files were modified, to upload them.
+	*/
+	func uploadResources() -> Bool {
+		var succeeded = true
+		var remainingFiles = try! FileManager.default.contentsOfDirectory(atPath: config.outputPath)
+		remainingFiles = remainingFiles.filter({ $0 != "drafts" && $0 != "articles" })
+		remainingFiles = remainingFiles.filter({ $0 != "index.html" && $0 != "feed.xml" && $0 != "index-drafts.html" })
+		
+		for element in remainingFiles {
+			succeeded = succeeded && uploadElementAtPath(element, force: renderer!.dirtyRessources)
+		}
+		return succeeded
+	}
     /**
     Deletes the element passed as parameter if it exists on the server
-    
+		
     - parameter distantPath: The path of the element to delete on the server
     */
     fileprivate func cleanElementAtPath(_ distantPath : String) {
@@ -282,7 +294,7 @@ class Manager {
             } else { //This is a file
                 //If the file doesn't exists, or if we force (normally it has been cleaned, but let's be careful
                  if !ftpServer!.fileExists(atPath: distantPath) || force {
-                   // println("Uplaoding file...")
+                   // println("Uploading file...")
                     succeeded = succeeded && ftpServer!.writeFile(atPath: config.outputPath.stringByAppendingPathComponent(path), toFileAtPath: distantPath)
                     
                 }

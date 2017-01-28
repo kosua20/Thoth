@@ -338,7 +338,7 @@ func printHelp(){
 */
 
 func printVersion(){
-    print("{#Thoth} version 1.4")
+    print("{#Thoth} version 1.5")
 }
 
 

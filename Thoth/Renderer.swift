@@ -62,9 +62,10 @@ class Renderer {
     
     /// Shared instance of the Markdown parser
     fileprivate var markdown : Markdown
-    
-    
-    
+	
+	/// Denotes if a ressource file has been modified
+	public var dirtyRessources : Bool = false
+	
     // MARK: Initialisation
     
     /**
@@ -112,17 +113,25 @@ class Renderer {
     fileprivate func initializeTemplate(){
         let templateFiles = (try! FileManager.default.contentsOfDirectory(atPath: templatePath)) 
         for path in templateFiles{
-            if !FileManager.default.fileExists(atPath: exportPath.stringByAppendingPathComponent(path.lastPathComponent)){
+			let sourcePath = templatePath.stringByAppendingPathComponent(path)
+			let destinationPath = exportPath.stringByAppendingPathComponent(path.lastPathComponent)
+            if !FileManager.default.contentsEqual(atPath: sourcePath, andPath: destinationPath){
                 do {
-                    try FileManager.default.copyItem(atPath: templatePath.stringByAppendingPathComponent(path), toPath: exportPath.stringByAppendingPathComponent(path.lastPathComponent))
+					if FileManager.default.fileExists(atPath: destinationPath){
+						try FileManager.default.removeItem(atPath: destinationPath)
+					}
+					try FileManager.default.copyItem(atPath: sourcePath, toPath: destinationPath)
                 } catch _ {
+					print("Unable to handle file \(sourcePath)")
                 }
             }
         }
         do {
-            //NSFileManager.defaultManager().removeItemAtPath(exportPath.stringByAppendingPathComponent("index.html"), error: nil)
+			// Don't suppress index, it could have been generated on a previous run.
             try FileManager.default.removeItem(atPath: exportPath.stringByAppendingPathComponent("article.html"))
+			try FileManager.default.removeItem(atPath: exportPath.stringByAppendingPathComponent("syntax.html"))
         } catch _ {
+			print("Unable to delete a template file.")
         }
     }
 	
@@ -182,15 +191,15 @@ class Renderer {
             do {
                 try FileManager.default.copyItem(atPath: templatePath.stringByAppendingPathComponent(path), toPath: exportPath.stringByAppendingPathComponent(path.lastPathComponent))
             } catch _ {
+				print("Unable to copy file \(templatePath.stringByAppendingPathComponent(path))")
             }
         }
         do {
             try FileManager.default.removeItem(atPath: exportPath.stringByAppendingPathComponent("index.html"))
+			try FileManager.default.removeItem(atPath: exportPath.stringByAppendingPathComponent("article.html"))
+			try FileManager.default.removeItem(atPath: exportPath.stringByAppendingPathComponent("syntax.html"))
         } catch _ {
-        }
-        do {
-            try FileManager.default.removeItem(atPath: exportPath.stringByAppendingPathComponent("article.html"))
-        } catch _ {
+			print("Unable to delete a template file.")
         }
     }
 	
@@ -315,20 +324,32 @@ class Renderer {
 	- parameter forceUpdate: if true, previous resources will be erased
 	*/
 	fileprivate func copyResources(_ forceUpdate : Bool){
+		//print("Copying ressources...")
 		if FileManager.default.fileExists(atPath: resourcesPath) {
-			let exportResourcesPath = exportPath.stringByAppendingPathComponent("resources")
+			let exportResourcesPath = exportPath //.stringByAppendingPathComponent("resources")
 			if !FileManager.default.fileExists(atPath: exportResourcesPath) {
 				do {
                     try FileManager.default.createDirectory(atPath: exportResourcesPath, withIntermediateDirectories: true, attributes: nil)
                 } catch _ {
                 }
 			}
+			
 			let paths = (try! FileManager.default.contentsOfDirectory(atPath: resourcesPath))
+			
+			// We iterate on the first hierarchy level (we can't directly to a directory wide compare as the export directory is the output root).
 			for path in paths {
-				if forceUpdate || !FileManager.default.fileExists(atPath: exportResourcesPath.stringByAppendingPathComponent(path as String)){
+				let sourcePath = resourcesPath.stringByAppendingPathComponent(path as String)
+				let destinationPath = exportResourcesPath.stringByAppendingPathComponent(path as String)
+				if forceUpdate || !FileManager.default.contentsEqual(atPath: sourcePath, andPath: destinationPath) {
 					do {
-                        try FileManager.default.copyItem(atPath: resourcesPath.stringByAppendingPathComponent(path as String), toPath: exportResourcesPath.stringByAppendingPathComponent(path as String))
+						//print("Copying \(sourcePath) to \(destinationPath)")
+						if FileManager.default.fileExists(atPath: destinationPath){
+							try FileManager.default.removeItem(atPath: destinationPath)
+						}
+                        try FileManager.default.copyItem(atPath: sourcePath, toPath: destinationPath)
+						dirtyRessources = true
                     } catch _ {
+						print("Unable to handle file \(sourcePath)")
                     }
 				}
 			}
@@ -336,8 +357,7 @@ class Renderer {
 		
 	}
 	
-	
-	
+
 	//MARK: Rendering
 	
 	/**
@@ -451,12 +471,15 @@ class Renderer {
 	- parameter forceUpdate: true if previous version of the article should be erased
 	*/
     fileprivate func renderArticle(_ article : Article, inFolder folder : String, forceUpdate : Bool){
-        //println("Rendering article: \(article.title)")
+        //print("Rendering article: \(article.title)")
         let filePath = exportPath.stringByAppendingPathComponent(folder).stringByAppendingPathComponent(article.getUrlPathname())
         var contentHtml = markdown.transform(article.content)
         contentHtml = addFootnotes(contentHtml)
-        article.content = contentHtml
-        if forceUpdate || !FileManager.default.fileExists(atPath: filePath){
+		
+		// Save back, for summary generation.
+		article.content = contentHtml
+		
+		if forceUpdate || !FileManager.default.fileExists(atPath: filePath){
             var html: NSString = articleHtml.copy() as! NSString
             html = html.replacingOccurrences(of: "{#TITLE}", with: article.title) as NSString
             html = html.replacingOccurrences(of: "{#DATE}", with: article.dateString) as NSString
@@ -464,9 +487,10 @@ class Renderer {
             html = html.replacingOccurrences(of: "{#BLOG_TITLE}", with: blogTitle) as NSString
             html = html.replacingOccurrences(of: "{#LINK}", with: article.getUrlPathname()) as NSString
             html = html.replacingOccurrences(of: "{#SUMMARY}", with: article.getSummary() as String) as NSString
-           
-            
-            contentHtml = manageImages(contentHtml,links: markdown.imagesUrl, path: filePath, forceUpdate : forceUpdate)
+			
+			contentHtml = manageFiles(content: contentHtml, path: filePath, forceUpdate : forceUpdate)
+			
+			// Might want to rework when the supplemental HTML snippet is inserted. Flag in the article ?
             if (contentHtml.range(of: "<pre><code>")?.lowerBound != nil ){
                 html = html.replacingOccurrences(of: "</head>", with: "\n" + (syntaxHtml as String) + "\n</head>") as NSString
             }
@@ -477,49 +501,66 @@ class Renderer {
     }
 	
 	
-	
 	//MARK: Additional processing
 	
 	/**
-	Parses the article content to detect images links, copy the images files in an article-specific directory and update the links accordingly.
+	Parses the article content to detect local file links (images, audio,...), copy the files in an article-specific directory and update the links accordingly.
 	
-	- parameter content:     the content of the article
-	- parameter links:       the list of images links present in the article
-	- parameter filePath:	the path to the folder where the images files should be copied
-	- parameter forceUpdate: indicates whether the images files should be force-updated or not
+	- parameter content:     the content of the article (in HTML)
+	- parameter filePath:	the path to the folder where the files should be copied
+	- parameter forceUpdate: indicates whether the files should be force-updated or not
 	
 	- returns: return the updated HTML content of the article
 	*/
-    private func manageImages(_ content : String, links : [String], path filePath : String, forceUpdate : Bool) -> String {
-        var content = content
-        if links.count > 0 {
-            if !FileManager.default.fileExists(atPath: filePath.stringByDeletingPathExtension) {
-                do {
-                    try FileManager.default.createDirectory(atPath: filePath.stringByDeletingPathExtension, withIntermediateDirectories: true, attributes: nil)
-                } catch _ {
-                }
-            }
-            for link in links {
-                if !link.hasPrefix("http://") && !link.hasPrefix("www.") {
-                    //We are now sure the file is stored locally
-                    let path = expandLink(link)
-                    if FileManager.default.fileExists(atPath: path) {
-                        let newFilePath = filePath.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent)
-                        if forceUpdate || !FileManager.default.fileExists(atPath: newFilePath) {
-                            do {
-                                try FileManager.default.copyItem(atPath: path, toPath: newFilePath)
-                            } catch _ {
-                            }
-                            content = content.replacingOccurrences(of: link, with: filePath.lastPathComponent.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent), options: [], range: nil)
-                        }
-                    } else {
-                        print("Warning: some images were not found")
-                    }
-                }
-            }
-        }
-        return content
-    }
+	private func manageFiles(content: String, path filePath: String, forceUpdate : Bool) -> String {
+		let scanner = Scanner(string: content)
+		var links = Set<String>()
+		var linkContent : NSString?
+		
+		while !scanner.isAtEnd {
+			scanner.scanUpTo("src=\"", into: nil)
+			if scanner.isAtEnd {
+				break
+			}
+			scanner.scanString("src=\"", into: nil)
+			scanner.scanUpTo("\"", into: &linkContent)
+			scanner.scanString("\"", into: nil)
+			if let link = linkContent, !link.hasPrefix("http") && !link.hasPrefix("www."){
+				links.insert(String(link))
+			}
+		}
+		
+		if links.isEmpty {
+			return content
+		}
+		
+		var content = content
+		if !FileManager.default.fileExists(atPath: filePath.stringByDeletingPathExtension) {
+			do {
+				try FileManager.default.createDirectory(atPath: filePath.stringByDeletingPathExtension, withIntermediateDirectories: true, attributes: nil)
+			} catch _ {
+			}
+		}
+		for link in links {
+			let path = expandLink(link)
+			if FileManager.default.fileExists(atPath: path) {
+				let newFilePath = filePath.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent)
+				if forceUpdate || !FileManager.default.fileExists(atPath: newFilePath) {
+					do {
+						try FileManager.default.copyItem(atPath: path, toPath: newFilePath)
+					} catch _ {
+						print("Unable to copy file \(path)")
+					}
+					content = content.replacingOccurrences(of: link, with: filePath.lastPathComponent.stringByDeletingPathExtension.stringByAppendingPathComponent(path.lastPathComponent), options: [], range: nil)
+				}
+			} else {
+				print("Warning: some referenced files were not found")
+			}
+		}
+		
+		return content
+	}
+	
 	
 	/**
 	Convenience method to expand filepaths
@@ -604,19 +645,21 @@ class Renderer {
 			do {
                 try FileManager.default.removeItem(atPath: exportPath)
             } catch _ {
+				print("Unable to delete \(exportPath)")
             }
 		}
+		
+		
+		var createPath = exportPath
 		do {
-            try FileManager.default.createDirectory(atPath: exportPath, withIntermediateDirectories: true, attributes: nil)
+			try FileManager.default.createDirectory(atPath: createPath, withIntermediateDirectories: true, attributes: nil)
+			createPath = exportPath.stringByAppendingPathComponent("articles")
+            try FileManager.default.createDirectory(atPath: createPath , withIntermediateDirectories: true, attributes: nil)
+			createPath = exportPath.stringByAppendingPathComponent("drafts")
+			try FileManager.default.createDirectory(atPath: createPath, withIntermediateDirectories: true, attributes: nil)
+			
         } catch _ {
-        }
-		do {
-            try FileManager.default.createDirectory(atPath: exportPath.stringByAppendingPathComponent("articles"), withIntermediateDirectories: true, attributes: nil)
-        } catch _ {
-        }
-		do {
-            try FileManager.default.createDirectory(atPath: exportPath.stringByAppendingPathComponent("drafts"), withIntermediateDirectories: true, attributes: nil)
-        } catch _ {
+			print("Unable to create \(createPath)")
         }
 	}
 	
@@ -631,11 +674,14 @@ class Renderer {
 			do {
                 try FileManager.default.removeItem(atPath: folderPath)
             } catch _ {
+				print("Unable to delete \(folderPath).")
             }
 		}
 		do {
             try FileManager.default.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
         } catch _ {
+			print("Unable to create \(folderPath).")
+
         }
 	}
 
