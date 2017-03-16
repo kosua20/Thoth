@@ -1,4 +1,4 @@
-#{#Thoth}, a simple static blog generator.
+# {#Thoth}, a simple static blog generator.
 
 ![{#Thoth}](thoth_circle.png)
 
@@ -22,11 +22,11 @@ or launch it as an application which will display its own prompt :
 	> _
 	
 
-##Install and setup
-###Install
+## Install and setup
+### Install
 You can download the executable and related framework from the release page or the [download folder](http://github.com/kosua20/Thoth/tree/master/download/), and install Thoth in `/usr/local/bin` and the framework in `/usr/local/Frameworks`, or you can download the sources and compile it using Xcode.
 
-###Setup
+### Setup
 You can ask Thoth to create a folder containing a config file and all the needed directories by running the command `setup /path/to/the/future/blog/directory`. Then, fill the config file with the corresponding information, and register your SFTP password in the OS X keychain using the `password /path/to/blog/directory -set "yourPassw0rd"`.
 
 The config file is a plain text file, so you can create it yourself if you prefer (see the **Config file** section). In all cases, you must fill it before running other Thoth commands.
@@ -35,7 +35,7 @@ Don't forget to add a template in the corresponding folder. You can use the defa
 
 When you want to generate and upload your site for the first time, use the `first /path/to/your/blog/folder` command.
 
-##Writing
+## Writing
 Each article markdown file should be put in the `articles` directory, and follow this header style :
 	
 	#The title
@@ -49,7 +49,7 @@ For drafts, just replace the date on the second line by the mention `draft`. Tho
 
 Once you have finished writing your article, run the `scribe /path/to/blog/folder` command to automatically update the output and upload it. Do the same if you want to preview a draft online, or just call `generate /path/to/blog/folder` to generate it in the output folder.
 
-##Commands 
+## Commands 
 
 - `setup <path>`  	
 	Creates the configuration files and folders (articles, template, output, ressources) in the indicated directory.  
@@ -209,7 +209,7 @@ You can also integrate HTML5 videos in your articles using the following syntax:
 In the config file, lines beginning with a `#` or a `_` will be ignored.  
 During articles processing and copy, files beginning with `_` or `#` won't be processed or copied.
 
-##TODO:
+## TODO:
 
 - adding support for referenced footnotes
 - adding the generation of sitemap.xml ~and feed.xml~ files
