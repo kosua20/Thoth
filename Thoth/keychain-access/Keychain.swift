@@ -474,7 +474,7 @@ open class Keychain {
         guard let data = try getData(key) else  {
             return nil
         }
-        guard let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String else {
+        guard let string = String(data: data, encoding: .utf8) else {
             throw conversionError(message: "failed to convert data to string")
         }
         return string
@@ -964,8 +964,8 @@ open class Keychain {
                 item["key"] = key as AnyObject?
             }
             if let data = attributes[ValueData] as? Data {
-                if let text = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String {
-                    item["value"] = text as AnyObject?
+				if let text = String(data: data, encoding: .utf8) {
+				    item["value"] = text as AnyObject?
                 } else  {
                     item["value"] = data as AnyObject?
                 }
@@ -1622,7 +1622,7 @@ extension CFError {
         let code = CFErrorGetCode(self)
         let userInfo = CFErrorCopyUserInfo(self) as! [AnyHashable: Any]
         
-        return NSError(domain: domain, code: code, userInfo: userInfo)
+		return NSError(domain: domain, code: code, userInfo: (userInfo as! [String : Any]))
     }
 }
 
